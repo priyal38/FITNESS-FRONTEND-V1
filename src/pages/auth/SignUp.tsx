@@ -22,9 +22,14 @@ export const SignUp = () => {
         // Check if user is already logged in
         const userStateString = window.localStorage.getItem('User_State') || '{}';
         const userState = JSON.parse(userStateString);
-        if (userState && userState.token) {
-          navigate('/dashboard'); // Redirect to dashboard if user is already logged in
+        if (userState && userState.token && userState.role === 0) {
+          navigate('/user'); // Redirect to dashboard if user is already logged in
         }
+        if (userState && userState.token && userState.role === 1) {
+          navigate('/admin'); // Redirect to dashboard if user is already logged in
+        }
+     
+    
        
       }, [navigate]);
       

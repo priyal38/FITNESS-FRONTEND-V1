@@ -22,9 +22,14 @@ const Login = () => {
   useEffect(() => {
     // Check if user is already logged in
     const userState = JSON.parse(window.localStorage.getItem('User_State'));
-    if (userState && userState.token) {
-      navigate('/user/dashboard'); // Redirect to dashboard if user is already logged in
+    if (userState && userState.token && userState.role === 0) {
+      navigate('/user'); // Redirect to dashboard if user is already logged in
     }
+    if (userState && userState.token && userState.role === 1) {
+      navigate('/admin')// Redirect to dashboard if user is already logged in
+    }
+   
+   
     
   }, [navigate]);
   const handleClick = async (e) => {
@@ -38,16 +43,23 @@ const Login = () => {
         username,
         password,
       });
-
       if (response.status === 200) {
         window.localStorage.setItem(
           'User_State',
           JSON.stringify({
-            username: response.data.username,
+            username: response.data.user.username,
+            role: response.data.user.role,
             token: response.data.token,
           })
+          
         );
-        navigate('/dashboard')
+        if(response.data.user.role === 1){
+          navigate('/admin')
+        }  
+        if(response.data.user.role === 0){
+          navigate('/user')
+        }  
+        
       }
 
       console.log(response);

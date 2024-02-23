@@ -3,32 +3,25 @@ import { Route , Routes} from 'react-router-dom';
 
 import { SignUp } from './pages/auth/SignUp';
 import Login from './pages/auth/Login';
-
-//user pages
-import Blog from './pages/user/Blog';
-import UserHome from  './pages/user/UserHome'
-import Workout from './pages/user/Workout';
-import Nutrition from './pages/user/Nutrition';
+import LandingPage from './pages/main/LandingPage';
+import AboutUs from './pages/main/AboutUs';
+import Contact from './pages/main/Contact';
+import Features from './pages/main/Features';
+//user dashboard
 import UserDashboard from './layout/UserDashboard'
-import UserProfile from './pages/user/UserProfile';
-
-//admin pages
+//admin dashboard
 import AdminDashboard from './layout/AdminDashboard';
-import AdminHome from './pages/admin/AdminHome'
-import AddWorkout from './pages/admin/AddWorkout';
-import AddBlog from './pages/admin/AddBlog';
-import AddNutrition from './pages/admin/AddNutrition';
-import AdminProfile from './pages/admin/AdminProfile';
 
-
-
-// import './App.css';
 function App() {
 
   return (
-
       <Routes>
-        <Route path="/" element={<SignUp />} />
+
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/contact" element={<Contact/>} />
+        <Route path="/features" element={<Features/>} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
 
 {/* user routes */}
