@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route , Routes } from 'react-router-dom';
-import { UserMenuItems } from '../components/MenuItems';
+import { UserMenuItems } from '../utils/MenuItems';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import Workout from '../pages/user/Workout';

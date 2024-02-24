@@ -1,5 +1,5 @@
 import React from 'react';
-import { AdminMenuItems } from '../components/MenuItems';
+import { AdminMenuItems } from '../utils/MenuItems';
 import { Route , Routes } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';

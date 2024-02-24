@@ -4,7 +4,7 @@ import React from 'react';
 import logo from '../images/logo.png';
 import CloseIcon from '@mui/icons-material/Close';
 import SidebarItem from './SidebarItems';
-import { menuItem } from './MenuItems'
+import { menuItem } from '../utils/MenuItems'
 
 const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, handleDrawerClose, menuItems }) => {
 

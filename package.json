@@ -16,6 +16,8 @@
     "@types/react-dom": "^18.2.19",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.6.7",
+    "flowbite": "^2.3.0",
+    "flowbite-react": "^0.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
