@@ -1,18 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { BiMenu } from 'react-icons/bi'
+import bg from '../images/bg.jpg'
+import { url } from 'inspector'
 
 const Header = () => {
   return (
     <>
       {/* <!-- navbar --> */}
       {/* <header className='bg-black'> */}
-      <nav className="flex justify-between text-white w-screen h-16">
+      <nav className="flex  fixed  z-50 justify-between text-white w-screen h-16 "style={{ backgroundImage: `url(${bg})` }} >
         <div className="px-5 xl:px-6 py-6 flex w-full items-center">
-          <a className="text-xl font-bold font-heading" href="#">
+          <Link className="text-xl font-bold font-heading" to="/">
             {/* <!-- <img className="h-9" src="logo.png" alt="logo"> --> */}
             Logo Here.
-          </a>
+          </Link>
 
           <ul className="hidden md:flex ml-10 mr-auto font-semibold font-heading space-x-10">
             <li><Link className="hover:text-gray-200" to="/home">Home</Link></li>

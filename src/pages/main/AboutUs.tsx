@@ -1,29 +1,37 @@
-import React from 'react'
-import Header from '../../components/Header'
-import img from '../../images/2290.jpg'
+import React from "react";
+import Image from "../../images/about.jpg"
 
-type Props = {}
-
-const AboutUs = (props: Props) => {
+const AboutUs = () => {
   return (
-    <div>
-      <Header />
-      <section className='text-white'>
-        <h1 className='text-white text-3xl '> About us</h1>
-        <div className='container flex justify-center items-center '>
-          <div className='flex'>
-            <img src={img} alt="123" className='w-1/2 h-1/2 ' />
-          </div>
-          <div>
-            <p>
-            Welcome to Flexfit
-             where we're dedicated to helping you reach your fitness goals and live your best life. Our personalized workout plans, customized meal plans, and progress tracking tools make it easy to achieve lasting results. With expert guidance from our certified trainers and nutritionists, along with a supportive community of fellow fitness enthusiasts, you'll find the motivation and inspiration you need to succeed. Join us today and take the first step towards a healthier, happier you!
+    <>
+      <div>
+        <h2 className="text-3xl md:text-5xl font-bold text-center mt-4 text-indigo-400 mb-4">
+          About Us
+        </h2>
+      </div>
+      <div id="about" className="flex flex-col md:flex-row-reverse  ">
+        <div className="w-full md:w-1/2  xs:p-8 md:pt-3  md:pr-6 flex justify-end  ">
+          <img
+            src={Image}
+            alt="About Us"
+            className="w-[90vh] h-[50vh] object-cover "
+          />
+        </div>
+
+        <div className="w-full md:w-1/2 xs:p-8 md:pt-20 md:pl-12 flex justify-center item-center">
+          <div className="text-center  ">
+
+            <p className="text-lg md:text-2xl text-white mb-4">"Welcome to Flexfit, your premier destination for achieving your fitness goals!"</p>
+            <p className="text-lg md:text-lg text-white mb-8">
+
+              At Flexfit, we're dedicated to helping you unlock your full potential through personalized workout plans, customized meal plans, and intuitive progress tracking tools. Whether you're aiming to lose weight, build muscle, or enhance your overall health.
+              Join us today and take the first step towards a healthier, happier you with Flexfit!"
             </p>
           </div>
         </div>
-      </section>
-    </div>
-  )
-}
+      </div>
+    </>
+  );
+};
 
-export default AboutUs
+export default AboutUs;

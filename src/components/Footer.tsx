@@ -44,8 +44,6 @@ const Footer = (props: Props) => {
                  <FaInstagramSquare className='h-5 w-5'/>
                  <FaSquareYoutube className='h-5 w-5'/>
              
-            
-              
           </div>
       </div>
         </div>
