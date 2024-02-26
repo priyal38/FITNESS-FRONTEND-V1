@@ -5,6 +5,7 @@ import Hero  from '../../components/Hero'
 import AboutUs  from './AboutUs'
 import Features from './Features'
 
+
 const LandingPage = () => {
   return (
     <>
@@ -12,6 +13,7 @@ const LandingPage = () => {
  <Hero/>
  <AboutUs/>
  <Features/>
+
   <Footer/>
     </>
   )

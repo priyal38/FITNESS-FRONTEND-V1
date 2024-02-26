@@ -9,7 +9,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url(./images/bg.jpg);
+  /* background-image: url(./images/bg.jpg); */
+  --color-start: #3a3a3b; /* Slate-600 */
+  --color-end: #131313; /* Slate-800 */
+  
+  /* Apply linear gradient background to the body */
+  background: linear-gradient(to bottom, var(--color-start), var(--color-end));
+  
+  /* Ensure the gradient covers the entire viewport */
+  min-height: 100vh;
+
   
   
 }

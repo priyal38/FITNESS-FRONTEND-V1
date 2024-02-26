@@ -14,11 +14,11 @@ const AboutUs = () => {
           <img
             src={Image}
             alt="About Us"
-            className="w-[90vh] h-[50vh] object-cover "
+            className="w-[90vh] h-[50vh] object-cover rounded-xl "
           />
         </div>
 
-        <div className="w-full md:w-1/2 xs:p-8 md:pt-20 md:pl-12 flex justify-center item-center">
+        <div className="w-full md:w-1/2 xs:p-8 md:pt-8 md:pl-12 flex justify-center item-center">
           <div className="text-center  ">
 
             <p className="text-lg md:text-2xl text-white mb-4">"Welcome to Flexfit, your premier destination for achieving your fitness goals!"</p>
