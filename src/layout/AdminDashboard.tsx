@@ -33,7 +33,7 @@ const AdminDashboard = () => {
           menuItems={AdminMenuItems}
         />
       </div>
-      <main className="flex-grow pt-20 pl-10 pr-10 pb-10 bg-gradient-to-b from-slate-600 to-slate-800 w-full md:w-3/4 lg:w-5/6 xl:w-4/5">
+      <main className="  bg-gradient-to-b from-gray-700 to-gray-900flex-grow pt-20 pl-10 pr-10 pb-10 w-full md:w-3/4 lg:w-11/12 xl:w-4/5">
       <Routes>
        <Route path="addworkout" element={<AddWorkout />} />
        <Route path="home" element={<AdminHome />} />

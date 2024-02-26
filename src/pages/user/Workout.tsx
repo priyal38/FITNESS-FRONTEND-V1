@@ -4,7 +4,9 @@ type Props = {}
 
 const Workout = (props: Props) => {
   return (
-    <div>Workout</div>
+    <div>
+      
+    </div>
   )
 }
 

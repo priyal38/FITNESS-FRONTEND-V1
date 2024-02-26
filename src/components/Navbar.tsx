@@ -41,7 +41,7 @@ const Navbar: React.FC<NavbarProps> = ({ handleDrawerToggle }) => {
   });
 
   return (
-    <header className="bg-gradient-to-b from-slate-600 to-slate-600 fixed w-full">
+    <nav className=" fixed w-full  bg-gradient-to-b from-gray-700 to-gray-900">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <button
@@ -85,7 +85,7 @@ const Navbar: React.FC<NavbarProps> = ({ handleDrawerToggle }) => {
           </div>
         </div>
       </div>
-    </header>
+    </nav>
   );
 };
 
