@@ -4,12 +4,14 @@ import Footer from '../../components/Footer'
 import Hero  from '../../components/Hero'
 import AboutUs  from './AboutUs'
 import Features from './Features'
+import Nav from '../../components/Nav'
 
 
 const LandingPage = () => {
   return (
     <>
-  <Header/>
+    <Nav/>
+  {/* <Header/> */}
  <Hero/>
  <AboutUs/>
  <Features/>
