@@ -30,7 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, handleDrawerClose, menuIt
           </nav>
         </div>
         {/* Overlay to close the mobile drawer when clicked outside */}
-        <div className={`fixed inset-0 opacity-25 z-40 ${mobileOpen ? 'block' : 'hidden'}`} onClick={handleDrawerClose}></div>
+        {/* <div className={`fixed inset-0 opacity-25 z-40 ${mobileOpen ? 'block' : 'hidden'}`} onClick={handleDrawerClose}></div> */}
       </div>
     </>
   );
