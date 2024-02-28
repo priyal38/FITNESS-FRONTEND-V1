@@ -52,8 +52,8 @@ const AddBlog = (props: Props) => {
 
 
     <>
-      <div className="max-w-lg  mx-auto mt-10 bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="text-2xl py-4 px-6 bg-blue-400  text-blue-950 text-center font-bold uppercase">
+      <div className="max-w-lg  mx-auto mt-10 border bg-white shadow-lg rounded-lg overflow-hidden">
+        <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
           Add Blog
         </div>
         <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
@@ -94,13 +94,13 @@ const AddBlog = (props: Props) => {
           {/* ======Author============ */}
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2" >
-             Author
+              Author
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              {...register("author", {
-                required: "readtime required"
-              })}></input>
+              type="text" {...register("author", {
+                required: "author required"
+              })} />
               {errors.author && <p className="text-red-600 mt-1">{errors.author.message}</p>}
           </div>
 
@@ -121,15 +121,16 @@ const AddBlog = (props: Props) => {
           {/* =====================read time================== */}
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2" >
-              Readtime(minutes)
+              Readtime (Minutes)
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              {...register("readtime", {
+              type="text" {...register("readtime", {
                 required: "readtime required"
-              })}></input>
+              })} />
               {errors.readtime && <p className="text-red-600 mt-1">{errors.readtime.message}</p>}
           </div>
+
 
 
           {/* ============================thumbnailURL================================== */}

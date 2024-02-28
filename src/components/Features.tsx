@@ -7,7 +7,7 @@ type Props = {}
 const Features = (props: Props) => {
   return (
     <>
-      <div>
+      <div id="features">
         <h2 className="text-3xl md:text-5xl font-bold text-center mb-10 text-indigo-400 ">
           Features
         </h2>

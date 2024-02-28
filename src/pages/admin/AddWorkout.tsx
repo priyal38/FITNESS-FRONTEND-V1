@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -18,9 +18,33 @@ interface FormInput {
 
 const AddWorkout = (props: Props) => {
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormInput>();
+  const { register, handleSubmit, formState: { errors } , setValue  } = useForm<FormInput>();
+  const [subCategories, setSubCategories] = useState<string[]>([])
 
-  const onSubmit = async (data: FormInput ) => {
+
+  const gymCategories = ['Biceps', 'Triceps', 'Chest', 'Back', 'Legs', 'Abs', 'Lats', 'Hamstring', 'Calves', 'Quadriceps', 'Trapezius', 'Shoulders', 'Glutes']
+  const yogaCategories = ['Ashtanga yoga', 'Hatha yoga', 'Hot yoga', 'Iyengar yoga', 'Kundalini yoga', 'Power yoga', 'Restorative yoga', 'Vinyasa yoga']
+  const HomeWorkoutCategories = ['Stretching', 'Warm Up ' ]
+  //  ==================dynamic subcategory render=====================
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedCategory = e.target?.value;
+    // setValue('subCategory', '');
+    if (selectedCategory === 'gym') {
+      setSubCategories(gymCategories)
+    }
+    else if (selectedCategory === 'home') {
+      setSubCategories(HomeWorkoutCategories)
+    }
+    else if (selectedCategory === 'yoga') {
+      setSubCategories(yogaCategories)
+    }
+    else {
+      setSubCategories([]);
+    }
+
+  }
+
+  const onSubmit = async (data: FormInput) => {
     try {
       const formData = new FormData();
       formData.append('title', data.title);
@@ -28,23 +52,23 @@ const AddWorkout = (props: Props) => {
       formData.append('subCategory', data.subCategory);
       formData.append('explanation', data.explanation);
       formData.append('difficultyLevel', data.difficultyLevel);
-      formData.append('thumbnail', data.thumbnail[0]); 
+      formData.append('thumbnail', data.thumbnail[0]);
       formData.append('videoUrl', data.videoUrl);
-   
+
       const response = await axios.post('http://localhost:5000/api/workout/addworkout', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data' 
+          'Content-Type': 'multipart/form-data'
         }
       });
       console.log(response.data);
-      if(response.status===200){
+      if (response.status === 200) {
         toast.success("Workout added successfully")
       }
-      
-      
+
+
     } catch (error) {
       console.error('Error adding workout:', error);
-     toast.error("Please try again")
+      toast.error("Please try again")
     }
   };
 
@@ -52,8 +76,8 @@ const AddWorkout = (props: Props) => {
 
 
     <>
-      <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="text-2xl py-4 px-6 bg-blue-400  text-blue-950 text-center font-bold uppercase">
+      <div className="max-w-lg mx-auto mt-10 border  bg-white shadow-lg rounded-lg overflow-hidden">
+        <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
           Add Workout
         </div>
         <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
@@ -65,42 +89,58 @@ const AddWorkout = (props: Props) => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text" {...register("title", {
                 required: "title required"
-              })} required/>
-              {errors.title && <p className="text-red-600 mt-1">{errors.title.message}</p>}
+              })} required />
+            {errors.title && <p className="text-red-600 mt-1">{errors.title.message}</p>}
           </div>
 
 
 
           {/* ================Category======================== */}
-          <div className='flex md:flex-row sm:flex-row flex-col gap-3'>
+          
             <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2" >
                 Category
               </label>
               <select
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                {...register("category" , {
+                {...register("category", {
                   required: "category required"
-                })}>
+                })} onChange={handleCategoryChange}>
                 <option value="">Select a category</option>
                 <option value="gym">Gym</option>
-                <option value="home">Home</option>
+                <option value="home">Home workout</option>
                 <option value="yoga">Yoga</option>
 
               </select>
               {errors.category && <p className="text-red-600 mt-1">{errors.category.message}</p>}
             </div>
 
-
-            {/* ================Difficulty level======================== */}
-
+          {/* Subcategory */}
+           
             <div className="mb-4">
+              <label className="block text-gray-700 font-bold mb-2">Subcategory</label>
+              <select
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                {...register("subCategory", { required: "Subcategory required" })}>
+                <option value="">Select a subcategory</option>
+                {subCategories.map((subcategory, index) => (
+                  <option key={index} value={subcategory}>{subcategory}</option>
+                ))}
+              </select>
+              {errors.subCategory && <p className="text-red-600 mt-1">{errors.subCategory.message}</p>}
+            </div>
+         
+
+
+ {/* ================Difficulty level======================== */}
+
+ <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2" >
                 Difficulty Level
               </label>
               <select
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                {...register("difficultyLevel" , {
+                {...register("difficultyLevel", {
                   required: "difficulty level required"
                 })} >
                 <option value="">Select defficulty level</option>
@@ -113,18 +153,6 @@ const AddWorkout = (props: Props) => {
             </div>
 
 
-          </div>
-          {/* ========================subcategory======================== */}
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" >
-              SubCategory
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              {...register("subCategory")} type="text" />
-          </div>
-
-
           {/* =====================explanation================== */}
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2" >
@@ -135,7 +163,7 @@ const AddWorkout = (props: Props) => {
               {...register("explanation", {
                 required: "explanation required"
               })}></textarea>
-              {errors.explanation && <p className="text-red-600 mt-1">{errors.explanation.message}</p>}
+            {errors.explanation && <p className="text-red-600 mt-1">{errors.explanation.message}</p>}
           </div>
 
           {/* ============================thumbnailURL================================== */}
@@ -148,7 +176,7 @@ const AddWorkout = (props: Props) => {
               {...register("thumbnail", {
                 required: "thumbnail required"
               })} type="file"  />
-              {errors.thumbnail && <p className="text-red-600 mt-1">{errors.thumbnail.message}</p>}
+            {errors.thumbnail && <p className="text-red-600 mt-1">{errors.thumbnail.message}</p>}
           </div>
 
 
@@ -162,8 +190,8 @@ const AddWorkout = (props: Props) => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("videoUrl", {
                 required: "videourl required"
-              })} type="text"  />
-              {errors.videoUrl && <p className="text-red-600 mt-1">{errors.videoUrl.message}</p>}
+              })} type="text" />
+            {errors.videoUrl && <p className="text-red-600 mt-1">{errors.videoUrl.message}</p>}
           </div>
 
 
@@ -177,7 +205,7 @@ const AddWorkout = (props: Props) => {
 
         </form>
       </div>
-      <Toaster/>
+      <Toaster />
     </>
 
 
@@ -185,3 +213,7 @@ const AddWorkout = (props: Props) => {
 }
 
 export default AddWorkout
+
+function setValue(arg0: string, arg1: string) {
+  throw new Error('Function not implemented.');
+}

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route , Routes } from 'react-router-dom';
 import { UserMenuItems } from '../utils/MenuItems';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Navbar from '../components/dashboard/Navbar';
+import Sidebar from '../components/dashboard/Sidebar';
 import Workout from '../pages/user/Workout';
 import Nutrition from '../pages/user/Nutrition';
 import UserProfile from '../pages/user/UserProfile';
@@ -22,17 +22,17 @@ const UserDashboard = () => {
   };
 
   return (
+    <>
+    <Navbar handleDrawerToggle={handleDrawerToggle} />
     <div className="flex min-h-screen">
-      
-      <Navbar handleDrawerToggle={handleDrawerToggle} />
-      <div className="lg:w-64">
+      <div className="md:w-[18rem]">
         <Sidebar
           mobileOpen={mobileOpen}
           handleDrawerClose={handleDrawerClose}
           menuItems = {UserMenuItems}
         />
       </div>
-      <main className="flex-grow pt-20 pl-10 pr-10 pb-10 bg-gradient-to-b from-slate-600 to-slate-800 w-full md:w-3/4 lg:w-5/6 xl:w-4/5">
+      <main className="flex-grow pt-20 pl-5 pr-5  pb-10 bg-gradient-to-b from-slate-800 to-slate-950 w-full ">
          <Routes>
        <Route path="home" element={<UserHome />} />
         <Route path="workout" element={<Workout />} />
@@ -42,6 +42,7 @@ const UserDashboard = () => {
         </Routes>
       </main>
     </div>
+    </>
   );
 };
 

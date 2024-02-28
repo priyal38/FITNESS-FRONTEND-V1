@@ -5,7 +5,7 @@ type Props = {};
 
 const Hero = (props: Props) => {
   return (
-    <div className="md:h-[90vh]  sm:h-[70vh] xs:h-[70vh] overflow-hidden ">
+    <div className="md:h-[90vh]  sm:h-[70vh] xs:h-[70vh] overflow-hidden mt-16 ">
       <div className="md:h-[90vh] sm:h-[70vh] xs:h-[70vh] w-full">
         <Carousel>
           {SliderData.map((item) => (

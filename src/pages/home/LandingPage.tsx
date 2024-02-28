@@ -2,22 +2,25 @@ import React from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Hero  from '../../components/Hero'
-import AboutUs  from './AboutUs'
-import Features from './Features'
-import Nav from '../../components/Nav'
+import AboutUs  from '../../components/AboutUs'
+import Features from '../../components/Features'
+import Contact from '../../components/Contact'
+
 
 
 const LandingPage = () => {
   return (
-    <>
-    <Nav/>
-  {/* <Header/> */}
+    
+   <div id='home'>
+
+  <Header/>
  <Hero/>
  <AboutUs/>
  <Features/>
-
+ <Contact/>
   <Footer/>
-    </>
+   </div>
+    
   )
 }
 

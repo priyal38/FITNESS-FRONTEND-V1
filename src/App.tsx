@@ -4,10 +4,10 @@ import './App.css'
 
 import { SignUp } from './pages/auth/SignUp';
 import Login from './pages/auth/Login';
-import LandingPage from './pages/main/LandingPage';
-import AboutUs from './pages/main/AboutUs';
-import Contact from './pages/main/Contact';
-import Features from './pages/main/Features';
+import LandingPage from './pages/home/LandingPage';
+import AboutUs from './components/AboutUs';
+import Contact from './components/Contact';
+import Features from './components/Features';
 //user dashboard
 import UserDashboard from './layout/UserDashboard'
 //admin dashboard
@@ -20,9 +20,9 @@ function App() {
 
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<LandingPage />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/contact" element={<Contact/>} />
-        <Route path="/features" element={<Features/>} />
+        {/* <Route path="/about" element={<AboutUs />} />
+        <Route path="/contact" element={<Contact/>} /> */}
+        {/* <Route path="/features" element={<Features/>} /> */}
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
 

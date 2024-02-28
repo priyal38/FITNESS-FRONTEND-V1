@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useState , useEffect, useRef } from 'react'; // Import useState hook
-import userImage from '../images/user.png';
+import userImage from '../../images/user.png';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import Person2Icon from '@mui/icons-material/Person2';
@@ -41,12 +41,12 @@ const Navbar: React.FC<NavbarProps> = ({ handleDrawerToggle }) => {
   });
 
   return (
-    <nav className=" fixed w-full  bg-gradient-to-b from-gray-700 to-gray-900">
+    <nav className=" fixed w-full  bg-gray-900">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <button
             onClick={handleDrawerToggle}
-            className="text-gray-300 hover:text-white focus:outline-none focus:text-white lg:hidden"
+            className="text-gray-300 hover:text-white focus:outline-none focus:text-white md:hidden"
           >
             <MenuIcon className="h-6 w-6" />
           </button>

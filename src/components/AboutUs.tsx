@@ -1,15 +1,15 @@
 import React from "react";
-import Image from "../../images/about.jpg"
+import Image from "../images/about.jpg"
 
 const AboutUs = () => {
   return (
     <>
-      <div>
-        <h2 className="text-3xl md:text-5xl font-bold text-center mt-4 text-indigo-400 mb-4">
+      <div id="about">
+        <h2 className="text-3xl md:text-5xl font-bold text-center mt-6 text-indigo-400 mb-4">
           About Us
         </h2>
       </div>
-      <div id="about" className="flex flex-col md:flex-row-reverse  ">
+      <div className="flex flex-col md:flex-row-reverse  ">
         <div className="w-full md:w-1/2  xs:p-8 md:pt-3  md:pr-6 flex justify-end  ">
           <img
             src={Image}

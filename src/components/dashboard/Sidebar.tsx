@@ -1,22 +1,22 @@
 
 
 import React from 'react';
-import logo from '../images/logo.png';
+import logo from '../../images/logo.png';
 import CloseIcon from '@mui/icons-material/Close';
 import SidebarItem from './SidebarItems';
-import { menuItem } from '../utils/MenuItems'
+import { menuItem } from '../../utils/MenuItems'
 
 const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, handleDrawerClose, menuItems }) => {
 
   return (
     <>
       {/* Conditionally render the mobile drawer based on the mobileOpen state */}
-      <div className={`fixed inset-y-0  bg-gradient-to-b from-gray-800 to-gray-900 duration-300 transform lg:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <div className={`fixed inset-y-0  bg-gray-900 duration-300 transform md:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex flex-col h-full  shadow-lg w-56 ">
           <div className="flex items-center justify-between h-16">
             <img src={logo} alt="Logo" className="h-16 ml-2" />
             {/* Close button to close the mobile drawer */}
-            <button className="lg:hidden mr-4 text-white" onClick={handleDrawerClose}>
+            <button className="md:hidden mr-4 text-white" onClick={handleDrawerClose}>
               <CloseIcon />
             </button>
           </div>
