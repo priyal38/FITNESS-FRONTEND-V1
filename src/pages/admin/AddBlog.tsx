@@ -85,6 +85,7 @@ const AddBlog = (props: Props) => {
                 <option value="fitness">Fitness</option>
                 <option value="health">Health</option>
                 <option value="mentalHealth">Mental Health</option>
+                <option value="nutrition">Nutrition</option>
 
               </select>
               {errors.category && <p className="text-red-600 mt-1">{errors.category.message}</p>}

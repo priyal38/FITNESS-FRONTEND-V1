@@ -3,10 +3,17 @@ import { TiThMenu } from "react-icons/ti";
 import { Link as LinkRouter } from 'react-router-dom';
 import {Link }  from 'react-scroll'
 import userImg from '../images/user.png'
+import { useAuth } from '../context/AuthContext';
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const {  auth, logout} = useAuth();
+
+  const handleLogout = () =>{
+    logout();
+  }
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -26,16 +33,29 @@ const Header = () => {
           <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
 
 
-            <button type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 "  onClick={toggleUserMenu} >
+           
 
-              <img className="w-12 h-12 rounded-full" src={userImg} alt="user photo"/>
-            </button>
+  {auth.token ? (
+    <>
+     <button type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 "  onClick={toggleUserMenu} >
 
-
-
-            <LinkRouter to="/signup">
+<img className="w-12 h-12 rounded-full" src={userImg} alt="user photo"/>
+</button>
+<LinkRouter to="/login">
+            <button className=' md:block hidden bg-blue-100 px-3 py-1 ml-2 mr-2 rounded-md text-black' onClick={handleLogout}>Logout</button>
+            </LinkRouter>
+    </>
+  ):(
+    <>
+     <LinkRouter to="/signup">
               <button className=' md:block hidden bg-blue-100 px-3 py-1 ml-2 mr-2 rounded-md text-black'>SignUp</button>
             </LinkRouter>
+           
+    </>
+  )}
+
+           
+            
 
 
             {/* ========================================= */}
@@ -67,7 +87,7 @@ const Header = () => {
 
       {/* User menu */}
 
-      <div className={`absolute right-0 mt-14 md:mt-16 mr-4 z-50 ${isUserMenuOpen ? 'block' : 'hidden'} text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`} id="user-dropdown">
+      <div className={`absolute right-0 mt-14 md:mt-5 mr-4 z-50 ${isUserMenuOpen ? 'block' : 'hidden'} text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`} id="user-dropdown">
         <div className="px-4 py-3">
           <span className="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
           <span className="block text-sm text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>

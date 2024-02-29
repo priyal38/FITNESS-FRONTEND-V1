@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState , useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import { Box } from '@mui/material'
 import Avatar from "@mui/material/Avatar"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -10,28 +11,13 @@ import { Container } from '@mui/material';
 import {  useNavigate } from "react-router-dom"
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import imagesignup from '../../images/2290.jpg'
 
 export const SignUp = () => {
 
     let navigate = useNavigate()
     const [userDetails, setUserDetails] = useState({ firstname: '', lastname: '', email: '', username: '', password: '' });
-
-    useEffect(() => {
-        // Check if user is already logged in
-        const userStateString = window.localStorage.getItem('User_State') || '{}';
-        const userState = JSON.parse(userStateString);
-        if (userState && userState.token && userState.role === 0) {
-          navigate('/user'); // Redirect to dashboard if user is already logged in
-        }
-        if (userState && userState.token && userState.role === 1) {
-          navigate('/admin'); // Redirect to dashboard if user is already logged in
-        }
-     
-    
-       
-      }, [navigate]);
       
 
     const handleSubmit = async (e: any) => {
@@ -147,7 +133,7 @@ export const SignUp = () => {
                             <Grid container justifyContent="flex-end">
                                 <Grid item>
                                 <Grid item>
-                <Link href="/login" variant="body2">
+                <Link to="/login" >
                                    Already have an account? Sign in
 
                 </Link>

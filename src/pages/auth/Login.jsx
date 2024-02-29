@@ -11,48 +11,51 @@ import imagelogin from '../../images/2290.jpg'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast, {Toaster} from 'react-hot-toast';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Login = () => {
 
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {auth , setAuth} = useAuth();
   
-  useEffect(() => {
-    // Check if user is already logged in
-    const userState = JSON.parse(window.localStorage.getItem('User_State'));
-    if (userState && userState.token && userState.role === 0) {
-      navigate('/user'); // Redirect to dashboard if user is already logged in
-    }
-    if (userState && userState.token && userState.role === 1) {
-      navigate('/admin')// Redirect to dashboard if user is already logged in
-    }
-   
-   
-    
-  }, [navigate]);
+
   const handleClick = async (e) => {
     e.preventDefault();
-    if (username.trim() === '' || password.trim() === '') {
+    if (email.trim() === '' || email.trim() === '') {
       toast.error('Please fill  all the required fields');
       return;
     }
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', {
-        username,
+        email,
         password,
       });
+
+      const role = response.data.user.role
+      const token = response.data.token
+
+    
       if (response.status === 200) {
         window.localStorage.setItem(
-          'User_State',
+          'user',
           JSON.stringify({
-            username: response.data.user.username,
-            role: response.data.user.role,
-            token: response.data.token,
-          })
+          role , token
+          }),
+          );
+
           
-        );
+          setAuth({
+            user: {
+              email,
+              role
+            },
+            token
+          })
+
+      
         if(response.data.user.role === 1){
           navigate('/admin')
         }  
@@ -94,8 +97,8 @@ const Login = () => {
                     fullWidth
                     id="username"
                     label="Username"
-                    name="username"
-                    onChange={(e) => setUsername(e.target.value)}
+                    name="email"
+                    onChange={(e) => setEmail(e.target.value)}
                   
 
                   />
@@ -125,12 +128,12 @@ const Login = () => {
               </Button>
               <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                {/* <Link href="#" variant="body2">
                   Forgot password?
-                </Link>
+                </Link> */}
               </Grid>
               <Grid item>
-                <Link href="/" variant="body2">
+                <Link to="/signup" >
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

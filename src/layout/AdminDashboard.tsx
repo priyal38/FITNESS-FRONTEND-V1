@@ -5,7 +5,7 @@ import Navbar from '../components/dashboard/Navbar';
 import Sidebar from '../components/dashboard/Sidebar';
 import AddWorkout from '../pages/admin/AddWorkout';
 import AddBlog from '../pages/admin/AddBlog';
-import AddNutrition from '../pages/admin/AddNutrition';
+import AddNutrition from '../pages/admin/AddRecipes';
 import AdminProfile from '../pages/admin/AdminProfile'
 import AdminHome from '../pages/admin/AdminHome';
 
@@ -26,7 +26,7 @@ const AdminDashboard = () => {
     <div className="flex min-h-screen">
       
       <Navbar handleDrawerToggle={handleDrawerToggle} />
-      <div className="md:w-[19rem]">
+      <div className="md:w-[18rem]">
         <Sidebar
           mobileOpen={mobileOpen}
           handleDrawerClose={handleDrawerClose}

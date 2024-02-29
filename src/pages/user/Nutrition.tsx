@@ -137,5 +137,3 @@ const Nutrition: React.FC = () => {
 export default Nutrition;
 
 
-// ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Dessert']
-// ['Vegetarian', 'Vegan', 'Gluten-Free', 'Keto', 'Paleo', 'Low-Carb', 'Low-Fat', 'High-Protein']

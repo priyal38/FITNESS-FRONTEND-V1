@@ -5,9 +5,7 @@ import './App.css'
 import { SignUp } from './pages/auth/SignUp';
 import Login from './pages/auth/Login';
 import LandingPage from './pages/home/LandingPage';
-import AboutUs from './components/AboutUs';
-import Contact from './components/Contact';
-import Features from './components/Features';
+import TestForm from './test/TestForm';
 //user dashboard
 import UserDashboard from './layout/UserDashboard'
 //admin dashboard
@@ -19,10 +17,9 @@ function App() {
       <Routes>
 
         <Route path="/" element={<LandingPage />} />
+        <Route path="/test" element={<TestForm />} />
         <Route path="/home" element={<LandingPage />} />
-        {/* <Route path="/about" element={<AboutUs />} />
-        <Route path="/contact" element={<Contact/>} /> */}
-        {/* <Route path="/features" element={<Features/>} /> */}
+       
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
 
