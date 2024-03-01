@@ -16,6 +16,13 @@ interface Instruction {
   step: string;
 }
 
+interface NutritionFacts {
+  calories: number;
+  carbohydrates: number;
+  protein: number;
+  totalfat: number;
+}
+
 interface FormInput {
   title: string;
   description: string;
@@ -23,12 +30,9 @@ interface FormInput {
   dietaryType: string;
   prepTime: string;
   cookTime: string;
-  calories: string;
-  carbohydrates: string;
-  protein: string;
-  totalfat: string;
+  nutritionFacts: NutritionFacts
   ingredients: Ingredient[];
-  instructions: Instruction[];
+  instructions: string[];
   image: string
 }
 
@@ -36,9 +40,9 @@ interface FormInput {
 
 const AddHealthyRecipes = (props: Props) => {
 
-  const { register, handleSubmit, formState: { errors }, control } = useForm<FormInput>({
+  const { register, unregister,handleSubmit,setValue, getValues, formState: { errors }, control  , watch} = useForm<FormInput>({
     defaultValues: {
-      ingredients: [{ name: "", quantity: "", unit: "" }], instructions: [{ step: "" }]
+      ingredients: [{ name: "", quantity: "", unit: "" }],
     }
   });
 
@@ -47,10 +51,16 @@ const AddHealthyRecipes = (props: Props) => {
     name: 'ingredients'
   });
 
-  const { fields: instructionsFields, append: appendInstruction, remove: removeInstruction } = useFieldArray({
-    control,
-    name: 'instructions'
-  });
+  // const { fields: instructionsFields, append: appendInstruction, remove: removeInstruction } = useFieldArray({
+  //   control,
+  //   name: 'instructions'
+  // });
+  const watchInstructions = watch('instructions', []);
+
+  const addInstruction = () => {
+    const instructions = getValues('instructions') || [];
+    setValue('instructions', [...instructions, '']);
+};
 
   const onSubmit = async (data: FormInput) => {
 
@@ -172,6 +182,7 @@ const AddHealthyRecipes = (props: Props) => {
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="number" {...register("prepTime", {
+                  valueAsNumber: true,
                   required: "PrepTime required"
                 })} />
               {errors.prepTime && <span className="text-red-500 text-xs italic">{errors.prepTime.message}</span>}
@@ -184,6 +195,7 @@ const AddHealthyRecipes = (props: Props) => {
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="number" {...register("cookTime", {
+                  valueAsNumber: true,
                   required: "cookTime required"
                 })} />
               {errors.cookTime && <span className="text-red-500 text-xs italic">{errors.cookTime.message}</span>}
@@ -199,10 +211,11 @@ const AddHealthyRecipes = (props: Props) => {
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="text" {...register("calories", {
+                type="number" {...register("nutritionFacts.calories", {
+                  valueAsNumber: true,
                   required: "calories required"
                 })} />
-              {errors.calories && <span className="text-red-500 text-xs italic">{errors.calories.message}</span>}
+              {errors.nutritionFacts?.calories && <span className="text-red-500 text-xs italic">{errors.nutritionFacts.calories.message}</span>}
             </div>
             {/* ======Carbohydrates============ */}
             <div className="mb-4">
@@ -211,10 +224,11 @@ const AddHealthyRecipes = (props: Props) => {
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="text" {...register("carbohydrates", {
+                type="number" {...register("nutritionFacts.carbohydrates", {
+                  valueAsNumber: true,
                   required: " carbohydrates required"
                 })} />
-              {errors.carbohydrates && <span className="text-red-500 text-xs italic">{errors.carbohydrates.message}</span>}
+              {errors.nutritionFacts?.carbohydrates && <span className="text-red-500 text-xs italic">{errors.nutritionFacts.carbohydrates.message}</span>}
             </div>
 
           </div>
@@ -228,10 +242,11 @@ const AddHealthyRecipes = (props: Props) => {
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="text" {...register("protein", {
+                type="number" {...register("nutritionFacts.protein", {
+                  valueAsNumber: true,
                   required: "protein required"
                 })} />
-              {errors.protein && <span className="text-red-500 text-xs italic">{errors.protein.message}</span>}
+              {errors.nutritionFacts?.protein && <span className="text-red-500 text-xs italic">{errors.nutritionFacts.protein.message}</span>}
             </div>
             {/* ======Author============ */}
             <div className="mb-4">
@@ -240,10 +255,11 @@ const AddHealthyRecipes = (props: Props) => {
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="text" {...register("totalfat", {
+                type="number" {...register("nutritionFacts.totalfat", {
+                  valueAsNumber: true,
                   required: " totalfat required"
                 })} />
-              {errors.totalfat && <span className="text-red-500 text-xs italic">{errors.totalfat.message}</span>}
+              {errors.nutritionFacts?.totalfat && <span className="text-red-500 text-xs italic">{errors.nutritionFacts.totalfat.message}</span>}
             </div>
 
           </div>
@@ -312,7 +328,7 @@ const AddHealthyRecipes = (props: Props) => {
           {/* =====================instruction==================== */}
 
 
-          {instructionsFields.map((field, index) => (
+          {/* {instructionsFields.map((field, index) => (
             <div className="mb-2">
               <label className="block text-gray-700 font-bold mb-2">Instruction {index + 1}</label>
               <div key={field.id} className="flex mb-2">
@@ -345,34 +361,45 @@ const AddHealthyRecipes = (props: Props) => {
                 className="mt-0.5  py-1 px-2 mb-4  bg-green-500 text-white font-semibold text-sm rounded"
               >
                 Add Instruction
-              </button>
+              </button> */}
 
-
-
-
-
-              {/* ============================thumbnailURL================================== */}
-              <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2">
-                  Image
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  {...register("image", {
-                    required: "image required"
-                  })} type="file" />
-                {errors.image && <span className="text-red-500 text-xs italic">{errors.image.message}</span>}
+          <div>
+            {/* Map through each instruction */}
+            {watchInstructions.map((_, index) => (
+              <div key={index}>
+                <textarea {...register(`instructions.${index}` as const)} required></textarea>
+                {index > 0 && <button type="button" onClick={() => unregister(`instructions.${index}`)}>Remove</button>}
               </div>
+            ))}
+            <button type="button" onClick={addInstruction}>Add Instruction</button>
+          </div>
 
-              <div className="flex items-center justify-center mb-4">
-                <button
-                  className="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                  type="submit">
-                  Add Recipe
-                </button>
-              </div>
 
-            </form>
+
+
+
+          {/* ============================thumbnailURL================================== */}
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              Image
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              {...register("image", {
+                required: "image required"
+              })} type="file" />
+            {errors.image && <span className="text-red-500 text-xs italic">{errors.image.message}</span>}
+          </div>
+
+          <div className="flex items-center justify-center mb-4">
+            <button
+              className="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+              type="submit">
+              Add Recipe
+            </button>
+          </div>
+
+        </form>
       </div>
       <Toaster />
     </>

@@ -42,6 +42,8 @@ const AddWorkout = (props: Props) => {
       setSubCategories([]);
     }
 
+  
+
   }
 
   const onSubmit = async (data: FormInput) => {
