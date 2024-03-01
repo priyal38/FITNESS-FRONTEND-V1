@@ -41,8 +41,8 @@ const Navbar: React.FC<NavbarProps> = ({ handleDrawerToggle }) => {
   });
 
   return (
-    <nav className=" fixed w-full  bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4">
+    <nav className=" fixed w-[100%] top-0 bg-gray-900">
+      <div className="w-full mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <button
             onClick={handleDrawerToggle}

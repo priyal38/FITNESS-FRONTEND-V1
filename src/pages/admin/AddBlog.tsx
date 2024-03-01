@@ -52,7 +52,7 @@ const AddBlog = (props: Props) => {
 
 
     <>
-      <div className="max-w-lg  mx-auto mt-10 border bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="max-w-xl  mx-auto mt-10 border bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
           Add Blog
         </div>

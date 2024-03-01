@@ -23,9 +23,10 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="flex min-h-screen">
-      
+    <>
       <Navbar handleDrawerToggle={handleDrawerToggle} />
+    <div className="flex flex-row justify-between">
+      
       <div className="md:w-[18rem]">
         <Sidebar
           mobileOpen={mobileOpen}
@@ -33,7 +34,7 @@ const AdminDashboard = () => {
           menuItems={AdminMenuItems}
         />
       </div>
-      <main className="  bg-gradient-to-b from-gray-700 to-gray-900 first-letter:flex-grow pt-20 pl-5 pr-5 pb-10 w-full  ">
+      <main className="  bg-gradient-to-b from-gray-800 to-gray-900  pt-20 pl-5 pr-5 pb-10 w-full  ">
       <Routes>
        <Route path="addworkout" element={<AddWorkout />} />
        <Route path="home" element={<AdminHome />} />
@@ -43,6 +44,7 @@ const AdminDashboard = () => {
         </Routes>
       </main>
     </div>
+    </>
   );
 };
 

@@ -12,7 +12,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, handleDrawerClose, menuIt
     <>
       {/* Conditionally render the mobile drawer based on the mobileOpen state */}
       <div className={`fixed inset-y-0  bg-gray-900 duration-300 transform md:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="flex flex-col h-full  shadow-lg w-56 ">
+        <div className="flex flex-col h-full  shadow-lg w-60 ">
           <div className="flex items-center justify-between h-16">
             <img src={logo} alt="Logo" className="h-16 ml-2" />
             {/* Close button to close the mobile drawer */}

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react'
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
 
 type Props = {}
@@ -9,7 +9,11 @@ type Props = {}
 interface Ingredient {
   name: string;
   quantity: string;
+  unit: string
 
+}
+interface Instruction {
+  step: string;
 }
 
 interface FormInput {
@@ -24,7 +28,7 @@ interface FormInput {
   protein: string;
   totalfat: string;
   ingredients: Ingredient[];
-  instructions: string[];
+  instructions: Instruction[];
   image: string
 }
 
@@ -32,7 +36,21 @@ interface FormInput {
 
 const AddHealthyRecipes = (props: Props) => {
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormInput>();
+  const { register, handleSubmit, formState: { errors }, control } = useForm<FormInput>({
+    defaultValues: {
+      ingredients: [{ name: "", quantity: "", unit: "" }], instructions: [{ step: "" }]
+    }
+  });
+
+  const { fields: ingredientsFields, append: appendIngredient, remove: removeIngredient } = useFieldArray({
+    control,
+    name: 'ingredients'
+  });
+
+  const { fields: instructionsFields, append: appendInstruction, remove: removeInstruction } = useFieldArray({
+    control,
+    name: 'instructions'
+  });
 
   const onSubmit = async (data: FormInput) => {
 
@@ -68,7 +86,7 @@ const AddHealthyRecipes = (props: Props) => {
 
 
     <>
-      <div className="max-w-lg  mx-auto mt-10 border bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="max-w-xl  mx-auto mt-10 border bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
           Add Healthy Recipes
         </div>
@@ -82,7 +100,7 @@ const AddHealthyRecipes = (props: Props) => {
               type="text" {...register("title", {
                 required: "title required"
               })} />
-            {errors.title && <p className="text-red-600 mt-1">{errors.title.message}</p>}
+            {errors.title && <span className="text-red-500 text-xs italic">{errors.title.message}</span>}
           </div>
 
           {/* =====================explanation================== */}
@@ -95,10 +113,10 @@ const AddHealthyRecipes = (props: Props) => {
               {...register("description", {
                 required: "description required"
               })}></textarea>
-            {errors.description && <p className="text-red-600 mt-1">{errors.description.message}</p>}
+            {errors.description && <span className="text-red-500 text-xs italic">{errors.description.message}</span>}
           </div>
 
-          <div className='flex md:flex-row flex-col md:gap-14'>
+          <div className='flex md:flex-row flex-col md:gap-24'>
 
 
             {/* ================Mealtype======================== */}
@@ -119,7 +137,7 @@ const AddHealthyRecipes = (props: Props) => {
                 <option value="Dessert">Dessert</option>
 
               </select>
-              {errors.mealType && <p className="text-red-600 mt-1">{errors.mealType.message}</p>}
+              {errors.mealType && <span className="text-red-500 text-xs italic">{errors.mealType.message}</span>}
             </div>
 
             {/* ================Dietrytype======================== */}
@@ -141,11 +159,11 @@ const AddHealthyRecipes = (props: Props) => {
                 <option value="High-Protein">High-Protein</option>
 
               </select>
-              {errors.mealType && <p className="text-red-600 mt-1">{errors.mealType.message}</p>}
+              {errors.mealType && <span className="text-red-500 text-xs italic">{errors.mealType.message}</span>}
             </div>
           </div>
 
-          <div className='flex md:flex-row flex-col md:gap-8'>
+          <div className='flex md:flex-row flex-col md:gap-16'>
             {/* =====================preptime================== */}
             <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2" >
@@ -156,7 +174,7 @@ const AddHealthyRecipes = (props: Props) => {
                 type="number" {...register("prepTime", {
                   required: "PrepTime required"
                 })} />
-              {errors.prepTime && <p className="text-red-600 mt-1">{errors.prepTime.message}</p>}
+              {errors.prepTime && <span className="text-red-500 text-xs italic">{errors.prepTime.message}</span>}
             </div>
             {/* =====================cooktime================== */}
             <div className="mb-4">
@@ -168,12 +186,12 @@ const AddHealthyRecipes = (props: Props) => {
                 type="number" {...register("cookTime", {
                   required: "cookTime required"
                 })} />
-              {errors.cookTime && <p className="text-red-600 mt-1">{errors.cookTime.message}</p>}
+              {errors.cookTime && <span className="text-red-500 text-xs italic">{errors.cookTime.message}</span>}
             </div>
           </div>
 
 
-          <div className='flex md:flex-row flex-col md:gap-8'>
+          <div className='flex md:flex-row flex-col md:gap-16'>
             {/* ======calories============ */}
             <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2" >
@@ -184,9 +202,9 @@ const AddHealthyRecipes = (props: Props) => {
                 type="text" {...register("calories", {
                   required: "calories required"
                 })} />
-              {errors.calories && <p className="text-red-600 mt-1">{errors.calories.message}</p>}
+              {errors.calories && <span className="text-red-500 text-xs italic">{errors.calories.message}</span>}
             </div>
-            {/* ======Author============ */}
+            {/* ======Carbohydrates============ */}
             <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2" >
                 Carbohydrates(grams)
@@ -196,13 +214,13 @@ const AddHealthyRecipes = (props: Props) => {
                 type="text" {...register("carbohydrates", {
                   required: " carbohydrates required"
                 })} />
-              {errors.carbohydrates && <p className="text-red-600 mt-1">{errors.carbohydrates.message}</p>}
+              {errors.carbohydrates && <span className="text-red-500 text-xs italic">{errors.carbohydrates.message}</span>}
             </div>
 
           </div>
 
 
-          <div className='flex md:flex-row flex-col md:gap-8'>
+          <div className='flex md:flex-row flex-col md:gap-16'>
             {/* ======Author============ */}
             <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2" >
@@ -213,7 +231,7 @@ const AddHealthyRecipes = (props: Props) => {
                 type="text" {...register("protein", {
                   required: "protein required"
                 })} />
-              {errors.protein && <p className="text-red-600 mt-1">{errors.protein.message}</p>}
+              {errors.protein && <span className="text-red-500 text-xs italic">{errors.protein.message}</span>}
             </div>
             {/* ======Author============ */}
             <div className="mb-4">
@@ -225,36 +243,136 @@ const AddHealthyRecipes = (props: Props) => {
                 type="text" {...register("totalfat", {
                   required: " totalfat required"
                 })} />
-              {errors.totalfat && <p className="text-red-600 mt-1">{errors.totalfat.message}</p>}
+              {errors.totalfat && <span className="text-red-500 text-xs italic">{errors.totalfat.message}</span>}
             </div>
 
           </div>
+          {/* ================================ingredients========================= */}
+
+          {ingredientsFields.map((field, index) => (
+            <div className="mb-2">
+              <label className="block text-gray-700 font-bold mb-2">Ingredient {index + 1}</label>
+              <div key={field.id} className="flex mb-2">
+                <div className="flex flex-col">
+                  <input
+                    type="text"
+                    {...register(`ingredients.${index}.name`, { required: 'Name is required' })}
+                    defaultValue={field.name}
+                    placeholder="Name"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                  {errors.ingredients && errors.ingredients[index] && (
+                    <span className="text-red-500 text-xs italic">{errors.ingredients[index]?.name?.message}</span>
+                  )}
+                </div>
+                <div className="flex flex-col ml-2">
+                  <input
+                    type="text"
+                    {...register(`ingredients.${index}.quantity`, { required: 'Quantity is required' })}
+                    defaultValue={field.quantity}
+                    placeholder="Quantity"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                  {errors.ingredients && errors.ingredients[index] && (
+                    <span className="text-red-500 text-xs italic">{errors.ingredients[index]?.quantity?.message}</span>
+                  )}
+                </div>
+                <div className="flex ml-2">
+                  <input
+                    type="text"
+                    {...register(`ingredients.${index}.unit`)}
+                    defaultValue={field.unit}
+                    placeholder="Unit"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
+                  />
+                </div>
+                {index !== 0 && (
+                  <button
+                    type="button"
+                    className=" ml-2 py-2 px-4 bg-red-400 text-white  text-sm font-semibold rounded"
+                    onClick={() => removeIngredient(index)}
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => appendIngredient({ name: '', quantity: '', unit: '' })}
+            className="mt-0.5  py-1 px-2 mb-4 bg-green-500 text-white font-semibold text-sm rounded"
+          >
+            Add Ingredient
+          </button>
 
 
 
 
-          {/* ============================thumbnailURL================================== */}
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">
-              Image
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              {...register("image", {
-                required: "image required"
-              })} type="file" />
-            {errors.image && <p className="text-red-600 mt-1">{errors.image.message}</p>}
-          </div>
+          {/* =====================instruction==================== */}
 
-          <div className="flex items-center justify-center mb-4">
-            <button
-              className="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-              type="submit">
-              Add Recipe
-            </button>
-          </div>
 
-        </form>
+          {instructionsFields.map((field, index) => (
+            <div className="mb-2">
+              <label className="block text-gray-700 font-bold mb-2">Instruction {index + 1}</label>
+              <div key={field.id} className="flex mb-2">
+                <div className='flex w-full flex-col'>
+                  <input
+                    type="text"
+                    {...register(`instructions.${index}.step`, { required: 'Step is required' })}
+                    defaultValue={field.step}
+                    placeholder={`Step ${index + 1}`}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                  {errors.instructions && errors.instructions[index] && (
+                    <span className="text-red-500 text-xs italic">{errors.instructions[index]?.step?.message}</span>
+
+                  )}
+                  </div>
+                  {index !== 0 && (<button
+                    type="button"
+                    className=" ml-2 py-2 px-4 bg-red-400 text-white font-semibold text-sm rounded"
+                    onClick={() => removeInstruction(index)}
+                  >
+                    Remove
+                  </button>)}
+                </div>
+              </div>
+            ))}
+              <button
+                type="button"
+                onClick={() => appendInstruction({ step: '' })}
+                className="mt-0.5  py-1 px-2 mb-4  bg-green-500 text-white font-semibold text-sm rounded"
+              >
+                Add Instruction
+              </button>
+
+
+
+
+
+              {/* ============================thumbnailURL================================== */}
+              <div className="mb-4">
+                <label className="block text-gray-700 font-bold mb-2">
+                  Image
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  {...register("image", {
+                    required: "image required"
+                  })} type="file" />
+                {errors.image && <span className="text-red-500 text-xs italic">{errors.image.message}</span>}
+              </div>
+
+              <div className="flex items-center justify-center mb-4">
+                <button
+                  className="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                  type="submit">
+                  Add Recipe
+                </button>
+              </div>
+
+            </form>
       </div>
       <Toaster />
     </>

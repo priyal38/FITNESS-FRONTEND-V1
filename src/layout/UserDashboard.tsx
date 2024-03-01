@@ -24,7 +24,7 @@ const UserDashboard = () => {
   return (
     <>
     <Navbar handleDrawerToggle={handleDrawerToggle} />
-    <div className="flex min-h-screen">
+    <div className="flex ">
       <div className="md:w-[18rem]">
         <Sidebar
           mobileOpen={mobileOpen}
@@ -32,7 +32,7 @@ const UserDashboard = () => {
           menuItems = {UserMenuItems}
         />
       </div>
-      <main className="flex-grow pt-20 pl-5 pr-5  pb-10 bg-gradient-to-b from-slate-800 to-slate-950 w-full ">
+      <main className="bg-gradient-to-b from-slate-800 to-slate-950  pt-20 pl-5 pr-5 pb-10 w-full ">
          <Routes>
        <Route path="home" element={<UserHome />} />
         <Route path="workout" element={<Workout />} />

@@ -76,7 +76,7 @@ const AddWorkout = (props: Props) => {
 
 
     <>
-      <div className="max-w-lg mx-auto mt-10 border  bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="max-w-xl mx-auto mt-10 border  bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
           Add Workout
         </div>
@@ -187,7 +187,7 @@ const AddWorkout = (props: Props) => {
               Video URL
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("videoUrl", {
                 required: "videourl required"
               })} type="text" />
