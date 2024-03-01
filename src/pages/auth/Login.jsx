@@ -1,18 +1,15 @@
 import React , {useState , useEffect} from 'react'
-import { Box } from '@mui/material'
-import Avatar from "@mui/material/Avatar"
+
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from '@mui/material/Typography';
-import { Grid } from '@mui/material';
-import { TextField } from '@mui/material';
-import { Button } from '@mui/material';
-import { Container } from '@mui/material';
-import imagelogin from '../../images/2290.jpg'
+
+import imagelogin from '../../images/about.jpg'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast, {Toaster} from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 const Login = () => {
 
@@ -75,89 +72,53 @@ const Login = () => {
   };
   
   return (
-    <Grid container className="h-screen">
+    <div className=" min-h-screen flex items-center justify-center">
+    {/* <!-- Background Image --> */}
+    <div className="absolute inset-0 z-0">
+        <img src={imagelogin} alt=""
+            className="w-full h-full object-cover opacity-40 brightness-50" />
+    </div>
 
-      <Grid item xs={12} sm={8} md={6}>
-        <Container component="main" maxWidth="sm">
-          <Box
-            className="mt-32 flex flex-col items-center shadow-sm shadow-gray-600  rounded-md  px-4 py-6"
-          >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Login
-            </Typography>
-            <Box component="form" className=' mt-3'>
-              <Grid container spacing={2}>
+    {/* ==================Signup form======================== */}
+    <div className=" relative mx-auto w-full max-w-xl">
+        <div className="bg-gray-900 shadow-xl shadow-neutral-600 ml-2 mr-2 rounded-2xl px-8 pt-6 pb-8 mb-4">
+            <div className="text-center">
+                <div className="bg-fuchsia-900  rounded-full inline-block p-2">
+                    <LockOutlinedIcon className="h-10 w-10 text-white" />
+                </div>
+                <h2 className="mt-1
+                 text-xl font-medium text-white">Login</h2>
+            </div>
+            <form onSubmit={handleClick}>
+              
+                <div className="mb-4">
+                    <label htmlFor="email" className="block mb-2 text-sm font-medium  text-white">Email </label>
+                    <input type="email" id="email" className=" text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="john.doe@company.com" required />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="password" className="block mb-2 text-sm font-medium  text-white">Password</label>
+                    <input type="password" id="password" className=" border  text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="•••••••••" required />
+                </div>
+               
+                <div className="mb-4  text-center">
+                    <button
+                        className="bg-blue-800 hover:bg-blue-600 w-full  text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
+                        type="submit"
+                    >
+                       Login
+                    </button>
+                </div>
+                <div className="text-center">
+                    <Link to="/signup" className="inline-block align-baseline  text-sm text-blue-500 hover:underline">
+                     Don't have an account? Sign Up
+                    </Link>
+                </div>
+            </form>
+        </div>
+        <Toaster />
+    </div>
+</div>
 
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="username"
-                    label="Username"
-                    name="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                  
-
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                   
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                onClick={handleClick}
-              >
-                Login
-              </Button>
-              <Grid container>
-              <Grid item xs>
-                {/* <Link href="#" variant="body2">
-                  Forgot password?
-                </Link> */}
-              </Grid>
-              <Grid item>
-                <Link to="/signup" >
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-            </Box>
-          </Box>
-        </Container>
-      </Grid>
-      <Grid
-        item
-        xs={false}
-        sm={4}
-        md={6}
-        sx={{
-          backgroundImage: `url(${imagelogin})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-         
-
-        }}
-      >
-      </Grid>
-<Toaster/>
-    </Grid>
 
   );
 }

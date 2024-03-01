@@ -187,7 +187,7 @@ const AddWorkout = (props: Props) => {
               Video URL
             </label>
             <input
-              className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border br rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("videoUrl", {
                 required: "videourl required"
               })} type="text" />
