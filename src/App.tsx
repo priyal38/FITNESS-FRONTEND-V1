@@ -4,6 +4,7 @@ import './App.css'
 
 import { SignUp } from './pages/auth/SignUp';
 import Login from './pages/auth/Login';
+import ForgotPass from './pages/auth/ForgotPass';
 import LandingPage from './pages/home/LandingPage';
 import TestForm from './test/TestForm';
 //user dashboard
@@ -24,6 +25,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
      
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot" element={<ForgotPass />} />
 
 {/* user routes */}
 

@@ -75,28 +75,28 @@ export const SignUp = () => {
                             <div className="grid gap-6 mb-4 mt-4 md:grid-cols-2">
                                 <div >
                                     <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-white">First name</label>
-                                    <input type="text" id="first_name" {...register('firstname')} className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="John" />
+                                    <input type="text" id="first_name" {...register('firstname')} className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter firstname" />
                                     {errors.firstname && <span className="text-sm text-red-500 italic">{errors.firstname.message}</span>}
                                 </div>
                                 <div>
                                     <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-white">Last name</label>
-                                    <input type="text" id="last_name" {...register('lastname')} className="text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Doe" />
+                                    <input type="text" id="last_name" {...register('lastname')} className="text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter lastname" />
                                     {errors.lastname && <span className="text-sm text-red-500 italic">{errors.lastname.message}</span>}
                                 </div>
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">Email</label>
-                                <input type="email" id="email" {...register('email')} className="text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="john.doe@company.com" />
+                                <input type="email" id="email" {...register('email')} className="text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter email" />
                                 {errors.email && <span className="text-sm text-red-500 italic">{errors.email.message}</span>}
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Password</label>
-                                <input type="password" id="password" {...register('password')} className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="•••••••••" />
+                                <input type="password" id="password" {...register('password')} className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter password" />
                                 {errors.password && <span className="text-sm text-red-500 italic">{errors.password.message}</span>}
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="confirm_password" className="block mb-2 text-sm font-medium text-white">Confirm password</label>
-                                <input type="password" id="confirm_password" {...register('confirmPassword')} className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="•••••••••" />
+                                <input type="password" id="confirm_password" {...register('confirmPassword')} className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter confirm password" />
                                 {errors.confirmPassword && <span className="text-sm text-red-500 italic">{errors.confirmPassword.message}</span>}
                             </div>
                             <div className="mb-4  text-center">
