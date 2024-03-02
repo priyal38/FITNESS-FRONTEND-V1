@@ -34,6 +34,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
  
   const logout = () => {
     // Clear user session without removing details from local storage
+    console.log(auth)
     setAuth({ user: {
       email : '',
       role : 0,
@@ -41,6 +42,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     },
    token: ''  });
     localStorage.removeItem('user');
+    
   };
  
   useEffect(() => {

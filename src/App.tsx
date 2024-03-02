@@ -10,7 +10,7 @@ import TestForm from './test/TestForm';
 import UserDashboard from './layout/UserDashboard'
 //admin dashboard
 import AdminDashboard from './layout/AdminDashboard';
-import Sign from './pages/auth/Sign';
+
 
 function App() {
 
@@ -21,8 +21,8 @@ function App() {
         <Route path="/test" element={<TestForm />} />
         <Route path="/home" element={<LandingPage />} />
        
-        <Route path="/signup2" element={<SignUp />} />
-        <Route path="/signup" element={<Sign/>} />
+        <Route path="/signup" element={<SignUp />} />
+     
         <Route path="/login" element={<Login />} />
 
 {/* user routes */}
