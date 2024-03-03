@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react'
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray , Controller } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
 
 type Props = {}
@@ -12,9 +12,7 @@ interface Ingredient {
   unit: string
 
 }
-interface Instruction {
-  step: string;
-}
+
 
 interface NutritionFacts {
   calories: number;
@@ -40,7 +38,7 @@ interface FormInput {
 
 const AddHealthyRecipes = (props: Props) => {
 
-  const { register, unregister,handleSubmit,setValue, getValues, formState: { errors }, control  , watch} = useForm<FormInput>({
+  const { register,handleSubmit,setValue, getValues, formState: { errors }, control  , watch} = useForm<FormInput>({
     defaultValues: {
       ingredients: [{ name: "", quantity: "", unit: "" }],
     }
@@ -51,47 +49,45 @@ const AddHealthyRecipes = (props: Props) => {
     name: 'ingredients'
   });
 
-  // const { fields: instructionsFields, append: appendInstruction, remove: removeInstruction } = useFieldArray({
-  //   control,
-  //   name: 'instructions'
-  // });
-  const watchInstructions = watch('instructions', []);
-
-  const addInstruction = () => {
-    const instructions = getValues('instructions') || [];
-    setValue('instructions', [...instructions, '']);
-};
-
   const onSubmit = async (data: FormInput) => {
 
     console.log(data)
-    // try {
-    //   const formData = new FormData();
-    //   formData.append('title', data.title);
-    //   formData.append('category', data.category);
-    //   formData.append('content', data.content);
-    //   formData.append('author', data.author);
-    //   formData.append('readtime', data.readtime);
-    //   formData.append('coverImg', data.coverImg[0]); 
+    try{
+      const formData = new FormData();
+      formData.append('title', data.title);
+      formData.append('description', data.description);
+      formData.append('mealType', data.mealType);
+      formData.append('prepTime', data.prepTime);
+      formData.append('cookTime', data.cookTime);
+      formData.append('dietaryType', data.dietaryType);
+      formData.append('nutritionFacts', JSON.stringify(data.nutritionFacts));
+      formData.append('image', data.image[0]); 
+    formData.append('ingredients', JSON.stringify(data.ingredients));
+    formData.append('instructions', JSON.stringify(data.instructions));
+   
+
+     
+console.log(formData);
+    
+    
+
+      const response = await axios.post('http://localhost:5000/api/recipe/addrecipe', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data' 
+        }
+      });
+      console.log(response.data);
+      if(response.status===200){
+        toast.success("Recipe added successfully")
+      }
 
 
-    //   const response = await axios.post('http://localhost:5000/api/blog/addblog', formData, {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data' 
-    //     }
-    //   });
-    //   console.log(response.data);
-    //   if(response.status===200){
-    //     toast.success("Blog added successfully")
-    //   }
-
-
-    // } catch (error) {
-    //   console.error('Error adding workout:', error);
-    //  toast.error("Please try again")
-    // }
-  };
-
+    } catch (error) {
+      console.error('Error adding Recipe:', error);
+     toast.error("Please try again")
+    }
+  
+  }
   return (
 
 
@@ -322,61 +318,54 @@ const AddHealthyRecipes = (props: Props) => {
             Add Ingredient
           </button>
 
-
-
-
-          {/* =====================instruction==================== */}
-
-
-          {/* {instructionsFields.map((field, index) => (
-            <div className="mb-2">
-              <label className="block text-gray-700 font-bold mb-2">Instruction {index + 1}</label>
-              <div key={field.id} className="flex mb-2">
-                <div className='flex w-full flex-col'>
-                  <input
-                    type="text"
-                    {...register(`instructions.${index}.step`, { required: 'Step is required' })}
-                    defaultValue={field.step}
-                    placeholder={`Step ${index + 1}`}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  />
-                  {errors.instructions && errors.instructions[index] && (
-                    <span className="text-red-500 text-xs italic">{errors.instructions[index]?.step?.message}</span>
-
-                  )}
-                  </div>
-                  {index !== 0 && (<button
+<div>
+            <label className="block text-gray-700 font-bold mb-2">Instructions</label>
+            <Controller
+              name="instructions"
+              control={control}
+              defaultValue={[""]} // Initial value with an empty string
+              render={({ field }) => (
+                <>
+                  {field.value.map((instruction: string, index: number) => (
+                    <div key={index} className="flex mb-2">
+                      <input
+                        type="text"
+                        {...field}
+                        value={instruction}
+                        onChange={(e) => {
+                          const newInstructions = [...field.value];
+                          newInstructions[index] = e.target.value;
+                          field.onChange(newInstructions);
+                        }}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder={`Step ${index + 1}`}
+                      />
+                      {index !== 0 && (
+                        <button
+                          type="button"
+                          className="ml-2 py-2 px-4 bg-red-400 text-white text-sm font-semibold rounded"
+                          onClick={() => {
+                            const newInstructions = [...field.value];
+                            newInstructions.splice(index, 1);
+                            field.onChange(newInstructions);
+                          }}
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                  <button
                     type="button"
-                    className=" ml-2 py-2 px-4 bg-red-400 text-white font-semibold text-sm rounded"
-                    onClick={() => removeInstruction(index)}
+                    onClick={() => field.onChange([...field.value, ''])} // Append a new empty string
+                    className="mt-0.5 py-1 px-2 mb-4 bg-green-500 text-white font-semibold text-sm rounded"
                   >
-                    Remove
-                  </button>)}
-                </div>
-              </div>
-            ))}
-              <button
-                type="button"
-                onClick={() => appendInstruction({ step: '' })}
-                className="mt-0.5  py-1 px-2 mb-4  bg-green-500 text-white font-semibold text-sm rounded"
-              >
-                Add Instruction
-              </button> */}
-
-          <div>
-            {/* Map through each instruction */}
-            {watchInstructions.map((_, index) => (
-              <div key={index}>
-                <textarea {...register(`instructions.${index}` as const)} required></textarea>
-                {index > 0 && <button type="button" onClick={() => unregister(`instructions.${index}`)}>Remove</button>}
-              </div>
-            ))}
-            <button type="button" onClick={addInstruction}>Add Instruction</button>
+                    Add Step
+                  </button>
+                </>
+              )}
+            />
           </div>
-
-
-
-
 
           {/* ============================thumbnailURL================================== */}
           <div className="mb-4">
@@ -407,4 +396,5 @@ const AddHealthyRecipes = (props: Props) => {
 
   )
 }
+
 export default AddHealthyRecipes

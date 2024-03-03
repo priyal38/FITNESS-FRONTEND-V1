@@ -23,13 +23,14 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
  
 const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const user  = JSON.parse(localStorage.getItem("user")!)
   const [auth, setAuth] = useState<AuthData>({
     user : {
       email : '',
       role : 0
     },
-     token: localStorage.getItem('user') || '',
-    // Initialize with token from local s       torage
+     token: user?.token || '',
+    // Initialize with token from local storage
   });
  
   const logout = () => {
@@ -46,10 +47,10 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
  
   useEffect(() => {
-    // Check if token exists in local storage on app initialization
-    const token = localStorage.getItem('user');
+    const user  = JSON.parse(localStorage.getItem("user")!)
+    const token  =  user.token
     if (token) {
-      setAuth((prevAuth) => ({ ...prevAuth,  token}));
+      setAuth((prevAuth) => ({ ...prevAuth, token }));
     }
   }, []);
  
