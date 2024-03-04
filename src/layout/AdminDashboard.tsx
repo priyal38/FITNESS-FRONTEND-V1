@@ -3,11 +3,16 @@ import { AdminMenuItems } from '../utils/MenuItems';
 import { Route , Routes } from 'react-router-dom';
 import Navbar from '../components/dashboard/Navbar';
 import Sidebar from '../components/dashboard/Sidebar';
-import AddWorkout from '../pages/admin/AddWorkout';
-import AddBlog from '../pages/admin/AddBlog';
-import AddNutrition from '../pages/admin/AddRecipes';
-import AdminProfile from '../pages/admin/AdminProfile'
-import AdminHome from '../pages/admin/AdminHome';
+import { Suspense } from 'react';
+import Loading from '../components/Loading';
+
+
+
+const AddBlog = React.lazy(()=>import("../pages/admin/AddBlog"))
+const AddRecipes = React.lazy(()=>import("../pages/admin/AddRecipes"))
+const AddWorkout = React.lazy(()=>import("../pages/admin/AddWorkout"))
+const AdminHome = React.lazy(()=>import("../pages/admin/AdminHome"))
+const AdminProfile = React.lazy(()=>import("../pages/admin/AdminProfile"))
 
 
 const AdminDashboard = () => {
@@ -35,13 +40,15 @@ const AdminDashboard = () => {
         />
       </div>
       <main className="  bg-gradient-to-b from-gray-800 to-gray-900  pt-20 pl-5 pr-5 pb-10 w-full  ">
+  <Suspense fallback={<Loading/>}>
       <Routes>
        <Route path="addworkout" element={<AddWorkout />} />
        <Route path="home" element={<AdminHome />} />
         <Route path="addblog" element={<AddBlog />} />
-        <Route path="addNutritionPlan" element={<AddNutrition />} />
+        <Route path="addNutritionPlan" element={<AddRecipes />} />
         <Route path="profile" element={<AdminProfile />} />
         </Routes>
+        </Suspense>
       </main>
     </div>
     </>

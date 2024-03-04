@@ -3,6 +3,8 @@ import { useForm , useFieldArray} from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from 'axios';
+import ErrorBoundary from './ErrorBoundary';
+import MyComponent from './MyComponent';
 
 type Props = {};
 
@@ -70,7 +72,11 @@ if(isSubmitSuccessful){
 
 
     return (
+
         <div className="max-w-md mx-auto">
+            <ErrorBoundary>
+                <MyComponent/>
+            </ErrorBoundary>
             <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <div className="mb-4">
                     <label htmlFor="firstname" className="block text-gray-700 text-sm font-bold mb-2">FirstName:</label>

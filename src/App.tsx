@@ -1,40 +1,37 @@
 import React from 'react';
 import { Route , Routes} from 'react-router-dom';
+import { Suspense } from "react";
 import './App.css'
+import Loading from './components/Loading';
 
-import { SignUp } from './pages/auth/SignUp';
-import Login from './pages/auth/Login';
-import ForgotPass from './pages/auth/ForgotPass';
-import LandingPage from './pages/home/LandingPage';
-import TestForm from './test/TestForm';
-//user dashboard
-import UserDashboard from './layout/UserDashboard'
-//admin dashboard
-import AdminDashboard from './layout/AdminDashboard';
+const LandingPage = React.lazy(() => import("./pages/home/LandingPage"));
+const SignUp = React.lazy(() => import("./pages/auth/SignUp"));
+const Login = React.lazy(() => import("./pages/auth/Login"));
+const ForgotPass = React.lazy(() => import("./pages/auth/ForgotPass"));
+const UserDashboard  =React.lazy(() => import("./layout/UserDashboard"));
+const AdminDashboard = React.lazy(()=>import("./layout/AdminDashboard"))
+const TestForm = React.lazy(()=>import("./test/TestForm"))
+const User = React.lazy(()=>import("./test/User"))
+
 
 
 function App() {
 
   return (
-      <Routes>
-
+    <Suspense fallback={<Loading/>}>
+    <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/testuser" element={<User />} />
         <Route path="/test" element={<TestForm />} />
         <Route path="/home" element={<LandingPage />} />
-       
         <Route path="/signup" element={<SignUp />} />
-     
         <Route path="/login" element={<Login />} />
         <Route path="/forgot" element={<ForgotPass />} />
-
-{/* user routes */}
-
         <Route path="/user/*" element={<UserDashboard />}></Route>
-
-{/* admin routes */}
         <Route path="/admin/*" element={<AdminDashboard />}></Route>
       </Routes>
-   
+      </Suspense>
+     
 
   );  
 }

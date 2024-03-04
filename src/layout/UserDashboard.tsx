@@ -3,11 +3,15 @@ import { Route , Routes } from 'react-router-dom';
 import { UserMenuItems } from '../utils/MenuItems';
 import Navbar from '../components/dashboard/Navbar';
 import Sidebar from '../components/dashboard/Sidebar';
-import Workout from '../pages/user/Workout';
-import Nutrition from '../pages/user/Nutrition';
-import UserProfile from '../pages/user/UserProfile';
-import Blog from '../pages/user/Blog';
-import UserHome from '../pages/user/UserHome';
+import { Suspense } from 'react';
+import Loading from '../components/Loading';
+
+
+const Workout = React.lazy(()=> import("../pages/user/Workout"))
+const Nutrition = React.lazy(()=> import("../pages/user/Nutrition"))
+const UserProfile = React.lazy(()=> import("../pages/user/UserProfile"))
+const Blog = React.lazy(()=> import("../pages/user/Blog"))
+const UserHome = React.lazy(()=> import("../pages/user/UserHome"))
 
 const UserDashboard = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -33,6 +37,7 @@ const UserDashboard = () => {
         />
       </div>
       <main className="bg-gradient-to-b from-slate-800 to-slate-950  pt-20 pl-5 pr-5 pb-10 w-full ">
+        <Suspense fallback = {<Loading/>} >
          <Routes>
        <Route path="home" element={<UserHome />} />
         <Route path="workout" element={<Workout />} />
@@ -40,6 +45,7 @@ const UserDashboard = () => {
         <Route path="profile" element={<UserProfile/>} />
         <Route path="blog" element={<Blog/>} />
         </Routes>
+        </Suspense>
       </main>
     </div>
     </>

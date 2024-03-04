@@ -3,11 +3,12 @@ import React from 'react';
  
 interface AuthData {
   user : {
+    username:string;
     email: string;
     role : number;
   },
   token: string;
- // Define your user type here
+
  
 }
  
@@ -26,6 +27,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const user  = JSON.parse(localStorage.getItem("user")!)
   const [auth, setAuth] = useState<AuthData>({
     user : {
+      username:'',
       email : '',
       role : 0
     },
@@ -37,6 +39,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     // Clear user session without removing details from local storage
     console.log(auth)
     setAuth({ user: {
+      username:'',
       email : '',
       role : 0,
      
@@ -46,13 +49,13 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     
   };
  
-  useEffect(() => {
-    const user  = JSON.parse(localStorage.getItem("user")!)
-    const token  =  user.token
-    if (token) {
-      setAuth((prevAuth) => ({ ...prevAuth, token }));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const user  = JSON.parse(localStorage.getItem("user")!)
+  //   const token  =  user.token
+  //   if (token) {
+  //     setAuth((prevAuth) => ({ ...prevAuth, token }));
+  //   }
+  // }, []);
  
   return (
     <AuthContext.Provider value={{ auth,  setAuth, logout }}>

@@ -19,7 +19,7 @@ const schema = yup.object().shape({
     password: yup.string().required('Password is required').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/, 'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one number'),
     confirmPassword: yup.string().required('Confirm password is required').oneOf([yup.ref('password')], 'Passwords must match')
 });
-export const SignUp = () => {
+ const SignUp = () => {
 
     let navigate = useNavigate()
 
@@ -114,3 +114,4 @@ export const SignUp = () => {
         </>
     )
 }
+export default SignUp

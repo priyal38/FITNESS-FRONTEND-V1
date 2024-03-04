@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useState  , useEffect} from 'react'
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -13,12 +13,13 @@ interface FormInput {
   explanation: string;
   difficultyLevel: string;
   thumbnail: string;
-  videoUrl: string
+  videoUrl: string;
+  equipment:string
 }
 
 const AddWorkout = (props: Props) => {
 
-  const { register, handleSubmit, formState: { errors } , setValue  } = useForm<FormInput>();
+  const { register, handleSubmit, formState: { errors , isSubmitSuccessful } , reset  } = useForm<FormInput>();
   const [subCategories, setSubCategories] = useState<string[]>([])
 
 
@@ -53,6 +54,7 @@ const AddWorkout = (props: Props) => {
       formData.append('category', data.category);
       formData.append('subCategory', data.subCategory);
       formData.append('explanation', data.explanation);
+      formData.append('equipment', data.equipment);
       formData.append('difficultyLevel', data.difficultyLevel);
       formData.append('thumbnail', data.thumbnail[0]);
       formData.append('videoUrl', data.videoUrl);
@@ -74,6 +76,11 @@ const AddWorkout = (props: Props) => {
     }
   };
 
+  useEffect(()=>{
+    if(isSubmitSuccessful){
+        reset();
+    }
+        } , [isSubmitSuccessful , reset])
   return (
 
 
@@ -133,7 +140,16 @@ const AddWorkout = (props: Props) => {
             </div>
          
 
-
+            <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2" >
+            Equipment
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text" {...register("equipment", {
+              })}  />
+          
+          </div>
  {/* ================Difficulty level======================== */}
 
  <div className="mb-4">
