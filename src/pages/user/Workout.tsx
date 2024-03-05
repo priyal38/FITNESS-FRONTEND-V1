@@ -45,6 +45,7 @@ const Workout = (_props: Props) => {
     {workouts.map(workout =>(
       <WorkoutCard 
       key={workout.id}
+      id={workout.id}
       imageSrc={`http://localhost:5000/${workout.thumbnail}`}
       title={workout.title}
       />

@@ -12,6 +12,7 @@ const Nutrition = React.lazy(()=> import("../pages/user/Nutrition"))
 const UserProfile = React.lazy(()=> import("../pages/user/UserProfile"))
 const Blog = React.lazy(()=> import("../pages/user/Blog"))
 const UserHome = React.lazy(()=> import("../pages/user/UserHome"))
+const WorkoutDetailsPage = React.lazy(()=>import('../pages/user/WorkoutDetails'))
 
 const UserDashboard = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -43,6 +44,7 @@ const UserDashboard = () => {
         <Route path="workout" element={<Workout />} />
         <Route path="nutrition" element={<Nutrition />} />
         <Route path="profile" element={<UserProfile/>} />
+        <Route path="/workout/:id" element={<WorkoutDetailsPage />} />
         <Route path="blog" element={<Blog/>} />
         </Routes>
         </Suspense>

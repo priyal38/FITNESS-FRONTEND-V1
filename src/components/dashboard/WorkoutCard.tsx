@@ -1,15 +1,17 @@
 import React from 'react'
-import img from "../../images/about.jpg"
+import { Link } from 'react-router-dom';
+
 
 type Props = {
+    id:number;
     imageSrc: string;
     title: string;
 };
 
-const WorkoutCard = ({ imageSrc, title }: Props) => {
+const WorkoutCard = ({ id , imageSrc, title }: Props) => {
     return (
         <div>
-
+<Link to={`/workout/${id}`}>
             <div className=" rounded overflow-hidden shadow-md shadow-slate-700 flex flex-col bg-gray-800">
                 <div className='overflow-hidden h-48'>
                     <img
@@ -27,6 +29,7 @@ const WorkoutCard = ({ imageSrc, title }: Props) => {
 
 
             </div>
+            </Link >
         </div>
 
 
