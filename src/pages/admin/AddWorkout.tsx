@@ -23,13 +23,13 @@ const AddWorkout = (props: Props) => {
   const [subCategories, setSubCategories] = useState<string[]>([])
 
 
-  const gymCategories = ['Biceps', 'Triceps', 'Chest', 'Back', 'Legs', 'Abs', 'Lats', 'Hamstring', 'Calves', 'Quadriceps', 'Trapezius', 'Shoulders', 'Glutes']
-  const yogaCategories = ['Ashtanga yoga', 'Hatha yoga', 'Hot yoga', 'Iyengar yoga', 'Kundalini yoga', 'Power yoga', 'Restorative yoga', 'Vinyasa yoga']
-  const HomeWorkoutCategories = ['Stretching', 'Warm Up ' ]
+  const gymCategories = ['Biceps', 'Triceps', 'Chest', 'Back', 'Upperleg','Lowerleg', 'Abs', 'Shoulders', 'Glutes' , 'Other']
+  const yogaCategories = ['Ashtanga yoga', 'Hatha yoga', 'Hot yoga', 'Iyengar yoga', 'Kundalini yoga', 'Power yoga', 'Restorative yoga', 'Vinyasa yoga' , 'Other']
+  const HomeWorkoutCategories = ['Stretching', 'Warm Up ' , 'Other' ]
   //  ==================dynamic subcategory render=====================
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedCategory = e.target?.value;
-    // setValue('subCategory', '');
+   
     if (selectedCategory === 'gym') {
       setSubCategories(gymCategories)
     }

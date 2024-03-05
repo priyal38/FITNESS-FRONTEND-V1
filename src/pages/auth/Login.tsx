@@ -58,7 +58,7 @@ const Login = () => {
         window.localStorage.setItem(
           'user',
           JSON.stringify({
-            role, token
+            role, token , email , username
           }),
         );
 
@@ -66,9 +66,10 @@ const Login = () => {
           user: {
             username,
             email,
-            role
+            role,
+            token
           },
-          token
+          
         })
 
 

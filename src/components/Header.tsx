@@ -42,7 +42,7 @@ navigate('/user')
           </LinkRouter>
           <div className="flex items-center md:order-2 space-x-0 md:space-x-0 ">
 
-  {auth.token ? (
+  {auth.user.token ? (
     <>
      <button type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 "  onClick={toggleUserMenu} >
 
