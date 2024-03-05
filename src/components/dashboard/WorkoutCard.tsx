@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 
 type Props = {
-    id:number;
+    id:string;
     imageSrc: string;
     title: string;
 };
@@ -11,7 +11,7 @@ type Props = {
 const WorkoutCard = ({ id , imageSrc, title }: Props) => {
     return (
         <div>
-<Link to={`/workout/${id}`}>
+<Link to={`${id}`}>
             <div className=" rounded overflow-hidden shadow-md shadow-slate-700 flex flex-col bg-gray-800">
                 <div className='overflow-hidden h-48'>
                     <img

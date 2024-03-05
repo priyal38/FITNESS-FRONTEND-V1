@@ -44,7 +44,7 @@ const UserDashboard = () => {
         <Route path="workout" element={<Workout />} />
         <Route path="nutrition" element={<Nutrition />} />
         <Route path="profile" element={<UserProfile/>} />
-        <Route path="/workout/:id" element={<WorkoutDetailsPage />} />
+        <Route path=":id" element={<WorkoutDetailsPage />} />
         <Route path="blog" element={<Blog/>} />
         </Routes>
         </Suspense>

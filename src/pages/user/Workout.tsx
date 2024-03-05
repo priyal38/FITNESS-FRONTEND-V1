@@ -6,7 +6,7 @@ import useAxiosPrivate from "../../axios/useAxiosPrivate";
 type Props = {}
 
 interface WorkoutData {
-  id:number
+  _id:string
   title:string,
   thumbnail:string
 
@@ -44,8 +44,8 @@ const Workout = (_props: Props) => {
     
     {workouts.map(workout =>(
       <WorkoutCard 
-      key={workout.id}
-      id={workout.id}
+      key={workout._id}
+      id={workout._id}
       imageSrc={`http://localhost:5000/${workout.thumbnail}`}
       title={workout.title}
       />

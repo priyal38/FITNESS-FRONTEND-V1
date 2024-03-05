@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import useAxiosPrivate from '../../axios/useAxiosPrivate';
 
 type Props = {}
 
@@ -17,13 +18,14 @@ equipment:string
 
 const WorkoutDetails = (props: Props) => {
     const {id} = useParams()
+    const axiosPrivate = useAxiosPrivate();
 const [workoutDetails , setWorkoutDetails] = useState<Workoutdata | null >(null)
 
 
 useEffect(() => {
     const fetchWorkoutDetails = async () => {
       try {
-        const response = await axios.get(`/api/workout/getworkout/${id}`);
+        const response = await axiosPrivate.get(`/api/workout/getworkout/${id}`);
         setWorkoutDetails(response.data);
         console.log(response)
       } catch (error) {
@@ -37,7 +39,7 @@ useEffect(() => {
   console.log(workoutDetails)
   return (
     <div>
-        dddddddddddd
+       ggggggggggggggg
     </div>
   )
 }
