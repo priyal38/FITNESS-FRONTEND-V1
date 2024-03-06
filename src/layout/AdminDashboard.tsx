@@ -39,7 +39,7 @@ const AdminDashboard = () => {
           menuItems={AdminMenuItems}
         />
       </div>
-      <main className="  bg-gradient-to-b from-gray-800 to-gray-900  pt-20 pl-5 pr-5 pb-10 w-full  ">
+      <main className="  bg-gray-900  pt-20 pl-5 pr-5 pb-10 w-full  ">
   <Suspense fallback={<Loading/>}>
       <Routes>
        <Route path="addworkout" element={<AddWorkout />} />

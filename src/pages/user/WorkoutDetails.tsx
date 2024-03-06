@@ -25,9 +25,9 @@ const [workoutDetails , setWorkoutDetails] = useState<Workoutdata | null >(null)
 useEffect(() => {
     const fetchWorkoutDetails = async () => {
       try {
-        const response = await axiosPrivate.get(`/api/workout/getworkout/${id}`);
-        setWorkoutDetails(response.data);
-        console.log(response)
+        const response = await axiosPrivate.get(`/workout/getworkout/${id}`);
+        setWorkoutDetails(response.data.data);
+        // console.log(response)
       } catch (error) {
         console.error('Error fetching workout details:', error);
       }
@@ -39,7 +39,8 @@ useEffect(() => {
   console.log(workoutDetails)
   return (
     <div>
-       ggggggggggggggg
+
+       <h2 className='text-white'>{workoutDetails?.title}</h2>
     </div>
   )
 }

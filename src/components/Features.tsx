@@ -13,10 +13,10 @@ const Features = (props: Props) => {
         </h2>
       </div>
 
-      <div className='flex  flex-col  md:flex-row sm:flex-row  md:ml-4 md:mr-4  p-2 items-center gap-3 md:mb-10' >
+      <div className='flex  w-full flex-col  md:flex-row sm:flex-row  p-2 justify-around gap-3 md:mb-10' >
         {/* =================card1================== */}
 
-        <div className="p-6 bg-gray-800 border border-gray-200 rounded-lg shadow-lg shadow-gray-600">  
+        <div className="p-6 w-1/3 bg-gray-800 border border-gray-200 rounded-lg shadow-md shadow-gray-600">  
 
           <h5 className="mb-3 text-xl text-center text-blue-300 font-bold tracking-tight">
 
@@ -33,7 +33,7 @@ const Features = (props: Props) => {
 
         {/* =================card 2================== */}
 
-        <div className=" p-6 bg-gray-800 border border-gray-200 rounded-lg  shadow-lg shadow-gray-600">
+        <div className=" p-6 w-1/3 bg-gray-800 border border-gray-200 rounded-lg  shadow-lg shadow-gray-600">
 
           <h5 className="mb-3 text-xl text-center text-blue-300 font-bold tracking-tight">
 
@@ -50,7 +50,7 @@ const Features = (props: Props) => {
         
         {/* =================card 3================== */}
 
-        <div className="p-6 bg-gray-800 border border-gray-200 rounded-lg shadow-lg shadow-gray-600">
+        <div className="p-6 w-1/3 bg-gray-800 border border-gray-200 rounded-lg shadow-lg shadow-gray-600">
 
           <h5 className="mb-3 text-xl text-center text-blue-300 font-bold tracking-tight">
 

@@ -37,14 +37,14 @@ const UserDashboard = () => {
           menuItems = {UserMenuItems}
         />
       </div>
-      <main className="bg-gradient-to-b from-slate-800 to-slate-950  pt-20 pl-5 pr-5 pb-10 w-full ">
+      <main className="bg-gray-900  pt-20 pl-5 pr-5 pb-10 w-full ">
         <Suspense fallback = {<Loading/>} >
          <Routes>
        <Route path="home" element={<UserHome />} />
         <Route path="workout" element={<Workout />} />
         <Route path="nutrition" element={<Nutrition />} />
         <Route path="profile" element={<UserProfile/>} />
-        <Route path=":id" element={<WorkoutDetailsPage />} />
+        <Route path="workout/:id" element={<WorkoutDetailsPage />} />
         <Route path="blog" element={<Blog/>} />
         </Routes>
         </Suspense>
