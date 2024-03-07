@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import useAxiosPrivate from '../../axios/useAxiosPrivate';
+import ReactPlayer from 'react-player';
 
 type Props = {}
 
@@ -41,6 +42,15 @@ useEffect(() => {
     <div>
 
        <h2 className='text-white'>{workoutDetails?.title}</h2>
+       
+       <ReactPlayer
+                    url={`workoutDetails.videoUrl`}
+                    controls
+                    width="50%"
+                    height="50%"
+                    // playing={true}
+                />
+       {/* <ReactPlayer url={workoutDetails?.videoUrl}/>   */}
     </div>
   )
 }

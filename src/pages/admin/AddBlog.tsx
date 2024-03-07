@@ -13,6 +13,7 @@ interface FormInput {
   author: string;
   readtime: string;
   coverImg: string;
+  subtitle:string
   
 }
 
@@ -27,6 +28,7 @@ const AddBlog = (props: Props) => {
       formData.append('category', data.category);
       formData.append('content', data.content);
       formData.append('author', data.author);
+      formData.append('subtitle', data.subtitle);
       formData.append('readtime', data.readtime);
       formData.append('coverImg', data.coverImg[0]); 
      
@@ -103,6 +105,17 @@ const AddBlog = (props: Props) => {
                 required: "author required"
               })} />
               {errors.author && <p className="text-red-600 mt-1">{errors.author.message}</p>}
+          </div>
+
+          {/* ======Author============ */}
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2" >
+              Subtitle
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text" {...register("subtitle")} />
+            
           </div>
 
           {/* =====================explanation================== */}

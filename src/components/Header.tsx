@@ -88,7 +88,7 @@ navigate('/user')
 
       {/* User menu */}
 
-      <div className={`absolute right-0 mt-4 md:mt-4 mr-2 z-50 ${isUserMenuOpen ? 'block' : 'hidden'} text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`} id="user-dropdown">
+      <div className={` right-0 mt-4 md:mt-4 mr-2 z-50 ${isUserMenuOpen ? 'fixed' : 'hidden'} text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`} id="user-dropdown">
         <div className="px-4 py-3">
           <span className="block text-sm text-gray-900 dark:text-white">{auth.user.username}</span>
           <span className="block text-sm text-gray-500 truncate dark:text-gray-400">{auth.user.email}</span>
