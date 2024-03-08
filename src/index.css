@@ -13,7 +13,7 @@ body {
   --color-end: #131313; /* Slate-800 */
   
   /* Apply linear gradient background to the body */
-  background-color: black;
+  background-color: rgba(24, 23, 23, 0.94);
   
   /* Ensure the gradient covers the entire viewport */
   min-height: 100vh;

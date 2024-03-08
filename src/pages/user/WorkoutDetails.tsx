@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import useAxiosPrivate from '../../axios/useAxiosPrivate';
 import ReactPlayer from 'react-player';
+import BlogCard from '../../components/dashboard/BlogCard';
+import SearchBar from '../../components/dashboard/SearchBar';
 
 type Props = {}
 
@@ -41,16 +43,20 @@ useEffect(() => {
   return (
     <div>
 
-       <h2 className='text-white'>{workoutDetails?.title}</h2>
+       <h2 className='text-white font-semibold text-3xl mb-6 mt-4'>{workoutDetails?.title}</h2>
        
        <ReactPlayer
-                    url={`workoutDetails.videoUrl`}
+                    url={workoutDetails?.videoUrl}
                     controls
-                    width="50%"
-                    height="50%"
+                    width='100%'
+                    light={<img src={`http://localhost:5000/${workoutDetails?.thumbnail}`} alt='Thumbnail' className='h-full w-full' />}
+                    muted={true}
+                   
                     // playing={true}
-                />
-       {/* <ReactPlayer url={workoutDetails?.videoUrl}/>   */}
+      
+      />
+<h2 className='text-white c'>Overview</h2>
+     <p className='text-white'>{workoutDetails?.explanation}</p>
     </div>
   )
 }
