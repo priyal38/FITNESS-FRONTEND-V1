@@ -51,13 +51,15 @@ useEffect(() => {
                     width='100%'
                     light={<img src={`http://localhost:5000/${workoutDetails?.thumbnail}`} alt='Thumbnail' className='h-full w-full' />}
                     muted={true}
-                   
                     // playing={true}
       
       />
 <h2 className='text-white c'>Overview</h2>
      <p className='text-white'>{workoutDetails?.explanation}</p>
+    
     </div>
+
+    
   )
 }
 

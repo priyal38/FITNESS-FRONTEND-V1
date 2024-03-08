@@ -47,9 +47,9 @@ const Login = () => {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true
       });
-
+console.log(response)
       const { token } = response.data;
-      const {role , email , firstname , lastname} = response.data.user;
+      const {role , email , firstname , lastname , _id} = response.data.user;
       const username = firstname + " " + lastname;
       console.log(username)
 
@@ -58,7 +58,7 @@ const Login = () => {
         window.localStorage.setItem(
           'user',
           JSON.stringify({
-            role, token , email , username
+            role, token , email , username , id:_id
           }),
         );
 
@@ -67,7 +67,8 @@ const Login = () => {
             username,
             email,
             role,
-            token
+            token,
+            id:_id
           },
           
         })
