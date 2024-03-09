@@ -30,14 +30,14 @@ const UserDashboard = () => {
     <>
     <Navbar handleDrawerToggle={handleDrawerToggle} />
     <div className="flex  flex-row justify-between ">
-      <div className="md:w-[18rem]">
+      
         <Sidebar
           mobileOpen={mobileOpen}
           handleDrawerClose={handleDrawerClose}
           menuItems = {UserMenuItems}
         />
-      </div>
-      <main className=" pt-20 pl-5 pr-5 pb-10 w-full  h-full">
+      
+      <main className=" pt-20 pl-5 pr-5 pb-10  md:ml-[15rem] w-full  h-full">
         <Suspense fallback = {<Loading/>} >
          <Routes>
        <Route path="home" element={<UserHome />} />

@@ -12,7 +12,7 @@ const WorkoutCard = ({ id , imageSrc, title }: Props) => {
     return (
         <div>
 <Link to={`${id}`}>
-            <div className=" rounded overflow-hidden shadow-md shadow-slate-700 flex flex-col bg-gray-800">
+            <div className=" rounded overflow-hidden shadow-md shadow-slate-700 flex flex-col bg-surface-200">
                 <div className='overflow-hidden h-48'>
                     <img
                         className="w-full h-full object-fit"

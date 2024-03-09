@@ -9,8 +9,8 @@ import axios from 'axios';
 import toast, {Toaster} from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import Header from '../../components/LandingPage/Header';
+import Footer from '../../components/LandingPage/Footer';
 
 const schema = yup.object().shape({
   email: yup.string().email('Invalid email').required('Email is required'),
