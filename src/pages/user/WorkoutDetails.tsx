@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useAxiosPrivate from '../../axios/useAxiosPrivate';
 import ReactPlayer from 'react-player';
-import FormModal from '../../components/dashboard/FormModal';
+import FormModal from '../../components/dashboard/common/FormModal';
 
 type Props = {};
 
@@ -45,7 +45,7 @@ const WorkoutDetails = (props: Props) => {
     <div>
       {modalOpen && (
         <>
-          <div className="fixed inset-0 bg-black opacity-65
+          <div className="fixed inset-0 bg-black opacity-80
                      " onClick={handleCloseModal}></div>
           <FormModal handleCloseModal={handleCloseModal} />
         </>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { AdminMenuItems } from '../utils/MenuItems';
 import { Route , Routes } from 'react-router-dom';
-import Navbar from '../components/dashboard/Navbar/Navbar';
-import Sidebar from '../components/dashboard/Sidebar';
+import Navbar from '../components/dashboard/common/Navbar';
+import Sidebar from '../components/dashboard/common/Sidebar';
 import { Suspense } from 'react';
 import Loading from '../components/Loading';
-import Sidebar2 from '../components/dashboard/Sidebar2';
+
 
 
 
@@ -30,18 +30,27 @@ const AdminDashboard = () => {
 
   return (
     <>
-      <Navbar handleDrawerToggle={handleDrawerToggle} />
-    <div className="flex flex-row justify-between">
-      
-      <div className="md:w-[18rem]">
-        <Sidebar2
-          mobileOpen={mobileOpen}
+    
+
+
+     {/* <!-- ===== Page Wrapper Start ===== --> */}
+     <div className="flex h-screen overflow-hidden">
+        {/* <!-- ===== Sidebar Start ===== --> */}
+        <Sidebar  mobileOpen={mobileOpen}
           handleDrawerClose={handleDrawerClose}
-          menuItems={AdminMenuItems}
-        />
-      </div>
-      <main className="  bg-gray-900  pt-20 pl-5 pr-5 pb-10 w-full h-full  ">
-  <Suspense fallback={<Loading/>}>
+          menuItems = {AdminMenuItems} />
+        {/* <!-- ===== Sidebar End ===== --> */}
+
+        {/* <!-- ===== Content Area Start ===== --> */}
+        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+          {/* <!-- ===== Header Start ===== --> */}
+          <Navbar  handleDrawerToggle={handleDrawerToggle} />
+          {/* <!-- ===== Header End ===== --> */}
+
+          {/* <!-- ===== Main Content Start ===== --> */}
+          <main>
+            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+            <Suspense fallback={<Loading/>}>
       <Routes>
        <Route path="addworkout" element={<AddWorkout />} />
        <Route path="home" element={<AdminHome />} />
@@ -50,9 +59,16 @@ const AdminDashboard = () => {
         <Route path="profile" element={<AdminProfile />} />
         </Routes>
         </Suspense>
-      </main>
-    </div>
+            </div>
+          </main>
+          {/* <!-- ===== Main Content End ===== --> */}
+        </div>
+        {/* <!-- ===== Content Area End ===== --> */}
+      </div>
+      {/* <!-- ===== Page Wrapper End ===== --> */}
+    
     </>
+  
   );
 };
 

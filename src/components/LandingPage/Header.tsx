@@ -5,6 +5,7 @@ import { Link as LinkRouter } from 'react-router-dom';
 import {Link }  from 'react-scroll'
 import userImg from '../../images/user.png'
 import { useAuth } from '../../context/AuthContext';
+import Logo from '../../images/MainLogo.png'
 
 
 const Header = () => {
@@ -38,7 +39,7 @@ navigate('/user')
       <nav className=" fixed w-full z-20 top-0  bg-surface-100 border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <LinkRouter to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
+            <img src={Logo} className="h-11" alt="Flowbite Logo" />
           </LinkRouter>
           <div className="flex items-center md:order-2 space-x-0 md:space-x-0 ">
 

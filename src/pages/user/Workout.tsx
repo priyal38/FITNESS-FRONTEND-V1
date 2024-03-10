@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import SearchBar from '../../components/dashboard/SearchBar'
-import WorkoutCard from '../../components/dashboard/WorkoutCard'
+import SearchBar from '../../components/dashboard/common/SearchBar'
+import WorkoutCard from '../../components/dashboard/workout/WorkoutCard'
 import useAxiosPrivate from "../../axios/useAxiosPrivate";
 
 type Props = {}

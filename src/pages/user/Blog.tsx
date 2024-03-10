@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import BlogCard from '../../components/dashboard/BlogCard'
-import SearchBar from '../../components/dashboard/SearchBar'
+import BlogCard from '../../components/dashboard/blog/BlogCard'
+import SearchBar from '../../components/dashboard/common/SearchBar'
 import useAxiosPrivate from '../../axios/useAxiosPrivate'
 
 

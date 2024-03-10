@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route , Routes } from 'react-router-dom';
 import { UserMenuItems } from '../utils/MenuItems';
-import Navbar from '../components/dashboard/Navbar/Navbar';
-import Sidebar from '../components/dashboard/Sidebar';
+import Navbar from '../components/dashboard/common/Navbar';
+import Sidebar from '../components/dashboard/common/Sidebar';
 import { Suspense } from 'react';
 import Loading from '../components/Loading';
-import Sidebar2 from '../components/dashboard/Sidebar2';
+
 
 
 const Workout = React.lazy(()=> import("../pages/user/Workout"))
@@ -29,29 +29,8 @@ const UserDashboard = () => {
 
   return (
     <>
-    {/* <Navbar handleDrawerToggle={handleDrawerToggle} />
-    <div className="flex  flex-row justify-between ">
-      
-        <Sidebar
-          mobileOpen={mobileOpen}
-          handleDrawerClose={handleDrawerClose}
-          menuItems = {UserMenuItems}
-        />
-      
-      <main className=" pt-20 pl-5 pr-5 pb-10  md:ml-[15rem] w-full  h-full">
-        <Suspense fallback = {<Loading/>} >
-         <Routes>
-       <Route path="home" element={<UserHome />} />
-        <Route path="workout" element={<Workout />} />
-        <Route path="nutrition" element={<Nutrition />} />
-        <Route path="profile" element={<UserProfile/>} />
-        <Route path="workout/:id" element={<WorkoutDetailsPage />} />
-        <Route path="blog" element={<Blog/>} />
-        </Routes>
-        </Suspense>
-      </main>
-    </div> */}
-    <div className="dark:bg-boxdark-2 dark:text-bodydark">
+    
+  
       {/* <!-- ===== Page Wrapper Start ===== --> */}
       <div className="flex h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}
@@ -68,7 +47,7 @@ const UserDashboard = () => {
 
           {/* <!-- ===== Main Content Start ===== --> */}
           <main>
-            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10 bg-surface-100">
             <Suspense fallback = {<Loading/>} >
          <Routes>
        <Route path="home" element={<UserHome />} />
@@ -86,7 +65,7 @@ const UserDashboard = () => {
         {/* <!-- ===== Content Area End ===== --> */}
       </div>
       {/* <!-- ===== Page Wrapper End ===== --> */}
-    </div>
+    
     </>
   );
 };

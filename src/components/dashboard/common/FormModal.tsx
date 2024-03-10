@@ -2,7 +2,7 @@ import React from 'react';
 import { IoMdClose } from "react-icons/io";
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import useAxiosPrivate from '../../axios/useAxiosPrivate';
+import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 import toast , { Toaster } from 'react-hot-toast';
 
 type Props = {
