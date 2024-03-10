@@ -18,6 +18,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, handleDrawerClose, menuIt
        }`}
       > */}
       {/* Conditionally render the mobile drawer based on the mobileOpen state */}
+<<<<<<< HEAD
       <aside
       
       className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark md:static md:translate-x-0 ${
@@ -26,6 +27,9 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, handleDrawerClose, menuIt
     >
 
       {/* <div className={`absolute inset-y-0  bg-gray-950 duration-300 transform md:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}> */}
+=======
+      <div className={`fixed inset-y-0 bg-gray-950 duration-300 transform md:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+>>>>>>> c8b3a53881ad574ea001b6c34a4a58929e3d5fcc
         <div className="flex flex-col h-full  shadow-lg w-60 ">
           <div className="flex items-center justify-between h-16">
             <img src={logo} alt="Logo" className="h-16 ml-2" />

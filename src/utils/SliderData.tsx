@@ -1,22 +1,27 @@
 import React from "react";
+import img1 from '../images/1179.gif'
+import img2 from '../images/slide1.jpg'
+import img3 from '../images/slide2.jpg'
+import img4 from '../images/slide3.jpg'
+
 export const SliderData = [
     {
       id: 1,
-      bgImg: "https://source.unsplash.com/random/?fitness",
+      bgImg: img2,
       slogan: "Keep your body",
       title: "Burning",
       desc: "Get ready to burn off some serious fat with our high quality products.",
     },
     {
       id: 2,
-      bgImg: "https://source.unsplash.com/random/?gym",
+      bgImg: img3,
       slogan: "Just Believe In",
       title: "Yourself",
       desc: "We are here to help you achieve your goals.",
     },
     {
       id: 3,
-      bgImg: "https://source.unsplash.com/random/?yoga",
+      bgImg: img4,
       slogan: "Grow Your Body",
       title: "Strength",
       desc: "Make your body stronger with our high quality products.",

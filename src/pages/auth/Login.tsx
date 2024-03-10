@@ -9,8 +9,8 @@ import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import Header from '../../components/LandingPage/Header';
+import Footer from '../../components/LandingPage/Footer';
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 
@@ -47,9 +47,9 @@ const Login = () => {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true
       });
-
+console.log(response)
       const { token } = response.data;
-      const {role , email , firstname , lastname} = response.data.user;
+      const {role , email , firstname , lastname , _id} = response.data.user;
       const username = firstname + " " + lastname;
       console.log(username)
 
@@ -58,7 +58,7 @@ const Login = () => {
         window.localStorage.setItem(
           'user',
           JSON.stringify({
-            role, token , email , username
+            role, token , email , username , id:_id
           }),
         );
 
@@ -67,7 +67,8 @@ const Login = () => {
             username,
             email,
             role,
-            token
+            token,
+            id:_id
           },
           
         })
@@ -102,14 +103,14 @@ const Login = () => {
       <div className="min-h-screen flex items-center justify-center">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <img src={imagelogin} alt="" className="w-full h-full object-cover opacity-40 brightness-50" />
+          <img src={imagelogin} alt="" className="w-full h-full object-cover opacity-35 brightness-50" />
         </div>
 
         {/* Login Form */}
         <div className="relative mx-auto w-full max-w-md">
-          <div className="bg-gray-900 shadow-xl shadow-neutral-600 ml-2 mr-2 rounded-2xl px-8 pt-6 pb-8 mb-4">
+          <div className="bg-surface-200 shadow-inner shadow-neutral-200 ml-2 mr-2 rounded-2xl px-8 pt-6 pb-8 mb-4">
             <div className="text-center">
-              <div className="bg-fuchsia-900  rounded-full inline-block p-2">
+              <div className="bg-primary-400  rounded-full inline-block p-2">
                 <LockOutlinedIcon className="h-10 w-10 text-white" />
               </div>
               <h2 className="mt-1 text-xl font-medium text-white">Login</h2>
@@ -120,33 +121,33 @@ const Login = () => {
 
 
                 <div className="flex">
-                  <span className="inline-flex items-center px-3 text-sm  border border-e-0  rounded-s-md bg-gray-600 text-gray-400 border-gray-600">
+                  <span className="inline-flex items-center px-3 text-sm  border border-e-0  rounded-s-md bg-surface-200 text-gray-400 border-gray-600">
                     <MdEmail className='h-6 w-6' />
                   </span>
-                  <input type="text"  {...register('email')} className="rounded-none rounded-e-lg border block flex-1 min-w-0 w-full text-sm p-2.5  bg-gray-700  border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter email" />
-                  {errors.email && <p className="text-red-500 text-sm italic">{errors.email.message}</p>}
+                  <input type="text"  {...register('email')} className="rounded-none rounded-e-lg border block flex-1 min-w-0 w-full text-sm p-2.5  bg-surface-200  border-gray-600 placeholder-gray-200 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter email" />
                 </div>
+                  {errors.email && <p className="text-red-500 text-sm italic">{errors.email.message}</p>}
               </div>
               <div className="mb-4">
                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Password</label>
 
                 <div className="flex">
-                  <span className="inline-flex items-center px-3 text-sm  border border-e-0  rounded-s-md bg-gray-600 text-gray-400 border-gray-600">
+                  <span className="inline-flex items-center px-3 text-sm  border border-e-0  rounded-s-md bg-surface-200 text-gray-400 border-gray-600">
                     < RiLockPasswordFill className='h-6 w-6' />
                   </span>
-                  <input type="password"  {...register('password')} className="rounded-none rounded-e-lg border block flex-1 min-w-0 w-full text-sm p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter Password" />
-                  {errors.password && <p className="text-red-500 text-sm italic">{errors.password.message}</p>}
+                  <input type="password"  {...register('password')} className="rounded-none rounded-e-lg border block flex-1 min-w-0 w-full text-sm p-2.5  bg-surface-200 border-gray-600 placeholder-gray-200 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter Password" />
                 </div>
+                  {errors.password && <p className="text-red-500 text-sm italic">{errors.password.message}</p>}
               </div>
               <div className="mb-4 text-center">
-                <button className="bg-blue-800 hover:bg-blue-600 w-full text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline" type="submit">Login</button>
+                <button className="bg-primary-400 hover:bg-primary-200  w-full text-white font-medium py-2 px-3 rounded-lg focus:outline-none focus:shadow-outline text-lg tracking-wider" type="submit"> Login</button>
               </div>
               <div className='flex justify-between'>
                 <div className="text-center">
-                  <Link to="/forgot" className="inline-block align-baseline text-sm text-blue-500 hover:underline">Forgot password</Link>
+                  <Link to="/forgot" className="inline-block align-baseline text-sm text-primary-600 hover:underline">Forgot password</Link>
                 </div>
                 <div className="text-center">
-                  <Link to="/signup" className="inline-block align-baseline text-sm text-blue-500 hover:underline">Don't have an account? Sign Up</Link>
+                  <Link to="/signup" className="inline-block align-baseline text-sm text-primary-600 hover:underline">Don't have an account? Sign Up</Link>
                 </div>
               </div>
             </form>

@@ -1,10 +1,10 @@
 import React from 'react'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
-import Hero  from '../../components/Hero'
-import AboutUs  from '../../components/AboutUs'
-import Features from '../../components/Features'
-import Contact from '../../components/Contact'
+import Header from '../../components/LandingPage/Header'
+import Footer from '../../components/LandingPage/Footer'
+import Hero  from '../../components/LandingPage/Hero'
+import AboutUs  from '../../components/LandingPage/AboutUs'
+import Features from '../../components/LandingPage/Features'
+import Contact from '../../components/LandingPage/Contact'
 
 
 

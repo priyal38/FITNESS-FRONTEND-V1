@@ -8,12 +8,12 @@ body {
   font-family:  "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-image: url(./images/bg.jpg); */
-  --color-start: #3a3a3b; /* Slate-600 */
-  --color-end: #131313; /* Slate-800 */
+
+
+
   
   /* Apply linear gradient background to the body */
-  background-color: rgba(24, 23, 23, 0.94);
+  background-color:  #121212;
   
   /* Ensure the gradient covers the entire viewport */
   min-height: 100vh;

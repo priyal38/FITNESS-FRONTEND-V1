@@ -1,64 +1,90 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useAxiosPrivate from '../../axios/useAxiosPrivate';
 import ReactPlayer from 'react-player';
-import BlogCard from '../../components/dashboard/BlogCard';
-import SearchBar from '../../components/dashboard/SearchBar';
+import FormModal from '../../components/dashboard/FormModal';
 
-type Props = {}
+type Props = {};
 
-interface Workoutdata {
-title:string;
-explanation:string;
-category:string;
-subCategory:string;
-difficultyLevel:string;
-thumbnail:string
-videoUrl:string
-equipment:string
+interface WorkoutData {
+  title: string;
+  explanation: string;
+  videoUrl: string;
+  thumbnail: string;
 }
 
 const WorkoutDetails = (props: Props) => {
-    const {id} = useParams()
-    const axiosPrivate = useAxiosPrivate();
-const [workoutDetails , setWorkoutDetails] = useState<Workoutdata | null >(null)
+  const { id } = useParams();
+  const axiosPrivate = useAxiosPrivate();
+  const [workoutDetails, setWorkoutDetails] = useState<WorkoutData | null>(null);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
 
-useEffect(() => {
-    const fetchWorkoutDetails = async () => {
-      try {
-        const response = await axiosPrivate.get(`/workout/getworkout/${id}`);
-        setWorkoutDetails(response.data.data);
-        // console.log(response)
-      } catch (error) {
-        console.error('Error fetching workout details:', error);
-      }
-    };
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
+  const fetchWorkoutDetails = async () => {
+    try {
+      const response = await axiosPrivate.get(`/workout/getworkout/${id}`);
+      setWorkoutDetails(response.data.data);
+    } catch (error) {
+      console.error('Error fetching workout details:', error);
+    }
+  };
+
+  useEffect(() => {
     fetchWorkoutDetails();
   }, [id]);
 
-  console.log(workoutDetails)
   return (
     <div>
+      {modalOpen && (
+        <>
+          <div className="fixed inset-0 bg-black opacity-65
+                     " onClick={handleCloseModal}></div>
+          <FormModal handleCloseModal={handleCloseModal} />
+        </>
+      )}
 
-       <h2 className='text-white font-semibold text-3xl mb-6 mt-4'>{workoutDetails?.title}</h2>
-       
-       <ReactPlayer
-                    url={workoutDetails?.videoUrl}
-                    controls
-                    width='100%'
-                    light={<img src={`http://localhost:5000/${workoutDetails?.thumbnail}`} alt='Thumbnail' className='h-full w-full' />}
-                    muted={true}
-                   
-                    // playing={true}
-      
-      />
-<h2 className='text-white c'>Overview</h2>
-     <p className='text-white'>{workoutDetails?.explanation}</p>
+      {workoutDetails && (
+        <>
+
+
+          <button
+            className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={handleOpenModal}
+          >
+            Add to your routine
+          </button>
+
+          <div className="flex gap-6 mb-6">
+
+            <div className='flex justify-center'>
+              <h2 className="text-white font-semibold  text-3xl truncate">{workoutDetails.title}</h2>
+            </div>
+            <ReactPlayer
+              url={workoutDetails.videoUrl}
+              controls
+              // width="50%"
+              light={<img src={`http://localhost:5000/${workoutDetails.thumbnail}`} alt="Thumbnail" className="h-full w-full" />}
+              muted={true}
+            />
+
+
+          </div>
+          <h2 className="text-white">Overview</h2>
+          <p className="text-white">{workoutDetails.explanation}</p>
+        </>
+      )}
+
+      {modalOpen && <FormModal handleCloseModal={handleCloseModal} />}
     </div>
-  )
-}
+  );
+};
 
-export default WorkoutDetails
+export default WorkoutDetails;
