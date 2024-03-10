@@ -1,10 +1,11 @@
 import React from 'react';
 import { AdminMenuItems } from '../utils/MenuItems';
 import { Route , Routes } from 'react-router-dom';
-import Navbar from '../components/dashboard/Navbar';
+import Navbar from '../components/dashboard/Navbar/Navbar';
 import Sidebar from '../components/dashboard/Sidebar';
 import { Suspense } from 'react';
 import Loading from '../components/Loading';
+import Sidebar2 from '../components/dashboard/Sidebar2';
 
 
 
@@ -33,7 +34,7 @@ const AdminDashboard = () => {
     <div className="flex flex-row justify-between">
       
       <div className="md:w-[18rem]">
-        <Sidebar
+        <Sidebar2
           mobileOpen={mobileOpen}
           handleDrawerClose={handleDrawerClose}
           menuItems={AdminMenuItems}
