@@ -2,8 +2,12 @@ import React from 'react'
 
 import CardDataStats from '../../components/dashboard/userDashboard/CardDataStats'
 import DoughnutChart from '../../components/dashboard/userDashboard/DoughnutChart';
+import BarChart from '../../components/dashboard/userDashboard/BarChart';
+import SelectedWorkoutTable from '../../components/dashboard/userDashboard/SelectedWorkoutTable';
+
 import { GiNightSleep } from "react-icons/gi";
 import { IoIosFitness } from "react-icons/io";
+import ProgressBar from '../../components/dashboard/userDashboard/ProgressBar';
 
 
 type Props = {}
@@ -34,17 +38,31 @@ const UserHome = (props: Props) => {
          
       </div>
 
-      <div className="mt-4 grid grid-cols-5 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+   <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5"> 
+  
         <DoughnutChart/>
-       
+        <BarChart/>
+      
+    
+      
+        
 
         
+   
         
-        <div className="col-span-12 xl:col-span-8">
-          {/* <TableOne /> */}
-        </div>
-        {/* <ChatCard /> */}
+
+        
+      
       </div>
+      <div className="grid grid-cols-12 gap-6">
+    <div className="col-span-12 xl:col-span-8">
+        <SelectedWorkoutTable />
+    </div>
+    <div className="col-span-12 xl:col-span-4">
+        <ProgressBar />
+    </div>
+</div>
+  
    
 
     </div>

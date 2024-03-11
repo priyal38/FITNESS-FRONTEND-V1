@@ -2,11 +2,31 @@
 
 
 import React, { useState } from 'react';
-import DataTable from 'react-data-table-component';
+import DataTable, { createTheme } from 'react-data-table-component';
 import { Close } from '@mui/icons-material';
 
 type Props = {}
-
+createTheme('solarized', {
+    text: {
+      primary: '#268bd2',
+      secondary: '#2aa198',
+    },
+    background: {
+      default: '#000000',
+    },
+    context: {
+      background: '#cb4b16',
+      text: '#FFFFFF',
+    },
+    divider: {
+      default: '#073642',
+    },
+    action: {
+      button: 'rgba(0,0,0,.54)',
+      hover: 'rgba(0,0,0,.08)',
+      disabled: 'rgba(0,0,0,.12)',
+    },
+  }, 'dark');
 const Tabletest = (props: Props) => {
     
   
@@ -206,6 +226,7 @@ const Tabletest = (props: Props) => {
                     subHeaderComponent ={
                         <input type='text' className='w-25' placeholder='search' onChange={handlefilter}/>
                     }
+                    theme="solarized"
                    
                     
                 />
