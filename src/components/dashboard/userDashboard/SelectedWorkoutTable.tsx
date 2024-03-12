@@ -6,56 +6,7 @@ import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 
 
 type Props = {}
-const packageData = [
-    {
-        name: 'Free package',
-        price: 0.0,
-        invoiceDate: `Jan 13,2023`,
-        status: 'Paid',
-    },
-    {
-        name: 'Standard Package',
-        price: 59.0,
-        invoiceDate: `Jan 13,2023`,
-        status: 'Paid',
-    },
-    {
-        name: 'Business Package',
-        price: 99.0,
-        invoiceDate: `Jan 13,2023`,
-        status: 'Unpaid',
-    },
-    {
-        name: 'Standard Package',
-        price: 59.0,
-        invoiceDate: `Jan 13,2023`,
-        status: 'Pending',
-    },
-    {
-        name: 'Standard Package',
-        price: 59.0,
-        invoiceDate: `Jan 13,2023`,
-        status: 'Pending',
-    },
-    {
-        name: 'Standard Package',
-        price: 59.0,
-        invoiceDate: `Jan 13,2023`,
-        status: 'Pending',
-    },
-    {
-        name: 'Standard Package',
-        price: 59.0,
-        invoiceDate: `Jan 13,2023`,
-        status: 'Pending',
-    },
-    {
-        name: 'Standard Package',
-        price: 59.0,
-        invoiceDate: `Jan 13,2023`,
-        status: 'Pending',
-    },
-];
+
 
 interface TableData {
    
@@ -69,12 +20,14 @@ interface TableData {
   }
 
 const SelectedWorkoutTable = (props: Props) => {
-  const [tabledata , setTableData] = useImmer<TableData[]>([])
+
+    const [selectedDate, setSelectedDate] = useState<string>('')
+  const [tabledata , setTableData] = useState<TableData[]>([])
    const axiosPrivate = useAxiosPrivate();
 
-   const getTableData = async () => {
+   const getTableData = async (date:string) => {
     try {
-      const response = await axiosPrivate.get('/progress/getdata');
+      const response = await axiosPrivate.get(`/progress/getdata?selectedDate=${date}`);
      
       setTableData(response.data.data);
  
@@ -84,10 +37,14 @@ const SelectedWorkoutTable = (props: Props) => {
       console.error('Error fetching workouts:', error);
     }
   };
-  useEffect(() => {
-    getTableData();
-  }, []);
 
+  useEffect(() => {
+    if (selectedDate) {
+        getTableData(selectedDate);
+    }
+}, [selectedDate]);
+
+console.log(selectedDate)
 
     return (
 
@@ -95,7 +52,7 @@ const SelectedWorkoutTable = (props: Props) => {
 
 <div className='flex justify-start items-center gap-6 mb-3'>
 
-<input  type="date" className=" border w-36  text-sm rounded-lg  block  ps-5 p-2 bg-primary-200 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Select date"/>
+<input  type="date" className=" border w-36  text-sm rounded-lg  block  ps-5 p-2 bg-primary-200 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Select date"  onChange={(e) => setSelectedDate(e.target.value)} />
    
                 <button className="inline-flex items-center borderfocus:outline-none focus:ring-1 font-medium rounded-md text-sm px-3 py-2 bg-primary-200 text-white border-gray-600 hover:bg-primary-400 hover:border-gray-600 focus:ring-gray-700" type="button">
                     <FaPlus className='w-4 h-4 text-white me-2' />
