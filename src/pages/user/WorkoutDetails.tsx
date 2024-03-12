@@ -82,7 +82,6 @@ const WorkoutDetails = (props: Props) => {
         </>
       )}
 
-      {modalOpen && <FormModal handleCloseModal={handleCloseModal} />}
     </div>
   );
 };
