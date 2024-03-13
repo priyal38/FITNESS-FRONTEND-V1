@@ -30,7 +30,6 @@ const Features = (props: Props) => {
             </Link>
           </div>
         </div>
-
         {/* =================card 2================== */}
 
         <div className=" p-6  bg-surface-200 border-gray-200 rounded-lg  shadow-inner shadow-gray-400">

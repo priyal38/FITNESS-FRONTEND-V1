@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import CardDataStats from '../../components/dashboard/userDashboard/CardDataStats'
 import DoughnutChart from '../../components/dashboard/userDashboard/DoughnutChart';
 import BarChart from '../../components/dashboard/userDashboard/BarChart';
+
 import SelectedWorkoutTable from '../../components/dashboard/userDashboard/SelectedWorkoutTable';
-import SelectedWorkoutTable2 from '../../components/dashboard/userDashboard/SelectedWorkoutTable2';
 
 import { GiNightSleep } from "react-icons/gi";
 import { IoIosFitness } from "react-icons/io";
@@ -53,6 +53,7 @@ const UserHome = () => {
     }
   }, [selectedDate]);
 
+  
 
   return (
     <div>
@@ -85,10 +86,10 @@ const UserHome = () => {
       </div>
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-12 xl:col-span-7">
-          <SelectedWorkoutTable2 setTableData={setTableData} selectedDate={selectedDate} tabledata={tabledata} getTableData={getTableData} onDateChange={handleDateChange} />
+          <SelectedWorkoutTable setTableData={setTableData} selectedDate={selectedDate} tabledata={tabledata} getTableData={getTableData} onDateChange={handleDateChange}  />
         </div>
         <div className="col-span-12 xl:col-span-5">
-          <ProgressBar tabledata={tabledata}/>
+          <ProgressBar tabledata={tabledata} getTableData={getTableData}selectedDate={selectedDate} />
         </div>
       </div>
 

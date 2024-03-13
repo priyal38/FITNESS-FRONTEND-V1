@@ -1,6 +1,6 @@
 import axios from 'axios';
-import React from 'react'
-import { useForm } from "react-hook-form";
+import React, { useEffect } from 'react'
+import { Controller, useForm } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
 
 type Props = {}
@@ -9,7 +9,7 @@ type Props = {}
 interface FormInput {
   title: string;
   category: string;
-  content: string;
+  content: string[];
   author: string;
   readtime: string;
   coverImg: string;
@@ -19,14 +19,16 @@ interface FormInput {
 
 const AddBlog = (props: Props) => {
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormInput>();
+
+
+  const { register, handleSubmit, formState: { errors ,isSubmitSuccessful} ,control, reset } = useForm<FormInput>();
 
   const onSubmit = async (data: FormInput ) => {
     try {
       const formData = new FormData();
       formData.append('title', data.title);
       formData.append('category', data.category);
-      formData.append('content', data.content);
+      formData.append('content',JSON.stringify(data.content));
       formData.append('author', data.author);
       formData.append('subtitle', data.subtitle);
       formData.append('readtime', data.readtime);
@@ -50,12 +52,18 @@ const AddBlog = (props: Props) => {
     }
   };
 
+
+  useEffect(()=>{
+    if(isSubmitSuccessful){
+        reset();
+    }
+        } , [isSubmitSuccessful ])
   return (
 
 
     <>
       <div className="max-w-xl  mx-auto mt-10 border bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
+        <div className="text-2xl py-4 px-6 bg-surface-200 text-white text-center font-bold uppercase">
           Add Blog
         </div>
         <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
@@ -123,12 +131,51 @@ const AddBlog = (props: Props) => {
             <label className="block text-gray-700 font-bold mb-2" >
               Content
             </label>
-            <textarea
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              {...register("content", {
-                required: "content required"
-              })}></textarea>
-              {errors.content && <p className="text-red-600 mt-1">{errors.content.message}</p>}
+            <Controller
+              name="content"
+              control={control}
+              defaultValue={[""]} // Initial value with an empty string
+              render={({ field }) => (
+                <>
+                  {field.value.map((content: string, index: number) => (
+                    <div key={index} className="flex mb-2">
+                      <input
+                        type="text"
+                        {...field}
+                        value={content}
+                        onChange={(e) => {
+                          const newpara = [...field.value];
+                          newpara[index] = e.target.value;
+                          field.onChange(newpara);
+                        }}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder={`Paragraph ${index + 1}`}
+                      />
+                      {index !== 0 && (
+                        <button
+                          type="button"
+                          className="ml-2 py-2 px-4 bg-red-400 text-white text-sm font-semibold rounded"
+                          onClick={() => {
+                            const newpara = [...field.value];
+                            newpara.splice(index, 1);
+                            field.onChange(newpara);
+                          }}
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => field.onChange([...field.value, ''])} // Append a new empty string
+                    className="mt-0.5 py-1 px-2 mb-4 bg-green-500 text-white font-semibold text-sm rounded"
+                  >
+                    Add Paragraph
+                  </button>
+                </>
+              )}
+            />
           </div>
 
 
@@ -163,7 +210,7 @@ const AddBlog = (props: Props) => {
 
           <div className="flex items-center justify-center mb-4">
             <button
-              className="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+              className="bg-surface-100 text-white py-2 px-4 rounded hover:bg-surface-200 focus:outline-none focus:shadow-outline"
               type="submit">
               Add Blog
             </button>

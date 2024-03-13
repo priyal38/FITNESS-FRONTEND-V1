@@ -80,13 +80,13 @@ const AddWorkout = (props: Props) => {
     if(isSubmitSuccessful){
         reset();
     }
-        } , [isSubmitSuccessful , reset])
+        } , [isSubmitSuccessful ])
   return (
 
 
     <>
       <div className="max-w-xl mx-auto mt-10 border  bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
+        <div className="text-2xl py-4 px-6 bg-surface-200 text-white text-center font-bold uppercase">
           Add Workout
         </div>
         <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
@@ -215,7 +215,7 @@ const AddWorkout = (props: Props) => {
 
           <div className="flex items-center justify-center mb-4">
             <button
-              className="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+              className="bg-surface-100 text-white py-2 px-4 rounded hover:bg-surface-200 focus:outline-none focus:shadow-outline"
               type="submit">
               Add workout
             </button>

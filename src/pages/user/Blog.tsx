@@ -12,6 +12,7 @@ interface BlogData {
   coverImg:string,
   subtitle:string
   readtime:number
+  category:string
 
 }
 const Blog = (props: Props) => {
@@ -38,7 +39,8 @@ const Blog = (props: Props) => {
     <>
       {/* <div className='flex flex-col justify-center items-center gap-4'> */}
         <SearchBar />
-<div className='grid grid-col-1 gap-4'>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 ">
+    
 
 
         {blogs.map(blog => (
@@ -48,9 +50,11 @@ const Blog = (props: Props) => {
             coverImg={`http://localhost:5000/${blog.coverImg}`}
             title={blog.title}
             subtitle={blog.subtitle}
-           readtime={blog.readtime} />
+           readtime={blog.readtime}
+           category={blog.category} />
         ))}
-</div>
+        </div>
+
 
        
 

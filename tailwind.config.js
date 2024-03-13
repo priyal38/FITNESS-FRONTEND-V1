@@ -35,6 +35,7 @@ export const theme = {
         600: '#8b8b8b',
       },
     },
+ 
   },
 }
 

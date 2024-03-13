@@ -12,6 +12,11 @@ interface WorkoutData {
   explanation: string;
   videoUrl: string;
   thumbnail: string;
+  category: string;
+  subCategory: string;
+  difficultyLevel: string;
+  equipment: string
+
 }
 
 const WorkoutDetails = (props: Props) => {
@@ -42,10 +47,10 @@ const WorkoutDetails = (props: Props) => {
   }, [id]);
 
   return (
-    <div>
+    <div className='px-2'>
       {modalOpen && (
         <>
-          <div className="fixed inset-0 bg-black opacity-80
+          <div className="fixed inset-0 backdrop-filter backdrop-blur-lg
                      " onClick={handleCloseModal}></div>
           <FormModal handleCloseModal={handleCloseModal} />
         </>
@@ -53,20 +58,10 @@ const WorkoutDetails = (props: Props) => {
 
       {workoutDetails && (
         <>
+         
 
 
-          <button
-            className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            onClick={handleOpenModal}
-          >
-            Add to your routine
-          </button>
-
-          <div className="flex gap-6 mb-6">
-
-            <div className='flex justify-center'>
-              <h2 className="text-white font-semibold  text-3xl truncate">{workoutDetails.title}</h2>
-            </div>
+          <div className="flex lg:flex-row flex-col gap-8">
             <ReactPlayer
               url={workoutDetails.videoUrl}
               controls
@@ -75,10 +70,47 @@ const WorkoutDetails = (props: Props) => {
               muted={true}
             />
 
+            <div className=''>
+              <div className='mb-4'>
+                <h2 className="text-white font-semibold  text-3xl truncate">{workoutDetails.title}</h2>
+              </div>
 
+
+              <div className='text-white mt-4 shadow-md'>
+                <table className='mx-w-lg'>
+                  <tr className='border-b bg-surface-200 border-gray-700 hover:bg-gray-600'>
+                    <td className='px-6 py-4'>Category:</td>
+                    <td className='px-4 py-4'>{workoutDetails.category}</td>
+                  </tr>
+                  <tr className='border-b bg-surface-200 border-gray-700 hover:bg-gray-600'>
+                    <td className='px-6 py-4'>SubCategory:</td>
+                    <td className='px-4 py-4'>{workoutDetails.subCategory}</td>
+                  </tr>
+                  <tr className='border-b bg-surface-200 border-gray-700 hover:bg-gray-600'>
+                    <td className='px-6 py-4'>DifficultyLevel:</td>
+                    <td className='px-4 py-4'>{workoutDetails.difficultyLevel}</td>
+                  </tr>
+                  <tr className='border-b bg-surface-200 border-gray-700 hover:bg-gray-600'>
+                    <td className='px-6 py-4'>Equipment:</td>
+                    <td className='px-4 py-4'>{workoutDetails.equipment}</td>
+                  </tr>
+                </table>
+
+              </div>
+ <button
+            className=" text-white mt-4 bg-primary-300 hover:bg-blue-800 focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={handleOpenModal}
+          >
+            Add to your routine
+          </button>
+
+            </div>
           </div>
-          <h2 className="text-white">Overview</h2>
-          <p className="text-white">{workoutDetails.explanation}</p>
+          <h3 className="text-white mt-6 mb-3 text-xl font-medium text-justify">Overview</h3>
+          <div className='mr-10'>
+
+            <p className="text-white text-sm  text-justify tracking-wide ">{workoutDetails.explanation}</p>
+          </div>
         </>
       )}
 

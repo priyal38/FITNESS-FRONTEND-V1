@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useForm, useFieldArray , Controller } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
@@ -39,7 +39,7 @@ interface FormInput {
 
 const AddHealthyRecipes = (props: Props) => {
 
-  const { register,handleSubmit,setValue, getValues, formState: { errors }, control  , watch} = useForm<FormInput>({
+  const { register,handleSubmit,setValue, getValues, formState: { errors  , isSubmitSuccessful}, control  , reset} = useForm<FormInput>({
     defaultValues: {
       ingredients: [{ name: "", quantity: "", unit: "" }],
     }
@@ -89,12 +89,18 @@ console.log(formData);
     }
   
   }
+
+  useEffect(()=>{
+    if(isSubmitSuccessful){
+        reset();
+    }
+        } , [isSubmitSuccessful ])
   return (
 
 
     <>
       <div className="max-w-xl  mx-auto mt-10 border bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
+        <div className="text-2xl py-4 px-6 bg-surface-200 text-white text-center font-bold uppercase">
           Add Healthy Recipes
         </div>
         <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
@@ -383,7 +389,7 @@ console.log(formData);
 
           <div className="flex items-center justify-center mb-4">
             <button
-              className="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+              className="bg-surface-100 text-white py-2 px-4 rounded hover:bg-surface-200 focus:outline-none focus:shadow-outline"
               type="submit">
               Add Recipe
             </button>

@@ -50,7 +50,7 @@ const FormModal = ({ handleCloseModal }: Props) => {
                     <h3 className="text-xl font-semibold text-white">Add to your routine</h3>
                     <button
                         type="button"
-                        className="text-gray-200 bg-transparent hover:bg-purple-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center"
+                        className="text-gray-200 bg-transparent hover:text-primary-500  rounded-lg text-sm w-8 h-8 flex items-center justify-center"
                         onClick={handleCloseModal}
                     >
                        <IoMdClose className='h-7 w-7'/>
