@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import SearchBar from '../../components/dashboard/common/SearchBar'
-import WorkoutCard from '../../components/dashboard/workout/WorkoutCard'
-import useAxiosPrivate from "../../axios/useAxiosPrivate";
+import SearchBar from '../../../components/dashboard/common/SearchBar'
+import WorkoutCard from '../../../components/dashboard/workout/WorkoutCard'
+import useAxiosPrivate from "../../../axios/useAxiosPrivate";
 
 type Props = {}
 
-interface WorkoutData {
+export interface WorkoutData {
   _id:string
   title:string,
   thumbnail:string
+  category: string;
+  subCategory: string;
+  difficultyLevel: string;
+  equipment: string;
+  videoUrl: string;
+  explanation:string
 
 }
 

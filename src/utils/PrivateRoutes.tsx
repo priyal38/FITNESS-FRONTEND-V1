@@ -12,7 +12,7 @@ const PrivateRoutes = () => {
       navigate('/login')
     
   }, [])
-  console.log(auth)
+  // console.log(auth)
   return (
     <Outlet />
   )

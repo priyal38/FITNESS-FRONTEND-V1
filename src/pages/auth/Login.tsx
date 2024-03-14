@@ -100,7 +100,7 @@ console.log(response)
   return (
     <>
       <Header />
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center mt-10">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img src={imagelogin} alt="" className="w-full h-full object-cover opacity-35 brightness-50" />

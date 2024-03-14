@@ -70,27 +70,27 @@ const ForgotPass = () => {
       </div>
 
       {/* forgot Form */}
-      <div className="relative mx-auto w-full max-w-md">
-        <div className="bg-gray-900 shadow-xl shadow-neutral-600 ml-2 mr-2 rounded-2xl px-8 pt-6 pb-8 mb-4">
+      <div className="relative mx-auto w-full mt-20 max-w-md">
+        <div className="bg-surface-200 shadow-inner shadow-neutral-200  ml-2 mr-2 rounded-2xl px-8 pt-6 pb-8 mb-4">
          
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">Email</label>
-              <input type="email" id="email" {...register('email')} className="text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="john.doe@company.com" required />
+              <input type="email" id="email" {...register('email')} className="text-sm rounded-lg block w-full p-2.5 bg-surface-200 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="john.doe@company.com" required />
               {errors.email && <p className="text-red-500 text-sm italic">{errors.email.message}</p>}
             </div>
             <div className="mb-4">
               <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Password</label>
-              <input type="password" id="password" {...register('password')} className="text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="•••••••••" required />
+              <input type="password" id="password" {...register('password')} className="text-sm rounded-lg block w-full p-2.5 bg-surface-200 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="•••••••••" required />
               {errors.password && <p className="text-red-500 text-sm italic">{errors.password.message}</p>}
             </div>
             <div className="mb-4">
               <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Confirm Password</label>
-              <input type="password" id="password" {...register('confirmPassword')} className="text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="•••••••••" required />
+              <input type="password" id="password" {...register('confirmPassword')} className="text-sm rounded-lg block w-full p-2.5 bg-surface-200 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="•••••••••" required />
               {errors.confirmPassword && <p className="text-red-500 text-sm italic">{errors.confirmPassword.message}</p>}
             </div>
             <div className="mb-4 text-center">
-              <button className="bg-blue-800 hover:bg-blue-600 w-full text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline" type="submit">Submit</button>
+              <button className="bg-primary-400 hover:bg-primary-200  w-full text-white font-medium py-2 px-3 rounded-lg focus:outline-none focus:shadow-outline text-lg tracking-wider" type="submit">Submit</button>
             </div>
            
           </form>

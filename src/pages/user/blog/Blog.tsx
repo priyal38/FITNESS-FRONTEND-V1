@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import BlogCard from '../../components/dashboard/blog/BlogCard'
-import SearchBar from '../../components/dashboard/common/SearchBar'
-import useAxiosPrivate from '../../axios/useAxiosPrivate'
+import BlogCard from '../../../components/dashboard/blog/BlogCard'
+import SearchBar from '../../../components/dashboard/common/SearchBar'
+import useAxiosPrivate from '../../../axios/useAxiosPrivate'
 
 
 type Props = {}
 
-interface BlogData {
+export interface BlogData {
   _id:string
   title:string,
+  content:string[],
+  author:string,
+  category:string,
   coverImg:string,
-  subtitle:string
   readtime:number
-  category:string
+  subtitle:string
 
 }
 const Blog = (props: Props) => {
@@ -37,8 +39,8 @@ const Blog = (props: Props) => {
   console.log(blogs)
   return (
     <>
-      {/* <div className='flex flex-col justify-center items-center gap-4'> */}
-        <SearchBar />
+   
+        {/* <SearchBar /> */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 ">
     
 
@@ -55,10 +57,6 @@ const Blog = (props: Props) => {
         ))}
         </div>
 
-
-       
-
-      {/* </div> */}
     </>
   )
 }

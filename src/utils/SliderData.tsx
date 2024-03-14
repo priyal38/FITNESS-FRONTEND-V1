@@ -1,5 +1,4 @@
-import React from "react";
-import img1 from '../images/1179.gif'
+// import React from "react"
 import img2 from '../images/slide1.jpg'
 import img3 from '../images/slide2.jpg'
 import img4 from '../images/slide3.jpg'

@@ -148,6 +148,7 @@ console.log(formData);
                 <option value="Dinner"> Dinner</option>
                 <option value="Snack">Snack</option>
                 <option value="Dessert">Dessert</option>
+                <option value="Side Dish">Side Dish</option>
 
               </select>
               {errors.mealType && <span className="text-red-500 text-xs italic">{errors.mealType.message}</span>}
@@ -166,10 +167,11 @@ console.log(formData);
                 <option value="">Select a dietaryType</option>
                 <option value="Vegetarian">Vegetarian</option>
                 <option value="Vegan">Vegan</option>
-                <option value="Gluten-Free">Gluten-Free</option>
+                <option value="Non-Vegetarian">Non-Vegetarian</option>
+                {/* <option value="Gluten-Free">Gluten-Free</option>
                 <option value="Low-Carb">Low-Carb</option>
                 <option value="Low-Fat">Low-Fat</option>
-                <option value="High-Protein">High-Protein</option>
+                <option value="High-Protein">High-Protein</option> */}
 
               </select>
               {errors.mealType && <span className="text-red-500 text-xs italic">{errors.mealType.message}</span>}

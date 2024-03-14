@@ -61,11 +61,11 @@ interface FormData {
     return (
         <>
           <Header />
-            <div className="h-screen mt-20 flex items-center justify-center">
-                <div className="absolute mt-16 h-screen inset-0 z-0">
+            <div className="min-h-screen flex items-center justify-center mt-10">
+                <div className="absolute inset-0 z-0">
                     <img src={imagesignup} alt="" className="w-full h-full object-cover opacity-40 brightness-50" />
                 </div>
-                <div className="relative mx-auto w-full max-w-xl">
+                <div className="relative mx-auto w-full mt-20 max-w-xl">
                     <div className="bg-surface-200 shadow-inner shadow-neutral-200 ml-2 mr-2 rounded-2xl px-8 pt-6 pb-8 mb-4">
                         <div className="text-center">
                             <div className="bg-primary-400 rounded-full inline-block p-2">

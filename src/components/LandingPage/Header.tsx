@@ -53,7 +53,7 @@ navigate('/user')
   ):(
     <>
      <LinkRouter to="/signup">
-              <button className=' md:block  bg-primary-400 px-4 py-2 ml-2 mr-2 font-medium tracking-wider rounded-lg text-white'>SignUp</button>
+              <button className=' md:block hidden  bg-primary-400 px-4 py-2 ml-2 mr-2 font-medium tracking-wider rounded-lg text-white'>SignUp</button>
             </LinkRouter>
            
     </>
@@ -61,7 +61,7 @@ navigate('/user')
 
 
             {/* ========================================= */}
-            <button data-collapse-toggle="navbar-user" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white  rounded-lg md:hidden  focus:outline-none focus:ring-2 focus:ring-gray-200" onClick={toggleMenu}>
+            <button type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white  rounded-lg md:hidden  " onClick={toggleMenu}>
               <TiThMenu className=' h-6 w-6' />
             </button>
           </div>
@@ -70,7 +70,7 @@ navigate('/user')
           <div className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMenuOpen ? 'block' : 'hidden'}`} id="navbar-user">
             <ul className="flex flex-col font-medium p-4 md:p-0 mt-4   bg-surface-100 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
               <li>
-                <LinkRouter to="/"  className="block py-2 px-3 text-white rounded hover:bg-gray-700 md:hover:bg-transparent md:hover:text-gray-200 md:p-0 " aria-current="page">Home</LinkRouter>
+                <Link to="home"  className="block py-2 px-3 text-white rounded hover:bg-gray-700 md:hover:bg-transparent md:hover:text-gray-200 md:p-0 " aria-current="page">Home</Link>
               </li>
               <li>
                 <Link to="about" smooth={true} duration={500} className="block py-2 px-3 text-white rounded hover:bg-gray-700 md:hover:bg-transparent md:hover:text-gray-200 cur md:p-0">About</Link>
@@ -82,6 +82,14 @@ navigate('/user')
               <li>
                 <Link to="contact" className="block py-2 px-3 text-white rounded hover:bg-gray-700 md:hover:bg-transparent md:hover:text-gray-200 md:p-0">Contact</Link>
               </li>
+
+              {!auth.user.token && (
+                <li className="md:hidden">
+                  <LinkRouter to="/signup">
+                    <button className='block w-full px-4 py-2 text-sm rounded-lg bg-primary-400 text-white'>SignUp</button>
+                  </LinkRouter>
+                </li>
+              )}
             </ul>
           </div>
         </div>

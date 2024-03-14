@@ -4,7 +4,7 @@ import { Route , Routes } from 'react-router-dom';
 import Navbar from '../components/dashboard/common/Navbar';
 import Sidebar from '../components/dashboard/common/Sidebar';
 import { Suspense } from 'react';
-import Loading from '../components/Loading';
+import Loading from '../components/dashboard/common/Loading';
 
 
 

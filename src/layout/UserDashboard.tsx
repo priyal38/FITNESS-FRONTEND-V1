@@ -4,16 +4,19 @@ import { UserMenuItems } from '../utils/MenuItems';
 import Navbar from '../components/dashboard/common/Navbar';
 import Sidebar from '../components/dashboard/common/Sidebar';
 import { Suspense } from 'react';
-import Loading from '../components/Loading';
+import Loading from '../components/dashboard/common/Loading';
 
 
 
-const Workout = React.lazy(()=> import("../pages/user/Workout"))
-const Nutrition = React.lazy(()=> import("../pages/user/Nutrition"))
+const Workout = React.lazy(()=> import("../pages/user/workout/Workout"))
+const Recipe = React.lazy(()=> import("../pages/user/recipe/Recipe"))
 const UserProfile = React.lazy(()=> import("../pages/user/UserProfile"))
-const Blog = React.lazy(()=> import("../pages/user/Blog"))
+const Blog = React.lazy(()=> import("../pages/user/blog/Blog"))
 const UserHome = React.lazy(()=> import("../pages/user/UserHome"))
-const WorkoutDetailsPage = React.lazy(()=>import('../pages/user/WorkoutDetails'))
+const BlogDetails  = React.lazy(()=> import("../pages/user/blog/BlogDetails"))
+
+const WorkoutDetailsPage = React.lazy(()=>import('../pages/user/workout/WorkoutDetails'))
+
 
 const UserDashboard = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -52,9 +55,10 @@ const UserDashboard = () => {
          <Routes>
        <Route path="home" element={<UserHome />} />
         <Route path="workout" element={<Workout />} />
-        <Route path="nutrition" element={<Nutrition />} />
+        <Route path="nutrition" element={<Recipe />} />
         <Route path="profile" element={<UserProfile/>} />
         <Route path="workout/:id" element={<WorkoutDetailsPage />} />
+        <Route path="blog/:id" element={<BlogDetails />} />
         <Route path="blog" element={<Blog/>} />
         </Routes>
         </Suspense>
