@@ -14,8 +14,8 @@ import { IoMdSettings } from "react-icons/io";
 const UserMenuItems: menuItem[] = [
   { text: "Dashboard", path: "home", icon: <MdDashboard className=' mt-1' /> },
   { text: "Workout", path: "workout", icon: <IoMdFitness /> },
-  { text: "Nutrition Plan", path: "nutrition", icon: <MdMenuBook /> },
-  { text: "Blogs", path: "blog", icon: <RiArticleFill /> },
+  { text: "Healthy Recipes", path: "healthyrecipes", icon: <MdMenuBook /> },
+  { text: "Blogs & Articles", path: "blog", icon: <RiArticleFill /> },
   { text: "Setting", path: "setting", icon: <IoMdSettings /> }
 ];
 

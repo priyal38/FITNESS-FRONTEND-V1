@@ -14,7 +14,7 @@ const UserProfile = React.lazy(()=> import("../pages/user/UserProfile"))
 const Blog = React.lazy(()=> import("../pages/user/blog/Blog"))
 const UserHome = React.lazy(()=> import("../pages/user/UserHome"))
 const BlogDetails  = React.lazy(()=> import("../pages/user/blog/BlogDetails"))
-
+const RecipeDetails =React.lazy(()=>import("../pages/user/recipe/RecipeDetails"))
 const WorkoutDetailsPage = React.lazy(()=>import('../pages/user/workout/WorkoutDetails'))
 
 
@@ -55,10 +55,11 @@ const UserDashboard = () => {
          <Routes>
        <Route path="home" element={<UserHome />} />
         <Route path="workout" element={<Workout />} />
-        <Route path="nutrition" element={<Recipe />} />
+        <Route path="healthyrecipes" element={<Recipe />} />
         <Route path="profile" element={<UserProfile/>} />
         <Route path="workout/:id" element={<WorkoutDetailsPage />} />
         <Route path="blog/:id" element={<BlogDetails />} />
+        <Route path="healthyrecipes/:id" element={<RecipeDetails />} />
         <Route path="blog" element={<Blog/>} />
         </Routes>
         </Suspense>

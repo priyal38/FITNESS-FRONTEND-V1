@@ -32,12 +32,7 @@ const RecipeCard = ({ id ,title  , description , dietaryType , image} :Props) =>
                 <button className=' w-full  borderfocus:outline-none focus:ring-1 font-medium rounded-md text-sm px-4 py-2 bg-primary-300 text-white  hover:bg-primary-400 '>View Recipe</button> 
             
               </Link>
-              {/* <span className="text-gray-500 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-700">
-               <MdOutlineRemoveRedEye className='w-4 h-4 mr-1'/>1.2K
-              </span>
-              <span className="text-gray-500 inline-flex items-center leading-none text-sm">
-           <FaRegComment className='h-4 w-4 mr-1'/>6
-              </span> */}
+             
             </div>
           </div>
         </div>

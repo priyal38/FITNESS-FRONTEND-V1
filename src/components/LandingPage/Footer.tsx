@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaTwitterSquare } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
 import { FaSquareYoutube } from "react-icons/fa6";
-
+import Logo from '../../images/MainLogo.png'
 type Props = {}
 
 const Footer = (props: Props) => {
@@ -15,8 +15,8 @@ const Footer = (props: Props) => {
         <div className="w-full max-w-screen-xl mx-auto pt-4 px-8 pb-4 ">
             <div className="sm:flex sm:items-center sm:justify-between">
                 <Link to="/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                    <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">FlexFit</span>
+                    <img src={Logo} className="h-8" alt="Flowbite Logo" />
+                   
                 </Link>
                 <ul className="flex flex-wrap items-center mb-2 text-sm font-medium text-white sm:mb-0 ">
                     <li>

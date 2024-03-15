@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import BlogCard from '../../../components/dashboard/blog/BlogCard'
 import SearchBar from '../../../components/dashboard/common/SearchBar'
 import useAxiosPrivate from '../../../axios/useAxiosPrivate'
+import CardSkeleton from  '../../../components/dashboard/common/CardSkeleton'
 
 
 type Props = {}
@@ -20,6 +21,7 @@ export interface BlogData {
 const Blog = (props: Props) => {
   const [blogs, setBlogs] = useState<BlogData[]>([])
   const axiosPrivate = useAxiosPrivate()
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getblog = async () => {
@@ -27,6 +29,7 @@ const Blog = (props: Props) => {
         const response = await axiosPrivate.get('/blog/getblog');
         console.log(response)
         setBlogs(response.data.data);
+        setLoading(false)
 
       } catch (error) {
         console.error('Error fetching workouts:', error);
@@ -41,20 +44,29 @@ const Blog = (props: Props) => {
     <>
    
         {/* <SearchBar /> */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 ">
-    
-
-
-        {blogs.map(blog => (
-          <BlogCard
-            key={blog._id}
-            id={blog._id}
-            coverImg={`http://localhost:5000/${blog.coverImg}`}
-            title={blog.title}
-            subtitle={blog.subtitle}
-           readtime={blog.readtime}
-           category={blog.category} />
-        ))}
+       
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+                {loading ? (
+               
+                    <>
+                        <CardSkeleton />
+                        <CardSkeleton />
+                        <CardSkeleton />
+                    </>
+                ) : (
+               
+                    blogs.map((blog) => (
+                        <BlogCard
+                            key={blog._id}
+                            id={blog._id}
+                            coverImg={`http://localhost:5000/${blog.coverImg}`}
+                            title={blog.title}
+                            subtitle={blog.subtitle}
+                            readtime={blog.readtime}
+                            category={blog.category}
+                        />
+                    ))
+                )}
         </div>
 
     </>
