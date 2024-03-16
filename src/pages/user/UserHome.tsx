@@ -24,6 +24,10 @@ export interface TableData {
   };
   workoutType: string
   completed:boolean
+  completionStatus: {
+    date: Date;
+    checked: boolean;
+}[];
 }
 
 const UserHome = () => {
@@ -80,7 +84,7 @@ const UserHome = () => {
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
 
         <DoughnutChart />
-        <BarChart />
+        <BarChart  tabledata={tabledata}/>
 
 
       </div>

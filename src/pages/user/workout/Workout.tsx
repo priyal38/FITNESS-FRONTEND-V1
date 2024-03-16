@@ -70,8 +70,6 @@ const Workout = (_props: Props) => {
               ))
      )}
    
-     
-
       </div>
     </div>
   )
