@@ -12,6 +12,7 @@ import ProgressBar from '../../components/dashboard/userDashboard/ProgressBar';
 import useAxiosPrivate from '../../axios/useAxiosPrivate';
 
 
+
 export interface TableData {
   _id:string
   title: string;
@@ -22,6 +23,8 @@ export interface TableData {
     _id: string;
     title: string;
   };
+  startDate:Date;
+  endDate:Date;
   workoutType: string
   completed:boolean
   completionStatus: {

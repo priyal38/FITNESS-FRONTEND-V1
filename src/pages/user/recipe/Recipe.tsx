@@ -70,6 +70,9 @@ const Recipe = (props: Props) => {
                         <CardSkeleton />
                         <CardSkeleton />
                         <CardSkeleton />
+                        <CardSkeleton />
+                        <CardSkeleton />
+                        <CardSkeleton />
                     </>
                 ) : (
        

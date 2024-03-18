@@ -57,6 +57,8 @@ const Workout = (_props: Props) => {
                      <CardSkeleton />
                      <CardSkeleton />
                      <CardSkeleton />
+                     <CardSkeleton />
+                     <CardSkeleton />
                  </>
              ) : (
     

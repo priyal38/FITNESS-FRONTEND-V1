@@ -15,7 +15,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, handleDrawerClose, menuIt
       {/* Conditionally render the mobile drawer based on the mobileOpen state */}
       <aside
       
-      className={`absolute left-0 top-0 z-50 flex h-screen w-72.5 flex-col  transform overflow-y-hidden bg-gray-950 uration-300 ease-linear dark:bg-boxdark md:static md:translate-x-0 ${
+      className={`absolute left-0 top-0 z-50 flex h-screen w-72.5 flex-col  transform overflow-y-hidden bg-surface-200 duration-300 ease-linear dark:bg-boxdark md:static md:translate-x-0 ${
         mobileOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
     >

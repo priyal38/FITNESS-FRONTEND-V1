@@ -52,6 +52,9 @@ const Blog = (props: Props) => {
                         <CardSkeleton />
                         <CardSkeleton />
                         <CardSkeleton />
+                        <CardSkeleton />
+                        <CardSkeleton />
+                        <CardSkeleton />
                     </>
                 ) : (
                

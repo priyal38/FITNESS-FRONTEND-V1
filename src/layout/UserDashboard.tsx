@@ -53,6 +53,7 @@ const UserDashboard = () => {
             <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10 bg-surface-100">
             <Suspense fallback = {<Loading/>} >
          <Routes>
+          <Route path='/' element={<UserHome/>} ></Route>
        <Route path="home" element={<UserHome />} />
         <Route path="workout" element={<Workout />} />
         <Route path="healthyrecipes" element={<Recipe />} />
