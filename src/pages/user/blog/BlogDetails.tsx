@@ -64,7 +64,7 @@ const BlogDetails = (props: Props) => {
 
                 <div className="px-4 lg:px-0 md:mt-4 mt-2 text-gray-200  tracking-wide text-md leading-relaxed w-full lg:w-[90%]  ">
 
-                    {blogDetails?.content.map((item, index) => (
+                    {blogDetails?.content.map((item:any, index:any) => (
                         <p key={index} className="pb-6">
                             {item}
                         </p>

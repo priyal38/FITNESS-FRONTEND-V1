@@ -3,6 +3,8 @@ import RecipeCard from '../../../components/dashboard/recipe/RecipeCard'
 import SearchBar from '../../../components/dashboard/common/SearchBar'
 import useAxiosPrivate from '../../../axios/useAxiosPrivate'
 import CardSkeleton from '../../../components/dashboard/common/CardSkeleton'
+import Pagination from '../../../components/dashboard/common/Pagination'
+import usePagination from '../../../hooks/usePagination'
 
 
 type Props = {}
@@ -36,14 +38,16 @@ export interface RecipeData{
 const Recipe = (props: Props) => {
   const [recipe, setRecipe] = useState<RecipeData[]>([])
   const [loading, setLoading] = useState(true);
-
   const axiosPrivate = useAxiosPrivate()
+  const { currentPage, totalPages, handlePageChange, updateTotalPages } = usePagination();
+  const perPage = 3
 
   const getRecipes = async () => {
     try {
-      const response = await axiosPrivate.get('/recipe/getrecipe');
+      const response = await axiosPrivate.get(`/recipe/getrecipe?page=${currentPage}&perPage=${perPage}`);
       console.log(response)
-      setRecipe(response.data.data);
+      setRecipe(response.data.data.recipes);
+      updateTotalPages(response.data.data.totalPages);
       setLoading(false)
 
 
@@ -55,7 +59,7 @@ const Recipe = (props: Props) => {
 
   useEffect(() => {
     getRecipes();
-  }, []);
+  }, [currentPage]);
 
   console.log(recipe)
   return (
@@ -88,7 +92,10 @@ const Recipe = (props: Props) => {
         ))
         )}
       </div>
-
+ 
+      <div className='mt-8'> 
+      <Pagination  currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+       </div>
     </>
   )
 }

@@ -5,6 +5,7 @@ import Navbar from '../components/dashboard/common/Navbar';
 import Sidebar from '../components/dashboard/common/Sidebar';
 import { Suspense } from 'react';
 import Loading from '../components/dashboard/common/Loading';
+import SearchResultPage from '../pages/user/SearchResultPage';
 
 
 
@@ -61,6 +62,9 @@ const UserDashboard = () => {
         <Route path="workout/:id" element={<WorkoutDetailsPage />} />
         <Route path="blog/:id" element={<BlogDetails />} />
         <Route path="healthyrecipes/:id" element={<RecipeDetails />} />
+          <Route path="/fitness/:query" element={<SearchResultPage  />} />
+          <Route path="/food/:query" element={<SearchResultPage/>} />
+          <Route path="/technology/:query" element={<SearchResultPage  />} />  
         <Route path="blog" element={<Blog/>} />
         </Routes>
         </Suspense>

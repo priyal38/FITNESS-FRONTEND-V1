@@ -3,6 +3,8 @@ import SearchBar from '../../../components/dashboard/common/SearchBar'
 import WorkoutCard from '../../../components/dashboard/workout/WorkoutCard'
 import useAxiosPrivate from "../../../axios/useAxiosPrivate";
 import CardSkeleton from '../../../components/dashboard/common/CardSkeleton';
+import usePagination from '../../../hooks/usePagination';
+import Pagination from '../../../components/dashboard/common/Pagination';
 
 type Props = {}
 
@@ -24,22 +26,23 @@ const Workout = (_props: Props) => {
   const axiosPrivate = useAxiosPrivate();
   const [workouts , setWorkouts] = useState<WorkoutData[]>([])
   const [loading , setLoading] = useState(true)
+  const { currentPage, totalPages, handlePageChange, updateTotalPages } = usePagination();
+  const perPage = 6
 
   const getWorkout = async () => {
     try {
-      const response = await axiosPrivate.get('/workout/getworkout');
+      const response = await axiosPrivate.get(`/workout/getworkout?page=${currentPage}&perPage=${perPage}`);
       console.log(response)
-      setWorkouts(response.data.data);
+      setWorkouts(response.data.data.workouts);
+      updateTotalPages(response.data.data.totalPages)
       setLoading(false)
     } catch (error) {
       console.error('Error fetching workouts:', error);
     }
   };
   useEffect(() => {
-   
-
     getWorkout();
-  }, []);
+  }, [currentPage]);
     
   console.log(workouts)
 
@@ -65,14 +68,16 @@ const Workout = (_props: Props) => {
               workouts.map(workout =>(
                 <WorkoutCard 
                 key={workout._id}
-                id={workout._id}
-                imageSrc={`http://localhost:5000/${workout.thumbnail}`}
-                title={workout.title}
-                />
+                data={workout}/>
               ))
      )}
    
       </div>
+
+      
+      <div className='mt-8'> 
+      <Pagination  currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+       </div>
     </div>
   )
 }
