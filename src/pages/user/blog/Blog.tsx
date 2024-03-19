@@ -1,108 +1,13 @@
-// import React, { useEffect, useState } from 'react'
-// import BlogCard from '../../../components/dashboard/blog/BlogCard'
-// import SearchBar from '../../../components/dashboard/common/SearchBar'
-// import useAxiosPrivate from '../../../axios/useAxiosPrivate'
-// import CardSkeleton from  '../../../components/dashboard/common/CardSkeleton'
-// import Pagination from '../../../components/dashboard/common/Pagination'
-// import usePagination from '../../../hooks/usePagination'
-
-
-// type Props = {}
-
-// export interface BlogData {
-//   _id:string
-//   title:string,
-//   content:string[],
-//   author:string,
-//   category:string,
-//   coverImg:string,
-//   readtime:number
-//   subtitle:string
-
-// }
-// const Blog = (props: Props) => {
-//   const [blogs, setBlogs] = useState<BlogData[]>([])
-//   const axiosPrivate = useAxiosPrivate()
-//   const [loading, setLoading] = useState(true);
-  
-//   const perPage = 3
-
-//   const { currentPage, totalPages, handlePageChange, updateTotalPages } = usePagination();
-
-
-//   const getblog = async () => {
-//     try {
-//       const response = await axiosPrivate.get(`/blog/getblog?page=${currentPage}&perPage=${perPage}`);
-//       console.log(response)
-//       setBlogs(response.data.data.blogs);
-//       updateTotalPages(response.data.data.totalPages);
-//       setLoading(false)
-
-//     } catch (error) {
-//       console.error('Error fetching workouts:', error);
-//     }
-//   };
-
-//   useEffect(() => {
-//     getblog();
-//   }, [currentPage]);
-//   console.log(totalPages)
-
-//   // const handlePageChange = (page: number) => {
-//   //   setCurrentPage(page);
-//   // };
-
-//   console.log(blogs)
-//   return (
-//     <>
-   
-//         {/* <SearchBar /> */}
-       
-//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-//                 {loading ? (
-               
-//                     <>
-//                         <CardSkeleton />
-//                         <CardSkeleton />
-//                         <CardSkeleton />
-//                         <CardSkeleton />
-//                         <CardSkeleton />
-//                         <CardSkeleton />
-//                     </>
-//                 ) : (
-               
-//                     blogs.map((blog) => (
-//                         <BlogCard
-//                             key={blog._id}
-//                             id={blog._id}
-//                             coverImg={`http://localhost:5000/${blog.coverImg}`}
-//                             title={blog.title}
-//                             subtitle={blog.subtitle}
-//                             readtime={blog.readtime}
-//                             category={blog.category}
-//                         />
-//                     ))
-//                 )}
-//         </div>
-       
-//        <div className='mt-8'> 
-//       <Pagination  currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-//        </div>
-//     </>
-//   )
-// }
-
-// export default Blog
-
 
 
 import React, { useEffect, useState } from 'react';
 import BlogCard from '../../../components/dashboard/blog/BlogCard';
 import SearchBar from '../../../components/dashboard/common/SearchBar';
 import useAxiosPrivate from '../../../axios/useAxiosPrivate';
-import CardSkeleton from  '../../../components/dashboard/common/CardSkeleton';
+import CardSkeleton from '../../../components/dashboard/common/CardSkeleton';
 import Pagination from '../../../components/dashboard/common/Pagination';
 import usePagination from '../../../hooks/usePagination';
+import { useSearchParams } from 'react-router-dom';
 
 export interface BlogData {
   _id: string;
@@ -118,58 +23,74 @@ export interface BlogData {
 const Blog: React.FC = () => {
   const [blogs, setBlogs] = useState<BlogData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchResults, setSearchResults] = useState<BlogData[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  
-  const perPage = 3;
+  const [searchParams] = useSearchParams();
   const { currentPage, totalPages, handlePageChange, updateTotalPages } = usePagination();
-
   const axiosPrivate = useAxiosPrivate();
+  const perPage = 3;
 
-  const getBlogData = async (page: number) => {
+
+  const getBlogData = async () => {
     try {
-      const response = await axiosPrivate.get(`/blog/getblog?page=${page}&perPage=${perPage}`);
+      const queryParamValue = searchParams.get('q');
+      const response = await axiosPrivate.get('/blog/getblog' , {
+        params: {
+          page: currentPage,
+          perPage: perPage,
+          query: queryParamValue || '',
+        }
+      });
       setBlogs(response.data.data.blogs);
       updateTotalPages(response.data.data.totalPages);
       setLoading(false);
-    } catch (error) {
-      console.error('Error fetching blog data:', error);
+    } 
+    catch (error) {
+      console.error('Error fetching blogs:', error);
+      setBlogs([])
+      setLoading(false);
     }
   };
-
- 
+  
   useEffect(() => {
-   
-      getBlogData(currentPage);
-    
-  }, [currentPage]);
+    getBlogData()
+  }, [currentPage, searchParams]);
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-  };
+
 
   return (
     <>
-      <SearchBar  />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-        {loading ? (
-          <>
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
-          </>
-        ) : (
-          (searchQuery ? searchResults : blogs).map((blog) => (
-            <BlogCard
-              key={blog._id}
-              data={blog}
-            />
-          ))
-        )}
-      </div>
-      <div className="mt-8">
-        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-      </div>
+    <div className='text-center
+    '>
+      <SearchBar />
+
+    </div>
+      {loading ? (
+        <>
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+       
+
+          </div>
+        </>
+      ) : blogs.length !== 0 ? (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+            {blogs.map((blog) => (
+              <BlogCard
+                key={blog._id}
+                data={blog}
+              />
+            ))}
+          </div>
+          <div className="mt-8">
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+          </div>
+        </>
+      ) : (
+        <div className="mt-8 text-center text-white text-3xl">Oops! No blogs found.</div>
+      )}
+
     </>
   );
 };

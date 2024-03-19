@@ -86,19 +86,19 @@ const WorkoutDetails = (props: Props) => {
                     <table className=' mx-w-lg mx-auto'>
                       <tr className='border-b bg-surface-200 border-gray-700 hover:bg-gray-600'>
                         <td className='px-6 py-3'>Category:</td>
-                        <td className='px-4 py-3'>{workoutDetails.category}</td>
+                        <td className='px-4 capitalize py-3'>{workoutDetails.category}</td>
                       </tr>
                       <tr className='border-b bg-surface-200 border-gray-700 hover:bg-gray-600'>
                         <td className='px-6 py-3'>SubCategory:</td>
-                        <td className='px-4 py-3'>{workoutDetails.subCategory}</td>
+                        <td className='px-4 capitalize py-3'>{workoutDetails.subCategory}</td>
                       </tr>
                       <tr className='border-b bg-surface-200 border-gray-700 hover:bg-gray-600'>
                         <td className='px-6 py-3'>DifficultyLevel:</td>
-                        <td className='px-4 py-3'>{workoutDetails.difficultyLevel}</td>
+                        <td className='px-4  capitalize py-3'>{workoutDetails.difficultyLevel}</td>
                       </tr>
                       <tr className='border-b bg-surface-200 border-gray-700 hover:bg-gray-600'>
                         <td className='px-6 py-3'>Equipment:</td>
-                        <td className='px-4 py-3'>{workoutDetails.equipment}</td>
+                        <td className='px-4  capitalize py-3'>{workoutDetails.equipment}</td>
                       </tr>
                     </table>
 
