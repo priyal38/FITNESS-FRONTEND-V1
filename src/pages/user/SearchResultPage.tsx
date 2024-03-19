@@ -2,7 +2,7 @@
 
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import useAxiosPrivate from '../../axios/useAxiosPrivate';
 import WorkoutCard from '../../components/dashboard/workout/WorkoutCard';
 import BlogCard from '../../components/dashboard/blog/BlogCard';
 import RecipeCard from '../../components/dashboard/recipe/RecipeCard';
@@ -13,14 +13,16 @@ import React from 'react';
 
 const SearchResultPage = () => {
     const { page, query } = useParams<{ page: string; query: string }>();
+    console.log(page)
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const axiosPrivate = useAxiosPrivate()
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`/api/${page}?q=${query}`);
+        const response = await axiosPrivate.get(`/${page}?q=${query}`);
         setSearchResults(response.data);
         setLoading(false);
       } catch (error) {

@@ -137,24 +137,12 @@ const Blog: React.FC = () => {
     }
   };
 
-  const searchBlogs = async () => {
-    try {
-      const response = await axiosPrivate.get(`/blog/searchblog?page=${currentPage}&perPage=${perPage}&query=${searchQuery}`);
-      setSearchResults(response.data.data.blogs);
-      updateTotalPages(response.data.data.totalPages);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error searching blogs:', error);
-    }
-  };
-
+ 
   useEffect(() => {
-    if (searchQuery) {
-      searchBlogs();
-    } else {
+   
       getBlogData(currentPage);
-    }
-  }, [currentPage, searchQuery]);
+    
+  }, [currentPage]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -162,7 +150,7 @@ const Blog: React.FC = () => {
 
   return (
     <>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar  />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
         {loading ? (
           <>
@@ -174,12 +162,7 @@ const Blog: React.FC = () => {
           (searchQuery ? searchResults : blogs).map((blog) => (
             <BlogCard
               key={blog._id}
-              id={blog._id}
-              coverImg={`http://localhost:5000/${blog.coverImg}`}
-              title={blog.title}
-              subtitle={blog.subtitle}
-              readtime={blog.readtime}
-              category={blog.category}
+              data={blog}
             />
           ))
         )}

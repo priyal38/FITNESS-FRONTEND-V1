@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
-interface Props {
-  onSearch: (query: string) => void;
-}
+// interface Props {
+//   onSearch: (query: string) => void;
+// }
 
-const SearchBar = ({ onSearch }: Props) => {
+const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate(); // Hook for programmatic navigation
 
@@ -15,10 +15,10 @@ const SearchBar = ({ onSearch }: Props) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSearch(searchQuery); // Trigger search callback
+    // onSearch(searchQuery); // Trigger search callback
 
     // Update URL query parameter and navigate to search results page
-    navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+    navigate(`?q=${searchQuery}`);
   };
 
   return (

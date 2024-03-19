@@ -62,8 +62,8 @@ const UserDashboard = () => {
         <Route path="workout/:id" element={<WorkoutDetailsPage />} />
         <Route path="blog/:id" element={<BlogDetails />} />
         <Route path="healthyrecipes/:id" element={<RecipeDetails />} />
-          <Route path="/fitness/:query" element={<SearchResultPage  />} />
-          <Route path="/food/:query" element={<SearchResultPage/>} />
+          <Route path="workout/:query" element={<SearchResultPage  />} />
+          <Route path="blog/:query" element={<SearchResultPage/>} />
           <Route path="/technology/:query" element={<SearchResultPage  />} />  
         <Route path="blog" element={<Blog/>} />
         </Routes>
