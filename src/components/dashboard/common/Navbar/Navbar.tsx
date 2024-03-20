@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Person2Icon from '@mui/icons-material/Person2';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Logo from '../../../images/MainLogo.png'
-
+import DropdownUser from './DropdownUser';
 
 
 interface NavbarProps {
@@ -41,10 +41,10 @@ const Navbar: React.FC<NavbarProps> = ({ handleDrawerToggle }) => {
   });
 
   return (
-    <nav className=" sticky top-0 z-999 flex w-full bg-surface-100 drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
-      {/* <div className="w-full mx-auto px-4"> */}
+    <nav className=" sticky top-0 z-40 flex w-full bg-surface-100 drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
+   
       <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
-        {/* <div className="flex justify-between items-center h-16"> */}
+   
         <div className="flex items-center gap-2 sm:gap-4 md:hidden">
           <button
             onClick={handleDrawerToggle}
@@ -60,16 +60,16 @@ const Navbar: React.FC<NavbarProps> = ({ handleDrawerToggle }) => {
 
           <h1 className="text-lg font-bold text-white ">Welcome Back!</h1>
           <div className="flex items-center">
-            <button onClick={handleToggle}  ref={trigger} className="mr-0">
+            {/* <button onClick={handleToggle}  ref={trigger} className="mr-0">
               <img
                 src={userImage}
                 alt="User Avatar"
                 className="h-12 w-12 rounded-full "
               />
-            </button>
+            </button> */}
 
-            
-            {dropdownOpen && (
+            <DropdownUser/>
+            {/* {dropdownOpen && (
               <div   ref={dropdown} className="origin-bottom-right absolute right-0 mt-36 mr-4 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                 <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="menu-appbar">
                 {[
@@ -91,7 +91,7 @@ const Navbar: React.FC<NavbarProps> = ({ handleDrawerToggle }) => {
             ))}
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       

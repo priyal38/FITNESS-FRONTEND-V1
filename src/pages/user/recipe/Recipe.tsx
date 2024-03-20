@@ -47,7 +47,7 @@ const Recipe = (props: Props) => {
   const getRecipes = async () => {
     try {
       const queryParamValue = searchParams.get('q');
-      const response = await axiosPrivate.get('/recipe/getrecipe ', {
+      const response = await axiosPrivate.get('/recipe/getrecipe', {
         params: {
           page: currentPage,
           perPage: perPage,
@@ -63,7 +63,7 @@ const Recipe = (props: Props) => {
     catch (error) {
       console.error('Error fetching recipes:', error);
       setRecipes([]);
-      setLoading(false);
+     
     }
   };
 

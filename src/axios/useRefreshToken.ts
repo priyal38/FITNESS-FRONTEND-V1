@@ -15,7 +15,7 @@ const useRefreshToken = () => {
 
             console.log(response);
             
-            const { token } = response.data.data
+            const token = response.data.data
             console.log(token);
             
             const userString = localStorage.getItem('user');

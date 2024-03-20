@@ -12,7 +12,7 @@ const SignUp = React.lazy(() => import("./pages/auth/SignUp"));
 const Login = React.lazy(() => import("./pages/auth/Login"));
 const ForgotPass = React.lazy(() => import("./pages/auth/ForgotPass"));
 const UserDashboard  =React.lazy(() => import("./layout/UserDashboard"));
-const UserHome  = React.lazy(()=>import("./pages/user/UserHome"))
+const UserHome  = React.lazy(()=>import("./pages/user/userDashboard/UserHome"))
 const AdminDashboard = React.lazy(()=>import("./layout/AdminDashboard"))
 const TestForm = React.lazy(()=>import("./test/TestForm"))
 const Tabletest = React.lazy(()=>import("./test/Tabletest"))

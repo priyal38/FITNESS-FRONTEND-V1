@@ -13,6 +13,8 @@ type Props = {
 };
 
 const BlogCard = ({ data} :Props) => {
+
+  
   return (
   <>     
   <Link to={`${data._id}`}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { AdminMenuItems } from '../utils/MenuItems';
 import { Route , Routes } from 'react-router-dom';
-import Navbar from '../components/dashboard/common/Navbar';
+import Navbar from '../components/dashboard/common/Navbar/Navbar';
 import Sidebar from '../components/dashboard/common/Sidebar';
 import { Suspense } from 'react';
 import Loading from '../components/dashboard/common/Loading';

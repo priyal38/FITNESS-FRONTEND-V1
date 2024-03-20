@@ -18,13 +18,14 @@ const SearchBar = () => {
   };
 
   return (
-    <div>   
-      <form className="" onSubmit={handleSubmit}>
+  
+    <div className=''>   
+      <form className="relative" onSubmit={handleSubmit}>
         <div className="flex">
           <div className="relative w-96">
             <input
               type="text"
-              className=" text-sm tracking-wide rounded-lg border border-surface-300  block w-full ps-5 px-2 py-2 bg-surface-200  placeholder-gray-200 text-white focus:ring-surface-300 focus:border-surface-300"
+              className=" text-sm tracking-wide rounded-lg border border-surface-300   w-full ps-5 px-2 py-2 bg-surface-200  placeholder-gray-200 text-white focus:ring-surface-300 focus:border-surface-300"
               placeholder="Enter search query here"
               value={searchQuery}
               onChange={handleChange}

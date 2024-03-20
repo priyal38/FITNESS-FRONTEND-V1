@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FaPlus } from "react-icons/fa6";
 import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 import FormModalCustom from './FormModalCustom';
-import { TableData } from '../../../pages/user/UserHome';
+import { TableData } from '../../../pages/user/userDashboard/UserHome';
 
 interface Props {
     selectedDate: string;

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Line, Circle } from 'rc-progress';
-import { TableData } from '../../../pages/user/UserHome';
+import { TableData } from '../../../pages/user/userDashboard/UserHome';
 
 type Props = {
     tabledata: TableData[]

@@ -39,14 +39,16 @@ const Blog: React.FC = () => {
           query: queryParamValue || '',
         }
       });
+   
+      
       setBlogs(response.data.data.blogs);
       updateTotalPages(response.data.data.totalPages);
-      setLoading(false);
+     setLoading(false)
     } 
     catch (error) {
       console.error('Error fetching blogs:', error);
       setBlogs([])
-      setLoading(false);
+     
     }
   };
   
@@ -54,15 +56,12 @@ const Blog: React.FC = () => {
     getBlogData()
   }, [currentPage, searchParams]);
 
+console.log(blogs);
 
 
   return (
     <>
-    <div className='text-center
-    '>
-      <SearchBar />
-
-    </div>
+    
       {loading ? (
         <>
            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
@@ -75,6 +74,10 @@ const Blog: React.FC = () => {
         </>
       ) : blogs.length !== 0 ? (
         <>
+        <div className=''>
+      <SearchBar />
+
+    </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
             {blogs.map((blog) => (
               <BlogCard

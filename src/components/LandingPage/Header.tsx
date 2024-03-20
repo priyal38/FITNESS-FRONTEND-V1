@@ -6,6 +6,7 @@ import {Link }  from 'react-scroll'
 import userImg from '../../images/user.png'
 import { useAuth } from '../../context/AuthContext';
 import Logo from '../../images/MainLogo.png'
+import { MdKeyboardArrowDown } from 'react-icons/md';
 
 
 const Header = () => {
@@ -45,10 +46,20 @@ navigate('/user')
 
   {auth.user.token ? (
     <>
-     <button type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 "  onClick={toggleUserMenu} >
+    <Link
+        
+        onClick={toggleUserMenu}
+        className="flex items-center gap-2"
+        to=""
+      >
+      
+        <span className="h-14 w-14 rounded-full">
+          <img src={userImg} alt="User" />
+        </span>
 
-<img className="w-12 h-12 rounded-full" src={userImg} alt="user photo"/>
-</button>
+        <MdKeyboardArrowDown className="hidden text-gray-300 text-lg sm:block" />
+      </Link>
+
     </>
   ):(
     <>
@@ -79,9 +90,9 @@ navigate('/user')
                 <Link to="features" smooth={true} duration={500} className="block py-2 px-3 text-white rounded hover:bg-gray-700 md:hover:bg-transparent md:hover:text-gray-200  md:p-0">Features</Link>
               </li>
 
-              <li>
+              {/* <li>
                 <Link to="contact" className="block py-2 px-3 text-white rounded hover:bg-gray-700 md:hover:bg-transparent md:hover:text-gray-200 md:p-0">Contact</Link>
-              </li>
+              </li> */}
 
               {!auth.user.token && (
                 <li className="md:hidden">
@@ -97,10 +108,10 @@ navigate('/user')
 
       {/* User menu */}
 
-      <div className={` right-0 mt-4 md:mt-4 mr-2 z-50 ${isUserMenuOpen ? 'fixed' : 'hidden'} text-base list-none  divide-y rounded-lg shadow bg-surface-200 divide-gray-600`} id="user-dropdown">
+      <div className={` right-0 px-4 mt-6 md:mt-4 mr-5 z-50 ${isUserMenuOpen ? 'fixed' : 'hidden'} text-base list-none  divide-y rounded-lg shadow bg-surface-200 divide-gray-600`} id="user-dropdown">
         <div className="px-4 py-3">
-          <span className="block text-sm font-medium text-white">{auth.user.username}</span>
-          <span className="block text-sm font-medium truncate text-white">{auth.user.email}</span>
+          <span className="block text-sm capitalize tracking-wide text-gray-300">{auth.user.username}</span>
+          <span className="block text-xs mt-1 tracking-wide truncate text-gray-300">{auth.user.email}</span>
         </div>
         <ul className="py-2" aria-labelledby="user-menu-button">
           <li >

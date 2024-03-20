@@ -13,6 +13,7 @@ export const theme = {
   screens: {
     'xs': '370px',
     ..._screens,
+    'md': '930px',
   },
   extend: {
     colors: {
@@ -34,6 +35,10 @@ export const theme = {
         500: '#717171',
         600: '#8b8b8b',
       },
+    },
+    dropShadow: {
+      1: '0px 1px 0px #E2E8F0',
+      2: '0px 1px 4px rgba(0, 0, 0, 0.12)',
     },
  
   },

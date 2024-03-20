@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
-import CardDataStats from '../../components/dashboard/userDashboard/CardDataStats'
-import DoughnutChart from '../../components/dashboard/userDashboard/DoughnutChart';
-import BarChart from '../../components/dashboard/userDashboard/BarChart';
+import CardDataStats from '../../../components/dashboard/userDashboard/CardDataStats'
+import DoughnutChart from '../../../components/dashboard/userDashboard/DoughnutChart';
+import BarChart from '../../../components/dashboard/userDashboard/BarChart';
 
-import SelectedWorkoutTable from '../../components/dashboard/userDashboard/SelectedWorkoutTable';
+import SelectedWorkoutTable from '../../../components/dashboard/userDashboard/SelectedWorkoutTable';
 
 import { GiNightSleep } from "react-icons/gi";
 import { IoIosFitness } from "react-icons/io";
-import ProgressBar from '../../components/dashboard/userDashboard/ProgressBar';
-import useAxiosPrivate from '../../axios/useAxiosPrivate';
+import ProgressBar from '../../../components/dashboard/userDashboard/ProgressBar';
+import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 
 
 
