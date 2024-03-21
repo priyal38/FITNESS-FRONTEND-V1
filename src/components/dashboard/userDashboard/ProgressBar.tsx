@@ -43,7 +43,7 @@ const ProgressBar = ({ tabledata, getTableData , selectedDate }: Props) => {
                     {tabledata.map((tableItem, index) => (
                         <div key={index} className='flex flex-col gap-3  '>
                             <div className='flex relative'>
-                            <p className='text-white text-sm text-left'>{tableItem.workoutId ? tableItem.workoutId.title : tableItem.title}</p>
+                            <p className='text-white text-sm text-left capitalize'>{tableItem.workoutId ? tableItem.workoutId.title : tableItem.title}</p>
 
 <div className='absolute right-0 top-0'>
 <p className='text-white text-sm'> {((tableItem.completedDays / tableItem.targetDays) * 100).toFixed(2)}%</p>
