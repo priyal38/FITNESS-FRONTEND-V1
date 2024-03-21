@@ -341,7 +341,7 @@ getUserProfileData()
             <form onSubmit={handleSubmitPhoto(onSubmitPhoto)} encType="multipart/form-data">
                 <div className="mb-4 flex items-center gap-3">
                   <div className="h-14 w-14 rounded-full">
-                    <img src={user} alt="User" />
+                    <img src={`http://localhost:5000/${userData?.profilePhoto}`  || user} alt="User" />
                   </div>
                   <div>
                     <span className="mb-1.5 text-white">
