@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const UserProfile = () => {
   return (
    
-      <div className="overflow-hidden rounded-sm border border-surface-300 bg-surface-200 shadow-md ">
+      <div className="overflow-hidden rounded-sm border border-surface-600 bg-surface-200 shadow-md ">
         <div className="relative z-20 h-36 md:h-64">
           <img
             src={CoverOne}
@@ -110,7 +110,7 @@ const UserProfile = () => {
               </div>
             </div>
 
-            <div className="mx-auto max-w-96">
+            <div className="mx-auto max-w-[40rem]">
               <h4 className="font-semibold text-white">
                 About Me
               </h4>

@@ -41,7 +41,7 @@ const Navbar: React.FC<NavbarProps> = ({ handleDrawerToggle }) => {
   });
 
   return (
-    <nav className=" sticky top-0 z-40 flex w-full bg-surface-100 drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
+    <nav className=" sticky top-0 z-40 flex w-full bg-surface-100  dark:bg-boxdark dark:drop-shadow-none">
    
       <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
    
