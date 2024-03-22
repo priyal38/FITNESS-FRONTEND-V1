@@ -9,6 +9,7 @@ import Loading from '../components/dashboard/common/Loading';
 
 
 
+
 const AddBlog = React.lazy(()=>import("../pages/admin/AddBlog"))
 const AddRecipes = React.lazy(()=>import("../pages/admin/AddRecipes"))
 const AddWorkout = React.lazy(()=>import("../pages/admin/AddWorkout"))

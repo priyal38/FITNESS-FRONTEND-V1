@@ -11,13 +11,13 @@ import Loading from '../components/dashboard/common/Loading';
 
 const Workout = React.lazy(()=> import("../pages/user/workout/Workout"))
 const Recipe = React.lazy(()=> import("../pages/user/recipe/Recipe"))
-const UserProfile = React.lazy(()=> import("../pages/user/profile/UserProfile"))
+const UserProfile = React.lazy(()=> import('../pages/user/profile/UserProfile'))
 const Blog = React.lazy(()=> import("../pages/user/blog/Blog"))
 const UserHome = React.lazy(()=> import("../pages/user/userDashboard/UserHome"))
 const BlogDetails  = React.lazy(()=> import("../pages/user/blog/BlogDetails"))
 const RecipeDetails =React.lazy(()=>import("../pages/user/recipe/RecipeDetails"))
 const WorkoutDetailsPage = React.lazy(()=>import('../pages/user/workout/WorkoutDetails'))
-const Setting = React.lazy(()=>import('../pages/user/profile/Setting'))
+
 
 
 const UserDashboard = () => {
@@ -60,7 +60,6 @@ const UserDashboard = () => {
         <Route path="workout" element={<Workout />} />
         <Route path="healthyrecipes" element={<Recipe />} />
         <Route path="profile" element={<UserProfile/>} />
-        <Route path="setting" element={<Setting/>} />
         <Route path="workout/:id" element={<WorkoutDetailsPage />} />
         <Route path="blog/:id" element={<BlogDetails />} />
         <Route path="healthyrecipes/:id" element={<RecipeDetails />} />

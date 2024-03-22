@@ -67,11 +67,11 @@ const DropdownUser = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-2 flex w-[15rem] flex-col rounded-lg border  shadow border-surface-300 bg-surface-200 ${
+        className={`absolute right-0 mt-2 flex w-[15rem] flex-col rounded-lg border  shadow border-surface-300 bg-surface-100 ${
           dropdownOpen === true ? 'block' : 'hidden'
         }`}
       >
-        <ul className="flex flex-col gap-4 border-b border-stroke px-6 py-5 border-surface-300">
+        <ul className="flex flex-col gap-4 border-stroke px-6 pt-4 pb-2 border-surface-300">
           <li>
             <Link
               to="profile"
@@ -82,7 +82,7 @@ const DropdownUser = () => {
               My Profile
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               to="setting"
               className="flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-white lg:text-base"
@@ -90,7 +90,7 @@ const DropdownUser = () => {
                 <IoSettingsOutline className='text-xl'/>
                 Account Settings
             </Link>
-          </li>
+          </li> */}
          
         </ul>
         <Link to='/login' className="flex items-center gap-3 px-6 py-4 text-sm font-medium text-gray-300 lg:text-base" onClick={handleLogout}>

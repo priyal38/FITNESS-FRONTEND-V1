@@ -1,0 +1,104 @@
+import React, { useEffect, useState } from 'react';
+import useAxiosPrivate from '../../../axios/useAxiosPrivate';
+import { FiCamera } from 'react-icons/fi';
+import user from '../../../images/user.png';
+import toast, { Toaster } from 'react-hot-toast';
+
+
+interface Props {
+    profilePhoto: string;
+    onPhotoUpdateSuccess: () => void;
+}
+
+const UpdateProfilePhoto = ({ profilePhoto, onPhotoUpdateSuccess }: Props) => {
+
+    console.log(profilePhoto);
+
+    const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
+    const axiosPrivate = useAxiosPrivate();
+
+
+
+    const handleFileInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        console.log(file);
+
+        if (file) {
+            setSelectedPhoto(file);
+            console.log(file); // This will log the updated file immediately after selection
+
+            // Call onSubmitPhoto with the updated photo
+            await onSubmitPhoto(file);
+        }
+    };
+    const onSubmitPhoto = async (selectedPhoto: File) => {
+        if (!selectedPhoto) return;
+        console.log(selectedPhoto);
+
+        try {
+            const formData = new FormData();
+            formData.append('profilePhoto', selectedPhoto);
+            const response = await axiosPrivate.put('/user/uploadphoto', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            if (response.status === 200) {
+                onPhotoUpdateSuccess();
+                toast.success("Profile image updated  successfully")
+
+            }
+            else {
+                toast.error("Please try again")
+            }
+
+            console.log(response);
+        } catch (error) {
+            console.error('Error updating user photo:', error);
+            toast.error("Please try again")
+        }
+    };
+
+    return (
+        <div className="col-span-5 xl:col-span-2">
+            <div className="rounded-lg border border-surface-300 bg-surface-200 shadow-md">
+                <div className="border-b border-surface-300 py-4 px-7">
+                    <h3 className="font-medium text-white">Profile Picture</h3>
+                </div>
+                <div className="p-7">
+                    <div className="mb-4 gap-3">
+
+                        <img
+                            className="h-32 w-32 rounded-full border-4 border-white dark:border-gray-800 mx-auto my-4"
+                            src={profilePhoto ? `http://localhost:5000/${profilePhoto}` : user}
+                            alt=""
+                        />
+
+                        <div>
+                            <p className="text-white text-sm text-center">Upload/Change Your Profile Image</p>
+
+
+
+                            <label
+                                htmlFor="cover"
+                                className="flex cursor-pointer mt-4 items-center justify-center gap-3 rounded bg-primary-400 py-2 px-2 text-sm font-medium text-white hover:bg-opacity-90 xs:px-4"
+                            >
+                                <input type="file" name="cover" id="cover" onChange={handleFileInputChange} className="sr-only" />
+                                <span>
+                                    <FiCamera size={20} />
+                                </span>
+                                <span className='tracking-wide'>Update Image</span>
+                            </label>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Toaster />
+        </div>
+    );
+};
+
+export default UpdateProfilePhoto;

@@ -5,27 +5,28 @@ import { MdOutlineEmail } from 'react-icons/md';
 import { CiCalendarDate } from "react-icons/ci";
 import { GiBodyHeight } from "react-icons/gi";
 import { GiWeight } from "react-icons/gi";
-import { FiEdit, FiUpload } from "react-icons/fi";
+import { FiCamera, FiEdit, FiUpload } from "react-icons/fi";
 import user from '../../../images/user-06.png'
 import { useForm } from 'react-hook-form';
+import UpdateProfilePhoto from './UpdateProfileImage';
+import toast from 'react-hot-toast';
 
 interface UserData {
   firstname: string;
   lastname: string;
   email: string;
   gender: string;
-  profilePhoto: string |undefined;
+  profilePhoto: string;
   height?: number;
   role?: number;
-  dob?: Date;
   weight?: number;
   bio:string
 }
 
-interface photo{
-  profilePhoto: FileList;
+interface ProfileProps {
+  isAdmin: boolean;
 }
-const Settings = () => {
+const UserProfile = ({isAdmin} :ProfileProps ) => {
 
   const [userData , setUserData] = useState<UserData | null>(null)
 const axiosPrivate = useAxiosPrivate()
@@ -37,10 +38,10 @@ const { register, handleSubmit, reset, control } = useForm<UserData>({
     gender: '',
     height: 0,
     weight: 0,
-    dob: new Date(),
+   
   }
 });
-const { register: registerPhoto, handleSubmit: handleSubmitPhoto } = useForm<photo>();
+
 
 
 
@@ -59,6 +60,9 @@ const { register: registerPhoto, handleSubmit: handleSubmitPhoto } = useForm<pho
 getUserProfileData()
    } , [])
 
+   const handlePhotoUpdateSuccess = () => {
+    getUserProfileData(); // Fetch user data again after photo update
+  };
 
    const onSubmitData = async (data: UserData) => {
     try {
@@ -66,9 +70,16 @@ getUserProfileData()
     
     const response =   await axiosPrivate.put('/user/updatedata', data);
     console.log(response);
-    
+    if(response.status===200){
+      toast.success("Profile data updated  successfully")
+      
+    }
+    else{
+      toast.error("Please try again")
+    }
     } catch (error) {
       console.error('Error updating user profile:', error);
+      toast.error('Please')
     }
   };
 
@@ -81,25 +92,6 @@ getUserProfileData()
     }
   };
 
-  const onSubmitPhoto = async (data: any) => {
-    try {
-      console.log('Updating user photo:', data?.profilePhoto);
-      console.log(data.profilePhoto[0]);
-      
-      const formData = new FormData();
-      formData.append('profilePhoto', data?.profilePhoto[0]);
-      const response = await axiosPrivate.put('/user/uploadphoto', formData , {
-        headers: {
-          'Content-Type': 'multipart/form-data', // Set content type to multipart/form-data for file upload
-        },
-      } );
-      console.log(response);
-    } catch (error) {
-      console.log(error)
-      console.error('Error updating user photo:', error);
-    }
-  }
-
 
   return (
 
@@ -107,6 +99,9 @@ getUserProfileData()
 
 
       <div className="grid grid-cols-5 gap-8">
+
+     <UpdateProfilePhoto profilePhoto = {userData?.profilePhoto as string || ''}  onPhotoUpdateSuccess={handlePhotoUpdateSuccess}/>
+
         <div className="col-span-5 xl:col-span-3">
 
           {/* secction 1 */}
@@ -186,28 +181,7 @@ getUserProfileData()
 
 
                 <div className="mb-5 flex flex-col gap-5 sm:flex-row">
-                  <div className="w-full sm:w-1/2">
-                    <label
-                      className="mb-3 block text-sm font-medium text-white"
-                      htmlFor="fullName"
-                    >
-                      Date of birth
-                    </label>
-                    <div className="relative ">
-                      <span className="absolute left-4 top-4 text-gray-400">
-
-                        <CiCalendarDate className='text-xl' />
-                      </span>
-                      <input
-                        className="w-full text-[15px] tracking-wider rounded border border-surface-300 bg-surface-200 py-3 pl-11 pr-4  focus:ring-surface-500 focus:border-surface-300 text-white "
-                        type="date"
-                       
-                        placeholder='Enter your DOB'
-                      
-                        {...register("dob") }
-                      />
-                    </div>
-                  </div>
+                 
 
                   <div className="w-full sm:w-1/2">
                     <label
@@ -235,8 +209,10 @@ getUserProfileData()
                 </div>
 
 
+{!isAdmin && (
+<>
 
-                <div className="mb-5 flex flex-col gap-5 sm:flex-row">
+<div className="mb-5 flex flex-col gap-5 sm:flex-row">
                   <div className="w-full sm:w-1/2">
                     <label
                       className="mb-3 block text-sm font-medium text-white"
@@ -308,9 +284,12 @@ getUserProfileData()
                   </div>
                 </div>
 
+</>
+)}
+             
                 <div className="flex justify-end gap-4">
                   <button
-                    className="flex justify-center rounded border border-primary-500 py-2 px-6 font-medium hover:shadow-md text-white"
+                    className="flex justify-center rounded border border-primary-500 py-2 px-6 font-medium hover:bg-surface-100 text-white"
                     type="button"
                     onClick={handleCancel}
                   >
@@ -330,78 +309,11 @@ getUserProfileData()
 
 
         {/* section2 */}
-        <div className="col-span-5 xl:col-span-2">
-          <div className="rounded-lg border border-surface-300 bg-surface-200 shadow-md ">
-            <div className="border-b border-surface-300 py-4 px-7 ">
-              <h3 className="font-medium text-white">
-                Your Photo
-              </h3>
-            </div>
-            <div className="p-7">
-            <form onSubmit={handleSubmitPhoto(onSubmitPhoto)} encType="multipart/form-data">
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="h-14 w-14 rounded-full">
-                    <img src={`http://localhost:5000/${userData?.profilePhoto}`  || user} alt="User" />
-                  </div>
-                  <div>
-                    <span className="mb-1.5 text-white">
-                      Edit your photo
-                    </span>
-                    <span className="flex gap-2.5">
-                      <button className="text-sm text-white hover:text-primary-600">
-                        Delete
-                      </button>
-                      {/* <button className="text-sm text-white hover:text-primary-400">
-                        Update
-                      </button> */}
-                    </span>
-                  </div>
-                </div>
-
-                <div
-                  id="FileUpload"
-                  className="relative mb-5 block w-full cursor-pointer appearance-none rounded border border-dashed border-surface-300 py-4 px-4 bg-surface-200  sm:py-7"
-                >
-                  <input
-                    type="file"
-                    
-                    className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
-                    {...registerPhoto("profilePhoto")}
-                  />
-                  <div className="flex flex-col items-center justify-center space-y-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border  bg-surface-200 border-surface-300">
-                    <FiUpload className='text-primary-500' />
-                    </span>
-                    <p>
-                      <span className="text-primary-500">Click here to upload</span>
-                    </p>
-                    <p className=" text-white mt-1.5"> PNG or JPG</p>
-                    {/* <p>(max, 800 X 800px)</p> */}
-                  </div>
-                </div>
-
-                <div className="flex justify-end gap-4">
-                  <button
-                    className="flex justify-center rounded border border-primary-400 py-2 px-6 font-medium  hover:shadow-md text-white"
-                    type="submit"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="flex justify-center rounded bg-primary-500 py-2 px-6 font-medium text-gray-300 hover:bg-opacity-90"
-                    type="submit"
-                  >
-                    Save
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+   
       </div>
     </div>
 
   );
 };
 
-export default Settings;
+export default UserProfile;

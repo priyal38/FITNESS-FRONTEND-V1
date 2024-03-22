@@ -4,6 +4,7 @@ import { MdDashboard } from "react-icons/md";
 import { MdMenuBook } from "react-icons/md";
 import { RiArticleFill } from "react-icons/ri";
 import { IoMdSettings } from "react-icons/io";
+import { FaRegUser } from "react-icons/fa";
 
  export interface menuItem {
   text: string;
@@ -16,7 +17,7 @@ const UserMenuItems: menuItem[] = [
   { text: "Workout", path: "workout", icon: <IoMdFitness /> },
   { text: "Healthy Recipes", path: "healthyrecipes", icon: <MdMenuBook /> },
   { text: "Blogs & Articles", path: "blog", icon: <RiArticleFill /> },
-  { text: "Setting", path: "setting", icon: <IoMdSettings /> }
+  { text: "My Profile", path: "profile", icon: <FaRegUser /> }
 ];
 
 const AdminMenuItems: menuItem[] = [
