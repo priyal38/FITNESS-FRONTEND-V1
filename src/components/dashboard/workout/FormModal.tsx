@@ -30,7 +30,7 @@ const FormModal = ({ handleCloseModal }: Props) => {
             ...formData
         };
 
-        const response = await axiosPrivate.post('/progress/addpredefined', requestBody);
+        const response = await axiosPrivate.post('/progress/adduserworkout', requestBody);
         console.log(response)
         if(response.status===200){
             toast.success("workout added successfully")

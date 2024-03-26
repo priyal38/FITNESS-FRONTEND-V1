@@ -48,8 +48,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot" element={<ForgotPass />} />
        
-      
-
+ 
 
         <Route element={<PrivateRoutes/>}>
 

@@ -29,10 +29,10 @@ const SelectedWorkoutTable= ({ selectedDate, tabledata, getTableData, onDateChan
 
    
 
-    const handleCheckboxChange = async (id: string, completed: boolean  ,selectedDate:string , type:string ) => {
+    const handleCheckboxChange = async (id: string, completed: boolean  ,selectedDate:string  ) => {
     
         try {
-       const response =      await axiosPrivate.put(`/progress/updateCompletionStatus/${type}`, { workoutId: id, completed , selectedDate });
+       const response =      await axiosPrivate.put('/progress/updateCompletionStatus', { workoutId: id, completed , selectedDate });
 
             if(response && response.status===200){
                 const nextTable = tabledata.map((c:TableData, i) => {
@@ -103,7 +103,7 @@ const SelectedWorkoutTable= ({ selectedDate, tabledata, getTableData, onDateChan
                                                 <input
                                                     type="checkbox"
                                                     className="w-6 h-6 text-primary-500 rounded focus:ring-primary-500 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-1 bg-gray-700 border-gray-600"
-                                                    onChange={() => handleCheckboxChange(tableItem._id, !tableItem.completed , selectedDate , tableItem.workoutType)}
+                                                    onChange={() => handleCheckboxChange(tableItem._id, !tableItem.completed , selectedDate )}
                                                     
                                                     checked={tableItem.completed} 
                                                     disabled={tableItem.completed} 
