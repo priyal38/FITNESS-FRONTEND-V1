@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { RecipeData } from './Recipe';
+import { RecipeData } from '../../../components/dashboard/recipe/Recipe';
 import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 import { useParams } from 'react-router-dom';
 

@@ -218,7 +218,7 @@ const AddBlog = (props: Props) => {
 
    </form>
       </div>
-      <Toaster/>
+     
     </>
 
 

@@ -96,7 +96,7 @@ const UpdateProfilePhoto = ({ profilePhoto, onPhotoUpdateSuccess }: Props) => {
                     </div>
                 </div>
             </div>
-            <Toaster />
+            
         </div>
     );
 };

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import RecipeCard from '../../../components/dashboard/recipe/RecipeCard'
-import SearchBar from '../../../components/dashboard/common/SearchBar'
+import RecipeCard from './RecipeCard'
+import SearchBar from '../common/SearchBar'
 import useAxiosPrivate from '../../../axios/useAxiosPrivate'
-import CardSkeleton from '../../../components/dashboard/common/CardSkeleton'
-import Pagination from '../../../components/dashboard/common/Pagination'
+import CardSkeleton from '../common/CardSkeleton'
+import Pagination from '../common/Pagination'
 import usePagination from '../../../hooks/usePagination'
 import { useSearchParams } from 'react-router-dom'
 
@@ -100,7 +100,10 @@ const Recipe = (props: Props) => {
           </div>
         </>
       ) : (
-        <div className="mt-8 text-center text-white text-3xl">Oops! No Recipes found.</div>
+        <div className="mt-16 text-center flex flex-col  ">
+          <span className='text-2xl'>😫😓😟</span>
+        <span className=' text-lg text-white'>We've searched near and far.</span>
+         <span className='text-gray-400'>We can't find any results that match your search.Try another spelling or different terms.</span></div>
       )}
 
     </>

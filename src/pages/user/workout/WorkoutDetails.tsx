@@ -5,7 +5,7 @@ import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 import ReactPlayer from 'react-player';
 import FormModal from '../../../components/dashboard/workout/FormModal';
 import { FaPlus } from 'react-icons/fa';
-import { WorkoutData } from './Workout';
+import { WorkoutData } from '../../../components/dashboard/workout/Workout';
 
 type Props = {};
 

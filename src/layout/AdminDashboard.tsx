@@ -15,7 +15,10 @@ const AddRecipes = React.lazy(()=>import("../pages/admin/AddRecipes"))
 const AddWorkout = React.lazy(()=>import("../pages/admin/AddWorkout"))
 const AdminHome = React.lazy(()=>import("../pages/admin/AdminHome"))
 const AdminProfile = React.lazy(()=>import("../pages/admin/AdminProfile"))
-
+const AllWorkouts = React.lazy(()=>import("../pages/admin/AllWorkouts"))
+const AllBlogs = React.lazy(()=>import("../pages/admin/AllBlogs"))
+const AllRecipes = React.lazy(()=>import("../pages/admin/AllRecipes"))
+const UpdateWorkout = React.lazy(()=>import('../pages/admin/UpdateWorkout'))
 
 const AdminDashboard = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -53,11 +56,16 @@ const AdminDashboard = () => {
             <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
             <Suspense fallback={<Loading/>}>
       <Routes>
+      <Route path='/' element={<AdminHome/>} ></Route>
        <Route path="addworkout" element={<AddWorkout />} />
-       <Route path="home" element={<AdminHome />} />
+       <Route path="dashboard" element={<AdminHome />} />
         <Route path="addblog" element={<AddBlog />} />
         <Route path="addNutritionPlan" element={<AddRecipes />} />
         <Route path="profile" element={<AdminProfile />} />
+        <Route path="allworkout" element={<AllWorkouts />} />
+        <Route path="allblog" element={<AllBlogs />} />
+        <Route path="allhealthyrecipes" element={<AllRecipes />} />
+        <Route path="allworkout/:id" element={<UpdateWorkout />} />
         </Routes>
         </Suspense>
             </div>

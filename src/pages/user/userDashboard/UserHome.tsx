@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
 import CardDataStats from '../../../components/dashboard/userDashboard/CardDataStats'
-import DoughnutChart from '../../../components/dashboard/userDashboard/DoughnutChart';
-// import PieChart from '../../../components/dashboard/userDashboard/DoughnutChart';
+import PieChart from '../../../components/dashboard/userDashboard/PieChart';
+
 import BarChart from '../../../components/dashboard/userDashboard/BarChart';
 
 import SelectedWorkoutTable from '../../../components/dashboard/userDashboard/SelectedWorkoutTable';
@@ -11,6 +11,7 @@ import { GiNightSleep } from "react-icons/gi";
 import { IoIosFitness } from "react-icons/io";
 import ProgressBar from '../../../components/dashboard/userDashboard/ProgressBar';
 import useAxiosPrivate from '../../../axios/useAxiosPrivate';
+import LineChart from '../../../components/dashboard/userDashboard/LineChart';
 
 
 
@@ -87,9 +88,10 @@ const UserHome = () => {
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
 
-        <DoughnutChart   tabledata={tabledata} />
-       {/* < PieChart tabledata={tabledata}/> */}
-        <BarChart  tabledata={tabledata}/>
+        <PieChart   tabledata={tabledata} />
+   
+        {/* <BarChart  tabledata={tabledata}/> */}
+        <LineChart tabledata={tabledata}/>
 
 
       </div>

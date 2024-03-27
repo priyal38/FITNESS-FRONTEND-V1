@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FilterOptions } from '../../../pages/user/workout/Workout';
+import { FilterOptions } from './Workout';
 import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 import { FiFilter } from "react-icons/fi";
 

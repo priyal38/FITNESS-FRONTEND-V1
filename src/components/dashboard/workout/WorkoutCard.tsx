@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { WorkoutData } from '../../../pages/user/workout/Workout';
+import { WorkoutData } from './Workout';
 
 
 type Props = {
@@ -14,7 +14,7 @@ const WorkoutCard = ({data }: Props) => {
             <div className=" rounded overflow-hidden shadow-inner shadow-slate-400 flex flex-col bg-surface-200">
                 <div className='overflow-hidden h-48'>
                     <img
-                        className="w-full h-full object-fit"
+                        className="w-full h-full object-fill"
                         src={`http://localhost:5000/${data.thumbnail}`}
                         alt="Workout"
                     />

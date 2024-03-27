@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState  , useEffect} from 'react'
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
+import useAxiosPrivate from '../../axios/useAxiosPrivate';
 
 type Props = {}
 
@@ -21,31 +22,24 @@ const AddWorkout = (props: Props) => {
 
   const { register, handleSubmit, formState: { errors , isSubmitSuccessful } , reset  } = useForm<FormInput>();
   const [subCategories, setSubCategories] = useState<string[]>([])
+  const axiosPrivate = useAxiosPrivate();
 
+  const gymCategories = ['Biceps', 'Triceps', 'Chest', 'Back', 'Upperleg', 'Lowerleg', 'Abs', 'Shoulders', 'Glutes', 'Other'];
+  const yogaCategories = ['Ashtanga yoga', 'Hatha yoga', 'Hot yoga', 'Iyengar yoga', 'Kundalini yoga', 'Power yoga', 'Restorative yoga', 'Vinyasa yoga', 'Other'];
+  const homeWorkoutCategories = ['Stretching', 'Warm Up', 'Other'];
 
-  const gymCategories = ['Biceps', 'Triceps', 'Chest', 'Back', 'Upperleg','Lowerleg', 'Abs', 'Shoulders', 'Glutes' , 'Other']
-  const yogaCategories = ['Ashtanga yoga', 'Hatha yoga', 'Hot yoga', 'Iyengar yoga', 'Kundalini yoga', 'Power yoga', 'Restorative yoga', 'Vinyasa yoga' , 'Other']
-  const HomeWorkoutCategories = ['Stretching', 'Warm Up ' , 'Other' ]
-  //  ==================dynamic subcategory render=====================
+  const categories: { [key: string]: string[] } = {
+    gym: gymCategories,
+    yoga: yogaCategories,
+    home: homeWorkoutCategories
+  };
+
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedCategory = e.target?.value;
-   
-    if (selectedCategory === 'gym') {
-      setSubCategories(gymCategories)
-    }
-    else if (selectedCategory === 'home') {
-      setSubCategories(HomeWorkoutCategories)
-    }
-    else if (selectedCategory === 'yoga') {
-      setSubCategories(yogaCategories)
-    }
-    else {
-      setSubCategories([]);
-    }
-
-  
-
+    const selectedCategory = e.target.value;
+    const selectedSubCategories = categories[selectedCategory] || [];
+    setSubCategories(selectedSubCategories);
   }
+
 
   const onSubmit = async (data: FormInput) => {
     try {
@@ -59,7 +53,7 @@ const AddWorkout = (props: Props) => {
       formData.append('thumbnail', data.thumbnail[0]);
       formData.append('videoUrl', data.videoUrl);
 
-      const response = await axios.post('http://localhost:5000/api/workout/addworkout', formData, {
+      const response = await axiosPrivate.post('/workout/addworkout', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -223,7 +217,7 @@ const AddWorkout = (props: Props) => {
 
         </form>
       </div>
-      <Toaster />
+     
     </>
 
 

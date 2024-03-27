@@ -95,7 +95,7 @@ const ForgotPass = () => {
            
           </form>
         </div>
-        <Toaster />
+      
       </div>
     </div>
     <Footer />

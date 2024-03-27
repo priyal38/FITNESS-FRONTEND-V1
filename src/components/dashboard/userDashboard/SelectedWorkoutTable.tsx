@@ -32,7 +32,7 @@ const SelectedWorkoutTable= ({ selectedDate, tabledata, getTableData, onDateChan
     const handleCheckboxChange = async (id: string, completed: boolean  ,selectedDate:string  ) => {
     
         try {
-       const response =      await axiosPrivate.put('/progress/updateCompletionStatus', { workoutId: id, completed , selectedDate });
+       const response =  await axiosPrivate.put('/progress/updateCompletionStatus', { workoutId: id, completed , selectedDate });
 
             if(response && response.status===200){
                 const nextTable = tabledata.map((c:TableData, i) => {

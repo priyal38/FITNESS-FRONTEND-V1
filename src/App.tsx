@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import './App.css'
 import Loading from './components/dashboard/common/Loading';
 import PrivateRoutes from './utils/PrivateRoutes';
+import { Toaster } from 'react-hot-toast';
 
 
 
@@ -27,6 +28,9 @@ const ReactTable  = React.lazy(()=>import("./test/ReactTable"))
 function App() {
 
   return (
+    <>
+      <Toaster />
+    
     <Suspense fallback={<Loading/>}>
     <Routes>
 
@@ -57,6 +61,8 @@ function App() {
         </Route>
       </Routes>
       </Suspense>
+    </>
+   
      
 
   );  

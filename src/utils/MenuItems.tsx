@@ -24,7 +24,10 @@ const AdminMenuItems: menuItem[] = [
   { text: "Dashboard", path: "dashboard", icon: <MdDashboard className=' mt-1' /> },
   { text: "AddWorkout", path: "addworkout", icon: <IoMdFitness /> },
   { text: "AddBlog", path: "addblog", icon: <RiArticleFill /> },
-  { text: "AddNutrition", path: "addNutritionPlan", icon: <MdMenuBook /> }
+  { text: "AddNutrition", path: "addNutritionPlan", icon: <MdMenuBook /> },
+  { text: "Workout", path: "allworkout", icon: <IoMdFitness /> },
+  { text: "Healthy Recipes", path: "allhealthyrecipes", icon: <MdMenuBook /> },
+  { text: "Blogs & Articles", path: "allblog", icon: <RiArticleFill /> },
 ];
 
 export { UserMenuItems, AdminMenuItems };

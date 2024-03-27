@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import SearchBar from '../../../components/dashboard/common/SearchBar';
-import WorkoutCard from '../../../components/dashboard/workout/WorkoutCard';
+import SearchBar from '../common/SearchBar';
+import WorkoutCard from './WorkoutCard';
 import useAxiosPrivate from "../../../axios/useAxiosPrivate";
-import CardSkeleton from '../../../components/dashboard/common/CardSkeleton';
+import CardSkeleton from '../common/CardSkeleton';
 import usePagination from '../../../hooks/usePagination';
-import Pagination from '../../../components/dashboard/common/Pagination';
+import Pagination from '../common/Pagination';
 import { useSearchParams } from 'react-router-dom';
-import Filters  from '../../../components/dashboard/workout/Filters';
+import Filters  from './Filters';
 
  export interface FilterOptions {
   selectedCategories: string[];

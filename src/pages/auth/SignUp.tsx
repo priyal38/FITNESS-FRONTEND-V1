@@ -109,7 +109,7 @@ interface FormData {
                             </div>
                         </form>
                     </div>
-                    <Toaster />
+                   
                 </div>
             </div>
             <Footer />

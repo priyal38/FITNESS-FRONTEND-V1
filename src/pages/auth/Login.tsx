@@ -152,7 +152,7 @@ console.log(response)
               </div>
             </form>
           </div>
-          <Toaster />
+        
         </div>
       </div>
       <Footer />

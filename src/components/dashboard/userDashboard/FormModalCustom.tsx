@@ -89,7 +89,7 @@ const FormModalCustom = ({ handleCloseModal }: Props) => {
                     </form>
                 </div>
             </div>
-            <Toaster/>
+          
         </div>
         
     );

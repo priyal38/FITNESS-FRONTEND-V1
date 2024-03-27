@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { FaArrowRightLong } from "react-icons/fa6";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { FaRegComment } from "react-icons/fa";
-import { BlogData } from '../../../pages/user/blog/Blog';
+import { BlogData } from './Blog';
 
 
 

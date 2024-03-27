@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BlogData } from './Blog'
+import { BlogData } from '../../../components/dashboard/blog/Blog'
 import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 import { useParams } from 'react-router-dom';
 import { IoMdTime } from "react-icons/io";
