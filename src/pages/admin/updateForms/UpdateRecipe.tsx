@@ -37,7 +37,7 @@ interface FormInput {
 
 
 
-const AddHealthyRecipes = (props: Props) => {
+const UpdateHealthyRecipes = (props: Props) => {
 
   const { register,handleSubmit,setValue, getValues, formState: { errors  , isSubmitSuccessful}, control  , reset} = useForm<FormInput>({
     defaultValues: {
@@ -99,7 +99,7 @@ console.log(formData);
 
 
     <>
-      <div className="max-w-xl  mx-auto mt-10 border bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="max-w-2xl  mx-auto mt-10 border bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="text-2xl py-4 px-6 bg-surface-200 text-white text-center font-bold uppercase">
           Add Healthy Recipes
         </div>
@@ -391,7 +391,7 @@ console.log(formData);
 
           <div className="flex items-center justify-center mb-4">
             <button
-              className="bg-surface-100 text-white py-2 px-4 rounded hover:bg-surface-200 focus:outline-none focus:shadow-outline"
+              className="bg-surface-200 text-white py-2 px-4 rounded hover:bg-surface-200 focus:outline-none focus:shadow-outline"
               type="submit">
               Add Recipe
             </button>
@@ -406,4 +406,4 @@ console.log(formData);
   )
 }
 
-export default AddHealthyRecipes
+export default UpdateHealthyRecipes

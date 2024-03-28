@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
-import useAxiosPrivate from '../../axios/useAxiosPrivate';
+import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 import { useParams , useNavigate } from 'react-router-dom';
 
 type Props = {}

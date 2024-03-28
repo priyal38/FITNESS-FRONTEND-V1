@@ -210,7 +210,7 @@ const AddBlog = (props: Props) => {
 
           <div className="flex items-center justify-center mb-4">
             <button
-              className="bg-surface-100 text-white py-2 px-4 rounded hover:bg-surface-200 focus:outline-none focus:shadow-outline"
+              className="bg-surface-200 text-white py-2 px-4 rounded hover:bg-surface-200 focus:outline-none focus:shadow-outline"
               type="submit">
               Add Blog
             </button>
