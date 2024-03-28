@@ -1,7 +1,9 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Controller, useForm } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate, useParams } from 'react-router-dom';
+import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 
 type Props = {}
 
@@ -13,58 +15,95 @@ interface FormInput {
   author: string;
   readtime: string;
   coverImg: string;
-  subtitle:string
-  
+  subtitle: string
+
 }
 
 const UpdateBlog = (props: Props) => {
 
 
 
-  const { register, handleSubmit, formState: { errors ,isSubmitSuccessful} ,control, reset } = useForm<FormInput>();
+  const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, control, reset } = useForm<FormInput>();
+  const [image, setImage] = useState(null);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const axiosPrivate = useAxiosPrivate();
 
-  const onSubmit = async (data: FormInput ) => {
+
+  const fetchBlogData = async () => {
+    try {
+      const response = await axiosPrivate.get(`/blog/getblog/${id}`);
+      const data = response.data.data;
+      setImage(data.coverImg);
+      reset(data);
+
+    } catch (error) {
+      console.error('Error fetching workout data:', error);
+
+    }
+  };
+
+  const onSubmit = async (data: FormInput) => {
     try {
       const formData = new FormData();
       formData.append('title', data.title);
       formData.append('category', data.category);
-      formData.append('content',JSON.stringify(data.content));
+      formData.append('content', JSON.stringify(data.content));
       formData.append('author', data.author);
       formData.append('subtitle', data.subtitle);
       formData.append('readtime', data.readtime);
-      formData.append('coverImg', data.coverImg[0]); 
-     
-   
-      const response = await axios.post('http://localhost:5000/api/blog/addblog', formData, {
+
+      if (data.coverImg[0]) {
+        formData.append('coverImg', data.coverImg[0]);
+      }
+
+
+      const response = await axiosPrivate.put(`/blog/updateblog/${id}`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data' 
+          'Content-Type': 'multipart/form-data'
         }
       });
       console.log(response.data);
-      if(response.status===200){
-        toast.success("Blog added successfully")
+      if (response.status === 200) {
+        fetchBlogData();
+        toast.success("Blog updated successfully")
       }
-      
-      
+
+
     } catch (error) {
       console.error('Error adding workout:', error);
-     toast.error("Please try again")
+      toast.error("Please try again")
     }
   };
 
 
-  useEffect(()=>{
-    if(isSubmitSuccessful){
-        reset();
+  const handleDelete = async () => {
+    try {
+      const response = await axiosPrivate.delete(`/blog/deleteblog/${id}`)
+      console.log(response);
+      if (response) {
+        toast.success('Blog deleted successfully');
+
+        navigate(-1)
+      }
+
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('Please try again');
     }
-        } , [isSubmitSuccessful ])
+  }
+
+  useEffect(() => {
+    fetchBlogData();
+  }, [id]);
+
   return (
 
 
     <>
       <div className="max-w-2xl  mx-auto mt-10 border bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="text-2xl py-4 px-6 bg-surface-200 text-white text-center font-bold uppercase">
-          Add Blog
+          Update Blog
         </div>
         <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
           <div className="mb-4">
@@ -76,30 +115,30 @@ const UpdateBlog = (props: Props) => {
               type="text" {...register("title", {
                 required: "title required"
               })} />
-              {errors.title && <p className="text-red-600 mt-1">{errors.title.message}</p>}
+            {errors.title && <p className="text-red-600 mt-1">{errors.title.message}</p>}
           </div>
 
 
 
           {/* ================Category======================== */}
           <div className="mb-4">
-              <label className="block text-gray-700 font-bold mb-2" >
-                Category
-              </label>
-              <select
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                {...register("category" , {
-                  required: "category required"
-                })}>
-                <option value="">Select a category</option>
-                <option value="fitness">Fitness</option>
-                <option value="health">Health</option>
-                <option value="mentalHealth">Mental Health</option>
-                <option value="nutrition">Nutrition</option>
+            <label className="block text-gray-700 font-bold mb-2" >
+              Category
+            </label>
+            <select
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              {...register("category", {
+                required: "category required"
+              })}>
+              <option value="">Select a category</option>
+              <option value="fitness">Fitness</option>
+              <option value="health">Health</option>
+              <option value="mentalHealth">Mental Health</option>
+              <option value="nutrition">Nutrition</option>
 
-              </select>
-              {errors.category && <p className="text-red-600 mt-1">{errors.category.message}</p>}
-            </div>
+            </select>
+            {errors.category && <p className="text-red-600 mt-1">{errors.category.message}</p>}
+          </div>
 
 
           {/* ======Author============ */}
@@ -112,7 +151,7 @@ const UpdateBlog = (props: Props) => {
               type="text" {...register("author", {
                 required: "author required"
               })} />
-              {errors.author && <p className="text-red-600 mt-1">{errors.author.message}</p>}
+            {errors.author && <p className="text-red-600 mt-1">{errors.author.message}</p>}
           </div>
 
           {/* ======Author============ */}
@@ -123,7 +162,7 @@ const UpdateBlog = (props: Props) => {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text" {...register("subtitle")} />
-            
+
           </div>
 
           {/* =====================explanation================== */}
@@ -189,7 +228,7 @@ const UpdateBlog = (props: Props) => {
               type="text" {...register("readtime", {
                 required: "readtime required"
               })} />
-              {errors.readtime && <p className="text-red-600 mt-1">{errors.readtime.message}</p>}
+            {errors.readtime && <p className="text-red-600 mt-1">{errors.readtime.message}</p>}
           </div>
 
 
@@ -202,23 +241,39 @@ const UpdateBlog = (props: Props) => {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("coverImg", {
-                required: "image required"
-              })} type="file"  />
-              {errors.coverImg && <p className="text-red-600 mt-1">{errors.coverImg.message}</p>}
+
+              })} type="file" />
           </div>
+          {image && (
+            <div className="mb-4 ">
+              <label className="block text-gray-700 font-bold mb-2">Current Image</label>
+              <div className='h-56'>
+
+                <img
+                  src={`http://localhost:5000/${image}`}
+                  alt="Current Thumbnail"
+                  className=" w-full h-full object-fill "
+                />
+              </div>
+            </div>
+          )}
 
 
-          <div className="flex items-center justify-center mb-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4 justify-center mb-4">
             <button
               className="bg-surface-200 text-white py-2 px-4 rounded hover:bg-surface-200 focus:outline-none focus:shadow-outline"
               type="submit">
-              Add Blog
+              Update Blog
+            </button>
+            <button
+              className="bg-surface-200 text-white py-2 px-4 rounded hover:bg-surface-200 focus:outline-none focus:shadow-outline" type="button" onClick={handleDelete}>
+              Delete Blog
             </button>
           </div>
 
-   </form>
+        </form>
       </div>
-     
+
     </>
 
 

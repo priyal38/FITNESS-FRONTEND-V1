@@ -13,6 +13,7 @@ import Header from '../../components/LandingPage/Header';
 import Footer from '../../components/LandingPage/Footer';
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const schema = yup.object().shape({
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -27,7 +28,7 @@ interface LoginFormInputs {
 const Login = () => {
 
   const navigate = useNavigate();
-
+  const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
@@ -39,6 +40,11 @@ const Login = () => {
       navigate('/')
     }
   }, [])
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword); // Toggle showPassword state
+  };
+
   const onSubmit = async (data: LoginFormInputs) => {
 
     try {
@@ -74,9 +80,7 @@ console.log(response)
         })
 
 
-        // setTimeout(() => {
-        //   console.log(auth)
-        // }, 50000);
+    
 
         if (response.data.user.role === 1) {
           navigate('/admin')
@@ -125,20 +129,35 @@ console.log(response)
                     <MdEmail className='h-6 w-6' />
                   </span>
                   <input type="text"  {...register('email')} className="rounded-none rounded-e-lg border block flex-1 min-w-0 w-full text-sm p-2.5  bg-surface-200  border-gray-600 placeholder-gray-200 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter email" />
+        
                 </div>
                   {errors.email && <p className="text-red-500 text-sm italic">{errors.email.message}</p>}
               </div>
-              <div className="mb-4">
-                <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Password</label>
+     
 
-                <div className="flex">
-                  <span className="inline-flex items-center px-3 text-sm  border border-e-0  rounded-s-md bg-surface-200 text-gray-400 border-gray-600">
-                    < RiLockPasswordFill className='h-6 w-6' />
-                  </span>
-                  <input type="password"  {...register('password')} className="rounded-none rounded-e-lg border block flex-1 min-w-0 w-full text-sm p-2.5  bg-surface-200 border-gray-600 placeholder-gray-200 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter Password" />
-                </div>
-                  {errors.password && <p className="text-red-500 text-sm italic">{errors.password.message}</p>}
-              </div>
+<div className=" mb-4">
+<label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Password</label>
+
+      <div className="flex">
+        <span className="inline-flex items-center px-3 text-sm border border-e-0 rounded-l-md bg-surface-200 text-gray-400 border-gray-600">
+          <RiLockPasswordFill className='h-6 w-6' />
+        </span>
+        <div className='relative w-full'>
+        <input type={showPassword ? 'text' : 'password'}   {...register('password')} className="rounded-none rounded-e-lg border block  min-w-0 w-full text-sm p-2.5  bg-surface-200 border-gray-600 placeholder-gray-200 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter Password" />
+       
+        {/* Show eye icon in the input field */}
+        <div className="absolute items-center end-0 top-0 mt-3 justify-center pr-5">
+          {showPassword ? (
+            <FaEye className="text-gray-400 w-5 h-5 cursor-pointer" onClick={handleTogglePassword} />
+          ) : (
+            <FaEyeSlash className="text-gray-400  w-5 h-5 cursor-pointer" onClick={handleTogglePassword} />
+          )}
+        </div>
+        </div>
+      </div>
+    {errors.password && <p className="text-red-500 text-sm italic">{errors.password.message}</p>} 
+    </div>
+
               <div className="mb-4 text-center">
                 <button className="bg-primary-400 hover:bg-primary-200  w-full text-white font-medium py-2 px-3 rounded-lg focus:outline-none focus:shadow-outline text-lg tracking-wider" type="submit"> Login</button>
               </div>

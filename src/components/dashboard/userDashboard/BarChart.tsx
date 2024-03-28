@@ -1,12 +1,12 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { TableData } from '../../../pages/user/userDashboard/UserHome';
+import { UserWorkoutData } from '../../../pages/user/userDashboard/UserHome';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 type Props = {
-    tabledata: TableData[]
+    tabledata: UserWorkoutData[]
 };
 
 const BarChart = ({ tabledata }: Props) => {

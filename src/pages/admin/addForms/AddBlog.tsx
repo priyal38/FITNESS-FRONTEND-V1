@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react'
 import { Controller, useForm } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
+import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 
 type Props = {}
 
@@ -22,7 +23,8 @@ const AddBlog = (props: Props) => {
 
 
   const { register, handleSubmit, formState: { errors ,isSubmitSuccessful} ,control, reset } = useForm<FormInput>();
-
+  const axiosPrivate = useAxiosPrivate();
+  
   const onSubmit = async (data: FormInput ) => {
     try {
       const formData = new FormData();
@@ -35,7 +37,7 @@ const AddBlog = (props: Props) => {
       formData.append('coverImg', data.coverImg[0]); 
      
    
-      const response = await axios.post('http://localhost:5000/api/blog/addblog', formData, {
+      const response = await axiosPrivate.post('/blog/addblog', formData, {
         headers: {
           'Content-Type': 'multipart/form-data' 
         }

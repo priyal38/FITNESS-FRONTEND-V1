@@ -23,7 +23,7 @@ const UpdateWorkout = (props: Props) => {
 
     const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm<FormInput>();
     const [subCategories, setSubCategories] = useState<string[]>([])
-    const [workoutData, setWorkoutData] = useState<FormInput | null>(null);
+    const [image, setImage] = useState(null);
     const navigate = useNavigate()
     const { id } = useParams();
     const axiosPrivate = useAxiosPrivate();
@@ -50,7 +50,7 @@ const UpdateWorkout = (props: Props) => {
         try {
             const response = await axiosPrivate.get(`/workout/getworkout/${id}`);
             const data = response.data.data;
-            setWorkoutData(data);
+            setImage(data.thumbnail);
             reset(data);
             setSubCategories(categories[data.category] || []);
         } catch (error) {
@@ -229,16 +229,16 @@ const UpdateWorkout = (props: Props) => {
                             {...register("thumbnail", {
 
                             })} type="file" />
-                        {errors.thumbnail && <p className="text-red-600 mt-1">{errors.thumbnail.message}</p>}
+                        
                     </div>
                     {/* {workoutData && <p>Current Image: {workoutData.thumbnail}</p>} */}
-                    {workoutData && (
+                    {image && (
                         <div className="mb-4 ">
                             <label className="block text-gray-700 font-bold mb-2">Current Image</label>
                             <div className='h-56'>
 
                                 <img
-                                    src={`http://localhost:5000/${workoutData.thumbnail}`} // Replace 'http://your-image-server-url/' with the actual URL of your image server
+                                    src={`http://localhost:5000/${image}`} 
                                     alt="Current Thumbnail"
                                     className=" w-full h-full object-fill "
                                 />
@@ -261,14 +261,14 @@ const UpdateWorkout = (props: Props) => {
                     </div>
 
 
-                    <div className="flex flex-col md:flex-row items-center gap-4 justify-center mb-4">
+                    <div className="flex flex-col sm:flex-row items-center gap-4 justify-center mb-4">
                         <button
                             className="bg-surface-100 text-white py-2 px-4 rounded hover:bg-surface-200 focus:outline-none focus:shadow-outline"
                             type="submit">
                             Update workout
                         </button>
                         <button
-                            className="bg-surface-100 text-white py-2 px-4 rounded hover:bg-surface-200 focus:outline-none focus:shadow-outline" type="button" onClick={handleDelete}>
+                            className="bg-surface-200 text-white py-2 px-4 rounded hover:bg-surface-200 focus:outline-none focus:shadow-outline" type="button" onClick={handleDelete}>
                             Delete workout
                         </button>
                     </div>

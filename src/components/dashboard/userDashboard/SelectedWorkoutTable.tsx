@@ -2,32 +2,65 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FaPlus } from "react-icons/fa6";
 import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 import FormModalCustom from './FormModalCustom';
-import { TableData } from '../../../pages/user/userDashboard/UserHome';
+import { UserWorkoutData } from '../../../pages/user/userDashboard/UserHome';
+import Pagination from '../common/Pagination';
+import usePagination from '../../../hooks/usePagination';
+
+import FormUpdateModal from './FormUpdateModal';
 
 interface Props {
     selectedDate: string;
-    tabledata: TableData[];
-    getTableData: (date: string) => void;
     onDateChange: (date: string) => void;
-    setTableData: Dispatch<SetStateAction<TableData[]>>;
-  
+    updateChartData: () => void;
 
 }
 
-const SelectedWorkoutTable= ({ selectedDate, tabledata, getTableData, onDateChange , setTableData }: Props) => {
+const SelectedWorkoutTable= ({ selectedDate, onDateChange, updateChartData  }: Props) => {
     const axiosPrivate = useAxiosPrivate();
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+    const { currentPage, totalPages, handlePageChange, updateTotalPages } = usePagination();
+  const [tabledata, setTableData] = useState<UserWorkoutData[]>([])
+  const [editWorkout, setEditWorkout] = useState<UserWorkoutData | null>(null);
+const perPage=3
 
-    const handleOpenModal = () => {
-        setModalOpen(true);
-    };
+    // const handleOpenModal = () => {
+    //     setModalOpen(true);
+    // };
 
     const handleCloseModal = () => {
         setModalOpen(false);
         getTableData(selectedDate);
     };
+    const handleCloseEditModal = () => {
+        setEditModalOpen(false);
+        getTableData(selectedDate);
+    };
 
-   
+    const handleEditWorkout = (workout: UserWorkoutData) => {
+        setEditWorkout(workout); 
+        setEditModalOpen(true);
+    };
+
+
+    const getTableData = async (date: string ) => {
+        try {
+          const response = await axiosPrivate.get(`/progress/getdata` , {
+            params:{
+              selectedDate:date,
+              page: currentPage,
+              perPage:perPage,
+    
+            }
+          });
+          console.log(response)
+          setTableData(response.data.data.workouts);
+         
+          updateTotalPages(response.data.data.totalPages);
+        } catch (error) {
+          console.error('Error fetching workouts:', error);
+        }
+      };
 
     const handleCheckboxChange = async (id: string, completed: boolean  ,selectedDate:string  ) => {
     
@@ -35,15 +68,15 @@ const SelectedWorkoutTable= ({ selectedDate, tabledata, getTableData, onDateChan
        const response =  await axiosPrivate.put('/progress/updateCompletionStatus', { workoutId: id, completed , selectedDate });
 
             if(response && response.status===200){
-                const nextTable = tabledata.map((c:TableData, i) => {
+                const nextTable = tabledata.map((c:UserWorkoutData, i) => {
                     if (c._id === id) {
                         return { ...c, completed: true };
                     }
                     return c;
                   });
                   setTableData(nextTable)
-                //   updateProgressBar(); 
-                  getTableData(selectedDate)
+                 updateChartData();
+                getTableData(selectedDate);
             }
      
             // Optionally, you can handle success or error responses from the backend here
@@ -52,6 +85,10 @@ const SelectedWorkoutTable= ({ selectedDate, tabledata, getTableData, onDateChan
         }
     };
 
+    useEffect(() => {
+        getTableData(selectedDate);
+      }, [currentPage, selectedDate]);
+
     return (
         <>
             {/* =======================formModel===================== */}
@@ -59,6 +96,14 @@ const SelectedWorkoutTable= ({ selectedDate, tabledata, getTableData, onDateChan
                 <>
                     <div className="fixed inset-0 bg-black opacity-80" onClick={handleCloseModal}></div>
                     <FormModalCustom handleCloseModal={handleCloseModal} />
+                   
+                </>
+            )}
+            {editModalOpen && (
+                <>
+                    <div className="fixed inset-0 bg-black opacity-80" onClick={handleCloseModal}></div>
+                    <FormUpdateModal handleCloseEditModal={handleCloseEditModal}  workoutData={editWorkout}/>
+                   
                 </>
             )}
 
@@ -70,14 +115,14 @@ const SelectedWorkoutTable= ({ selectedDate, tabledata, getTableData, onDateChan
                     }} />
 
                     {/* =============button for adding custom workout====================== */}
-                    <button className="inline-flex items-center borderfocus:outline-none focus:ring-1 font-medium rounded-md text-sm px-3 py-2 bg-primary-200 text-white border-gray-600 hover:bg-primary-400 hover:border-gray-600 focus:ring-gray-700" type="button" onClick={handleOpenModal}>
+                    <button className="inline-flex items-center borderfocus:outline-none focus:ring-1 font-medium rounded-md text-sm px-3 py-2 bg-primary-200 text-white border-gray-600 hover:bg-primary-400 hover:border-gray-600 focus:ring-gray-700" type="button" onClick={()=>{setModalOpen(true)}}>
                         <FaPlus className='w-4 h-4 text-white me-2' />
                         Add Workout
                     </button>
                 </div>
 
                 {/* ===================main table========================= */}
-                <div className="max-h-[80vh] overflow-x-auto overflow-y-auto">
+                <div className="w-full overflow-x-auto sm:overflow-hidden">
                     <table className="w-full text-sm text-center text-gray-100">
                         <thead className="text-md uppercase bg-surface-200 tracking-wide text-white">
                             <tr>
@@ -85,6 +130,7 @@ const SelectedWorkoutTable= ({ selectedDate, tabledata, getTableData, onDateChan
                                 <th className="py-3 px-6">Duration</th>
                                 <th className="py-3 px-6">Target(Days)</th>
                                 <th className="py-3 px-6">Status</th>
+                                <th className="py-3 px-6">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,11 +157,22 @@ const SelectedWorkoutTable= ({ selectedDate, tabledata, getTableData, onDateChan
                                                 <label className="sr-only">checkbox</label>
                                             </div>
                                         </td>
+                                        <td className="flex items-center justify-center  px-6 py-4">
+                                        <button onClick={() => handleEditWorkout(tableItem)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
+                    <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
+                </td>
                                     </tr>
                                 ))
                             )}
                         </tbody>
                     </table>
+                <div className="mt-2">
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                />
+          </div>
                 </div>
             </div>
         </>

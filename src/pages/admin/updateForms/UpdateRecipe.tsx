@@ -1,8 +1,10 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { useForm, useFieldArray , Controller } from "react-hook-form";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate, useParams } from 'react-router-dom';
+import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 
 type Props = {}
 
@@ -13,7 +15,6 @@ interface Ingredient {
   unit: string
 
 }
-
 
 interface NutritionFacts {
   calories: number;
@@ -39,7 +40,11 @@ interface FormInput {
 
 const UpdateHealthyRecipes = (props: Props) => {
 
-  const { register,handleSubmit,setValue, getValues, formState: { errors  , isSubmitSuccessful}, control  , reset} = useForm<FormInput>({
+  const [image, setImage] = useState(null);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const axiosPrivate = useAxiosPrivate();
+  const { register, handleSubmit, setValue, getValues, formState: { errors, isSubmitSuccessful }, control, reset } = useForm<FormInput>({
     defaultValues: {
       ingredients: [{ name: "", quantity: "", unit: "" }],
     }
@@ -50,10 +55,25 @@ const UpdateHealthyRecipes = (props: Props) => {
     name: 'ingredients'
   });
 
+
+  const fetchRecipeData = async () => {
+    try {
+      const response = await axiosPrivate.get(`/recipe/getrecipe/${id}`);
+      const data = response.data.data;
+      setImage(data.image);
+      reset(data);
+
+    } catch (error) {
+      console.error('Error fetching workout data:', error);
+
+    }
+  };
+
+
   const onSubmit = async (data: FormInput) => {
 
     console.log(data)
-    try{
+    try {
       const formData = new FormData();
       formData.append('title', data.title);
       formData.append('description', data.description);
@@ -62,46 +82,62 @@ const UpdateHealthyRecipes = (props: Props) => {
       formData.append('cookTime', data.cookTime);
       formData.append('dietaryType', data.dietaryType);
       formData.append('nutritionFacts', JSON.stringify(data.nutritionFacts));
-      formData.append('image', data.image[0]); 
-    formData.append('ingredients', JSON.stringify(data.ingredients));
-    formData.append('instructions', JSON.stringify(data.instructions));
-   
+      formData.append('ingredients', JSON.stringify(data.ingredients));
+      formData.append('instructions', JSON.stringify(data.instructions));
 
-     
-console.log(formData);
-    
-    
+      if (data.image[0]) {
+        formData.append('image', data.image[0]);
+      }
 
-      const response = await axios.post('http://localhost:5000/api/recipe/addrecipe', formData, {
+      console.log(formData);
+
+      const response = await axiosPrivate.put(`/recipe/updaterecipe/${id}`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data' 
+          'Content-Type': 'multipart/form-data'
         }
       });
       console.log(response.data);
-      if(response.status===200){
-        toast.success("Recipe added successfully")
+      if (response.status === 200) {
+        fetchRecipeData();
+        toast.success("Recipe updated successfully")
       }
 
 
     } catch (error) {
       console.error('Error adding Recipe:', error);
-     toast.error("Please try again")
+      toast.error("Please try again")
     }
-  
+
   }
 
-  useEffect(()=>{
-    if(isSubmitSuccessful){
-        reset();
+  const handleDelete = async () => {
+    try {
+      const response = await axiosPrivate.delete(`/recipe/deleterecipe/${id}`)
+      console.log(response);
+      if (response) {
+        toast.success('Recipe deleted successfully');
+
+        navigate(-1)
+      }
+
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('Please try again');
     }
-        } , [isSubmitSuccessful ])
+  }
+
+
+  useEffect(() => {
+   fetchRecipeData()
+  }, [id])
+
   return (
 
 
     <>
       <div className="max-w-2xl  mx-auto mt-10 border bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="text-2xl py-4 px-6 bg-surface-200 text-white text-center font-bold uppercase">
-          Add Healthy Recipes
+          Update Healthy Recipes
         </div>
         <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
           <div className="mb-4">
@@ -327,7 +363,7 @@ console.log(formData);
             Add Ingredient
           </button>
 
-<div>
+          <div>
             <label className="block text-gray-700 font-bold mb-2">Instructions</label>
             <Controller
               name="instructions"
@@ -384,22 +420,39 @@ console.log(formData);
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("image", {
-                required: "image required"
+              
               })} type="file" />
-            {errors.image && <span className="text-red-500 text-xs italic">{errors.image.message}</span>}
+           
           </div>
+          {image && (
+            <div className="mb-4 ">
+              <label className="block text-gray-700 font-bold mb-2">Current Image</label>
+              <div className='h-56'>
 
-          <div className="flex items-center justify-center mb-4">
+                <img
+                  src={`http://localhost:5000/${image}`}
+                  alt="Current Thumbnail"
+                  className=" w-full h-full object-fill "
+                />
+              </div>
+            </div>
+          )}
+
+          <div className="flex flex-col sm:flex-row items-center gap-4 justify-center mb-4">
             <button
               className="bg-surface-200 text-white py-2 px-4 rounded hover:bg-surface-200 focus:outline-none focus:shadow-outline"
               type="submit">
-              Add Recipe
+              Update Recipe
+            </button>
+            <button
+              className="bg-surface-200 text-white py-2 px-4 rounded hover:bg-surface-200 focus:outline-none focus:shadow-outline" type="button" onClick={handleDelete}>
+              Delete Recipe
             </button>
           </div>
 
         </form>
       </div>
-  
+
     </>
 
 

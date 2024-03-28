@@ -1,12 +1,12 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS,CategoryScale, LineElement, PointElement, LineController, LinearScale, Title, Tooltip } from 'chart.js';
-import { TableData } from '../../../pages/user/userDashboard/UserHome';
+import { UserWorkoutData } from '../../../pages/user/userDashboard/UserHome';
 
 ChartJS.register(LineElement ,CategoryScale, PointElement, LineController, LinearScale, Title, Tooltip);
 
 type Props = {
-  tabledata: TableData[];
+  tabledata: UserWorkoutData[];
 }
 
 const LineChart = ({ tabledata }: Props) => {

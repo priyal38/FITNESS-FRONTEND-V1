@@ -1,14 +1,14 @@
 import React from 'react'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie  } from 'react-chartjs-2';
-import { TableData } from '../../../pages/user/userDashboard/UserHome';
+import { UserWorkoutData } from '../../../pages/user/userDashboard/UserHome';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 type Props = {
-  tabledata: TableData[]
+  chartData: UserWorkoutData[]
 }
 
-const PieChart = ({tabledata}: Props) => {
+const PieChart = ({chartData}: Props) => {
 
   const completedColor = [
     'rgba(255, 99, 132, 0.7)',
@@ -39,7 +39,7 @@ const PieChart = ({tabledata}: Props) => {
 
   const data = {
     labels: ["Completed","Remaining"],
-    datasets: tabledata.map((entry, index) => ({
+    datasets: chartData.map((entry, index) => ({
       label:entry.workoutId ? entry.workoutId.title : entry.title,
       data: [entry.completedDays, entry.targetDays - entry.completedDays],
       backgroundColor: [
@@ -91,19 +91,19 @@ const options = {
 
 
   return (
-    <div className="sm:px-7.5 col-span-12 rounded-md border border-gray-400 bg-surface-200 px-5 pb-7 pt-8 shadow-sm xl:col-span-5">
-    <div className="mb-3 justify-center items-center sm:flex">
+    <div className=" ">
+    <div className="mb-4 justify-center items-center sm:flex">
       <div>
-        <h5 className="text-2xl font-semibold text-center  text-white">
+        <h5 className="md:text-2xl  text-xl font-semibold text-center  text-white">
          Daily Workout Analytics
         </h5>
       </div>
       
     </div>
 
-    <div className="mb-2">
-      <div id="chartThree" className=" h-80 flex justify-center">
-      <Pie data={data} options={options} />  </div>
+    <div className="">
+      <div id="chartThree" className=" h-[22rem] mt-2 flex justify-center">
+      <Pie data={data} options={options}  />  </div>
     </div>
     </div>
     

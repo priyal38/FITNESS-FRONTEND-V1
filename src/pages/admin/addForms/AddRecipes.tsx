@@ -1,8 +1,9 @@
-import axios from 'axios';
+
 import React, { useEffect } from 'react';
 
 import { useForm, useFieldArray , Controller } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
+import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 
 type Props = {}
 
@@ -44,6 +45,7 @@ const AddHealthyRecipes = (props: Props) => {
       ingredients: [{ name: "", quantity: "", unit: "" }],
     }
   });
+  const axiosPrivate = useAxiosPrivate();
 
   const { fields: ingredientsFields, append: appendIngredient, remove: removeIngredient } = useFieldArray({
     control,
@@ -72,7 +74,7 @@ console.log(formData);
     
     
 
-      const response = await axios.post('http://localhost:5000/api/recipe/addrecipe', formData, {
+      const response = await axiosPrivate.post('/recipe/addrecipe', formData, {
         headers: {
           'Content-Type': 'multipart/form-data' 
         }

@@ -12,10 +12,12 @@ import { IoIosFitness } from "react-icons/io";
 import ProgressBar from '../../../components/dashboard/userDashboard/ProgressBar';
 import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 import LineChart from '../../../components/dashboard/userDashboard/LineChart';
+import usePagination from '../../../hooks/usePagination';
 
 
 
-export interface TableData {
+
+export interface UserWorkoutData {
   _id:string
   title: string;
   targetDays: number;
@@ -37,30 +39,39 @@ export interface TableData {
 
 const UserHome = () => {
 
-  const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().slice(0, 10)); // Initialize with current date
-  const [tabledata, setTableData] = useState<TableData[]>([])
+  const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().slice(0, 10)); 
+const [chartData , setChartData] = useState<UserWorkoutData[]>([])
   const axiosPrivate = useAxiosPrivate();
+  const perPage=3
 
   const handleDateChange = (date: string) => {
     setSelectedDate(date);
   };
 
 
-  const getTableData = async (date: string) => {
+  const getChartData = async (date: string ) => {
     try {
-      const response = await axiosPrivate.get(`/progress/getdata?selectedDate=${date}`);
+      const response = await axiosPrivate.get(`/progress/getchartdata` , {
+        params:{
+          selectedDate:date,
+        }
+      });
       console.log(response)
-      setTableData(response.data.data);
+      setChartData(response.data.data);
     } catch (error) {
       console.error('Error fetching workouts:', error);
     }
   };
 
+  const updateChartData = () => {
+            getChartData(selectedDate);
+  };
+
   useEffect(() => {
     if (selectedDate) {
-      getTableData(selectedDate);
+      getChartData(selectedDate);
     }
-  }, [selectedDate]);
+  }, [selectedDate ]);
 
   
 
@@ -86,21 +97,23 @@ const UserHome = () => {
 
       </div>
 
-      <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+      <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7 2xl:gap-7 ">
 
-        <PieChart   tabledata={tabledata} />
-   
+      <div className="col-span-12 xl:col-span-5  xs:h-[28rem] h-[23rem] sm:px-7.5  rounded-md border border-gray-400 bg-surface-200 px-5 pb-7 pt-5 shadow-sm ">
+    <PieChart chartData={chartData} />
+  </div>
+  <div className="col-span-12 xl:col-span-7 overflow-y-auto md:h-[28rem] h-[25rem] sm:px-7.5  rounded-md border border-gray-400 bg-surface-200 px-5 pb-7 pt-5 shadow-sm overflow-x-auto">
+    <ProgressBar  chartData={chartData}  getChartData={getChartData} selectedDate={selectedDate} />
+  </div>
+      
         {/* <BarChart  tabledata={tabledata}/> */}
-        <LineChart tabledata={tabledata}/>
+        {/* <LineChart tabledata={tabledata}/> */}
 
 
       </div>
       <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-12 xl:col-span-7">
-          <SelectedWorkoutTable setTableData={setTableData} selectedDate={selectedDate} tabledata={tabledata} getTableData={getTableData} onDateChange={handleDateChange}  />
-        </div>
-        <div className="col-span-12 xl:col-span-5">
-          <ProgressBar tabledata={tabledata} getTableData={getTableData}selectedDate={selectedDate} />
+        <div className="col-span-12 ">
+          <SelectedWorkoutTable  selectedDate={selectedDate} onDateChange={handleDateChange}  updateChartData={updateChartData} />
         </div>
       </div>
 
