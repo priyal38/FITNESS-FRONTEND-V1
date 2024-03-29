@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 interface CardDataStatsProps {
   title: string;
-  total: string;
+  total: number | string;
  
   children:ReactNode
   
@@ -16,7 +16,7 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
  
 }) => {
   return (
-    <div className="rounded-lg  border  bg-surface-200 py-6  shadow  shadow-slate-800 border-gray-700">
+    <div className="rounded-lg  border h-44 bg-surface-200 py-6  shadow-inner shadow-slate-600 border-gray-800">
 
       <div className="flex h-12 w-12 items-center mx-auto justify-center rounded-lg bg-primary-200">
         {children}
@@ -24,7 +24,7 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
 
       <div className="mt-4 flex items-center justify-center">
         <div>
-          <h4 className="text-2xl text-center mb-3 font-bold text-white">
+          <h4 className="text-2xl text-center mb-2 font-semibold text-white">
             {total}
           </h4>
           <span className="text-base  text-gray-300  tracking-normal font-medium">{title}</span>

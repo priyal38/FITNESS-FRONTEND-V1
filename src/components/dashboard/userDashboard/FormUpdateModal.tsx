@@ -55,6 +55,9 @@ const FormUpdateModal = ({ handleCloseEditModal , workoutData }: Props) => {
          toast.error("Please try again")
         }
 };
+
+
+
     return (
         <div className="fixed top-5 md:left-10 left-0 w-full h-full flex items-center justify-center z-50">
             <div className="bg-surface-200 rounded-lg shadow-inner  shadow-slate-300 w-full max-w-md">
@@ -83,14 +86,16 @@ const FormUpdateModal = ({ handleCloseEditModal , workoutData }: Props) => {
                         <div>
                             <label className="block mb-2 text-sm font-medium text-white">TargetDays</label>
                             <input type="number"  className="bg-surface-200  border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"   {...register('targetDays' , {
-                                required:"targetdays required"
+                                required:"targetdays required",
+                                min:"1"
                             })} />
                              {errors.targetDays && <p className="text-red-600 mt-1">{errors.targetDays?.message}</p>}
                         </div>
                         <div>
                             <label className="block mb-2 text-sm font-medium text-white">Duration</label>
                             <input type="number" className="bg-surface-200 border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"   {...register('duration' , {
-                                required:"duration required"
+                                required:"duration required",
+                                min:"1"
                             })} />
                              {errors.duration && <p className="text-red-600 mt-1">{errors.duration?.message}</p>}
                         </div>

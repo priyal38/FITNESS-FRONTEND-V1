@@ -122,7 +122,7 @@ const SignUp = () => {
 
 
                             <div className=" mb-4">
-                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Password</label>
+                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Confirm Password</label>
 
                                 <div className="flex">
 

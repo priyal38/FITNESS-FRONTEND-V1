@@ -5,17 +5,20 @@ import FormModalCustom from './FormModalCustom';
 import { UserWorkoutData } from '../../../pages/user/userDashboard/UserHome';
 import Pagination from '../common/Pagination';
 import usePagination from '../../../hooks/usePagination';
-
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 import FormUpdateModal from './FormUpdateModal';
+import toast from 'react-hot-toast';
 
 interface Props {
     selectedDate: string;
     onDateChange: (date: string) => void;
     updateChartData: () => void;
+    updateCardData:()=>void
 
 }
 
-const SelectedWorkoutTable= ({ selectedDate, onDateChange, updateChartData  }: Props) => {
+const SelectedWorkoutTable= ({ selectedDate, onDateChange, updateChartData  , updateCardData }: Props) => {
     const axiosPrivate = useAxiosPrivate();
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
@@ -23,18 +26,19 @@ const SelectedWorkoutTable= ({ selectedDate, onDateChange, updateChartData  }: P
   const [tabledata, setTableData] = useState<UserWorkoutData[]>([])
   const [editWorkout, setEditWorkout] = useState<UserWorkoutData | null>(null);
 const perPage=3
-
-    // const handleOpenModal = () => {
-    //     setModalOpen(true);
-    // };
+;
 
     const handleCloseModal = () => {
         setModalOpen(false);
         getTableData(selectedDate);
+        updateChartData()
+        updateCardData()
     };
     const handleCloseEditModal = () => {
         setEditModalOpen(false);
         getTableData(selectedDate);
+        updateCardData();
+        updateChartData();
     };
 
     const handleEditWorkout = (workout: UserWorkoutData) => {
@@ -42,10 +46,27 @@ const perPage=3
         setEditModalOpen(true);
     };
 
+    const handleDeleteWorkout = async(id:any) =>{
+        try {
+            const response = await axiosPrivate.delete(`/progress/deletetabledata/${id}`)
+            console.log(response);
+            if (response) {
+                toast.success('Workout deleted successfully');
+                getTableData(selectedDate);
+                updateChartData()
+                updateCardData()
+              }
+            
+        } catch (error) {
+            console.error('Error:', error);
+            toast.error('Please try again');
+        }
+    }
+
 
     const getTableData = async (date: string ) => {
         try {
-          const response = await axiosPrivate.get(`/progress/getdata` , {
+          const response = await axiosPrivate.get(`/progress/gettabledata` , {
             params:{
               selectedDate:date,
               page: currentPage,
@@ -76,6 +97,7 @@ const perPage=3
                   });
                   setTableData(nextTable)
                  updateChartData();
+                 updateCardData()
                 getTableData(selectedDate);
             }
      
@@ -135,12 +157,12 @@ const perPage=3
                         </thead>
                         <tbody>
                             {tabledata.length === 0 ? (
-                                <tr>
-                                    <td colSpan={4} className="text-center py-4">Workouts not added for this day</td>
+                                <tr className='border-b border-t bg-surface-200 border-surface-300 '>
+                                    <td colSpan={6} className="text-center py-4">Workouts not added for this day</td>
                                 </tr>
                             ) : (
                                 tabledata.map((tableItem, key) => (
-                                    <tr key={key} className="border-b bg-surface-200 border-gray-700 hover:bg-gray-600">
+                                    <tr key={key} className="border-b  bg-surface-200 border-gray-700 hover:bg-gray-600">
                                         <td scope="row" className="px-6 py-4">{tableItem.workoutId ? tableItem.workoutId.title : tableItem.title}</td>
                                         <td className="px-6 py-4">{tableItem.duration} min</td>
                                         <td className="py-4 px-6">{tableItem.targetDays}</td>
@@ -152,14 +174,14 @@ const perPage=3
                                                     onChange={() => handleCheckboxChange(tableItem._id, !tableItem.completed , selectedDate )}
                                                     
                                                     checked={tableItem.completed} 
-                                                    disabled={tableItem.completed} 
+                                                    // disabled={tableItem.completed} 
                                                 />
                                                 <label className="sr-only">checkbox</label>
                                             </div>
                                         </td>
                                         <td className="flex items-center justify-center  px-6 py-4">
-                                        <button onClick={() => handleEditWorkout(tableItem)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
-                    <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
+                                        <button onClick={() => handleEditWorkout(tableItem)} className="font-medium text-primary-400 "><FaEdit  className='text-xl' /></button>
+                    <button  className="font-medium  text-red-600  ms-4" onClick={()=>handleDeleteWorkout(tableItem._id)}><MdDelete className='text-xl'/></button>
                 </td>
                                     </tr>
                                 ))
@@ -167,11 +189,13 @@ const perPage=3
                         </tbody>
                     </table>
                 <div className="mt-2">
-                <Pagination
+
+                {tabledata.length >0 &&  <Pagination
                     currentPage={currentPage}
                     totalPages={totalPages}
                     onPageChange={handlePageChange}
-                />
+                /> }
+               
           </div>
                 </div>
             </div>

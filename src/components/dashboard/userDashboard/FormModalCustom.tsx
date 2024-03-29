@@ -26,7 +26,7 @@ const FormModalCustom = ({ handleCloseModal }: Props) => {
     try {
         // formData.startDate = new Date(formData.startDate); 
         console.log(formData)
-        const response = await axiosPrivate.post('/progress/', formData);
+        const response = await axiosPrivate.post('/progress/adduserworkout', formData);
         console.log(response)
         if(response.status===200){
             toast.success("workout added successfully")
@@ -59,21 +59,24 @@ const FormModalCustom = ({ handleCloseModal }: Props) => {
                         <div>
                             <label className="block mb-2 text-sm font-medium text-white">Workout Name</label>
                             <input type="text"  className="bg-surface-200  border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"   {...register('title' , {
-                                required:"title required"
-                            })} />
+                                required:"title required" ,
+                               
+                            } ) } />
                              {errors.title && <p className="text-red-600 mt-1">{errors.title?.message}</p>}
                         </div>
                         <div>
                             <label className="block mb-2 text-sm font-medium text-white">TargetDays</label>
                             <input type="number"  className="bg-surface-200  border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"   {...register('targetDays' , {
-                                required:"targetdays required"
+                                required:"targetdays required" ,
+                                min:"1"
                             })} />
                              {errors.targetDays && <p className="text-red-600 mt-1">{errors.targetDays?.message}</p>}
                         </div>
                         <div>
-                            <label className="block mb-2 text-sm font-medium text-white">Duration</label>
+                            <label className="block mb-2 text-sm font-medium text-white">Duration (min)</label>
                             <input type="number" className="bg-surface-200 border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"   {...register('duration' , {
-                                required:"duration required"
+                                required:"duration required",
+                                min:"1"
                             })} />
                              {errors.duration && <p className="text-red-600 mt-1">{errors.duration?.message}</p>}
                         </div>
