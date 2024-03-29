@@ -102,14 +102,14 @@ const UserHome = () => {
         <div className='col-span-12 lg:col-span-3 '>
 
           <CardDataStats title="Total Workout" total={cardData.length}   >
-            <IoIosFitness className='w-9 h-10 text-white' />
+            <IoIosFitness className='w-7 h-8 text-white' />
           </CardDataStats>
         </div>
         <div className='col-span-12 lg:col-span-3'>
 
 
           <CardDataStats title="Total Workout Time" total={`${totalWorkoutTime.hours > 0 ? `${totalWorkoutTime.hours} h` : ''} ${totalWorkoutTime.minutes > 0 ? `${totalWorkoutTime.minutes} min` : ''}`}   >
-            <GiSandsOfTime className='w-8 h-9 text-white' />
+            <GiSandsOfTime className='w-7 h-7 text-white' />
           </CardDataStats>
         </div>
 
