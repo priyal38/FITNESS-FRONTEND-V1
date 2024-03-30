@@ -4,10 +4,11 @@ import React, { useEffect, useState } from 'react';
 import BlogCard from './BlogCard';
 import SearchBar from '../common/SearchBar';
 import useAxiosPrivate from '../../../axios/useAxiosPrivate';
-import CardSkeleton from '../common/CardSkeleton';
+import {CardSkeleton} from '../common/Skeleton';
 import Pagination from '../common/Pagination';
 import usePagination from '../../../hooks/usePagination';
 import { useSearchParams } from 'react-router-dom';
+import useLoading from '../../../hooks/useLoading';
 
 export interface BlogData {
   _id: string;
@@ -22,9 +23,9 @@ export interface BlogData {
 
 const Blog: React.FC = () => {
   const [blogs, setBlogs] = useState<BlogData[]>([]);
-  const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const { currentPage, totalPages, handlePageChange, updateTotalPages } = usePagination();
+  const {loading , stopLoading} = useLoading();
   const axiosPrivate = useAxiosPrivate();
   const perPage = 3;
 
@@ -43,7 +44,7 @@ const Blog: React.FC = () => {
       
       setBlogs(response.data.data.blogs);
       updateTotalPages(response.data.data.totalPages);
-     setLoading(false)
+    stopLoading();
     } 
     catch (error) {
       console.error('Error fetching blogs:', error);

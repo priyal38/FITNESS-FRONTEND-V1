@@ -58,7 +58,7 @@ const FormModal = ({ handleCloseModal }: Props) => {
                     </button>
                 </div>
                 <div className="p-4 md:p-5">
-                    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} >
+                    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate >
                         <div>
                             <label className="block mb-2 text-sm font-medium text-white">TargetDays</label>
                             <input type="number"  className="bg-surface-200  border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"   {...register('targetDays' , {
@@ -68,7 +68,7 @@ const FormModal = ({ handleCloseModal }: Props) => {
                              {errors.targetDays && <p className="text-red-600 mt-1">{errors.targetDays?.message}</p>}
                         </div>
                         <div>
-                            <label className="block mb-2 text-sm font-medium text-white">Duration</label>
+                            <label className="block mb-2 text-sm font-medium text-white">Duration (min)</label>
                             <input type="number" className="bg-surface-200 border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"   {...register('duration' , {
                                 required:"duration required",
                                 min:"1"

@@ -16,14 +16,13 @@ const WorkoutCard = ({data }: Props) => {
                     <img
                         className="w-full h-full object-fill"
                         src={`http://localhost:5000/${data.thumbnail}`}
-                        alt="Workout"
+                        loading='lazy'
                     />
                 </div>
                 <div className="px-4 py-2 mb-auto">
 
                     <h3 className="mb-2 text-xl font-normal  text-white text-center overflow-hidden overflow-ellipsis whitespace-nowrap">{data.title}</h3>
 
-                    {/* <p className='mb-3 font-normal  text-gray-400'>subcategory</p> */}
                 </div>
 
 

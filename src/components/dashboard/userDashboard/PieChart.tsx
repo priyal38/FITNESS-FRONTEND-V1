@@ -3,6 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { UserWorkoutData } from '../../../pages/user/userDashboard/UserHome';
 
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 type Props = {
   chartData: UserWorkoutData[]
@@ -100,7 +101,9 @@ const PieChart = ({ chartData }: Props) => {
         </div>
 
       </div>
-      {chartData.length > 0 ?
+
+    
+    {  chartData.length > 0 ?
 
         (
         <div className="">
@@ -113,7 +116,7 @@ const PieChart = ({ chartData }: Props) => {
             <span className='text-white text-sm'>Add your workout and track your progress!</span>
           </div>
         )
-      }
+  }
     </div>
 
   )

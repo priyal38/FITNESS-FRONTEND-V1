@@ -32,6 +32,7 @@
     "react-hook-form": "^7.50.1",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.0.1",
+    "react-lazy-load-image-component": "^1.6.0",
     "react-player": "^2.15.1",
     "react-router-dom": "^6.22.0",
     "react-scripts": "5.0.1",
@@ -69,6 +70,7 @@
   },
   "devDependencies": {
     "@types/react-datepicker": "^6.0.3",
+    "@types/react-lazy-load-image-component": "^1.6.3",
     "@types/react-scroll": "^1.8.10",
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.35",

@@ -37,8 +37,7 @@ function App() {
 
         <Route path="/" element={<LandingPage />} />
       
-
-
+    
         {/* ==================test==================== */}
         <Route path="/testuser" element={<User />} />
         <Route path="/test" element={<TestForm />} />
@@ -55,10 +54,10 @@ function App() {
  
 
         <Route element={<PrivateRoutes/>}>
-
         <Route path="/user/*" element={<UserDashboard />}></Route>
         <Route path="/admin/*" element={<AdminDashboard />}></Route>
         </Route>
+
       </Routes>
       </Suspense>
     </>

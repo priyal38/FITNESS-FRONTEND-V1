@@ -14,7 +14,7 @@ interface FormInput {
   content: string[];
   author: string;
   readtime: string;
-  coverImg: string;
+  coverImg: FileList;
   subtitle: string
 
 }
@@ -105,7 +105,7 @@ const UpdateBlog = (props: Props) => {
         <div className="text-2xl py-4 px-6 bg-surface-200 text-white text-center font-bold uppercase">
           Update Blog
         </div>
-        <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+        <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data" noValidate>
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2" >
               Title
@@ -243,6 +243,8 @@ const UpdateBlog = (props: Props) => {
               {...register("coverImg", {
 
               })} type="file" />
+
+
           </div>
           {image && (
             <div className="mb-4 ">

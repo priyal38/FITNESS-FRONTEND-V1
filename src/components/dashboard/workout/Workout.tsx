@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import SearchBar from '../common/SearchBar';
 import WorkoutCard from './WorkoutCard';
 import useAxiosPrivate from "../../../axios/useAxiosPrivate";
-import CardSkeleton from '../common/CardSkeleton';
+import{ CardSkeleton} from '../common/Skeleton';
 import usePagination from '../../../hooks/usePagination';
 import Pagination from '../common/Pagination';
 import { useSearchParams } from 'react-router-dom';
 import Filters  from './Filters';
+import useLoading from '../../../hooks/useLoading';
 
  export interface FilterOptions {
   selectedCategories: string[];
@@ -30,7 +31,7 @@ export interface WorkoutData {
 const Workout = () => {
   const axiosPrivate = useAxiosPrivate();
   const [workouts, setWorkouts] = useState<WorkoutData[]>([]);
-  const [loading, setLoading] = useState(true);
+
   const [filterOptions, setFilterOptions] = useState<FilterOptions>({
     selectedCategories: [],
     selectedSubcategories: [],
@@ -38,6 +39,7 @@ const Workout = () => {
   });
   const [searchParams] = useSearchParams();
   const { currentPage, totalPages, handlePageChange, updateTotalPages } = usePagination();
+  const {loading  , stopLoading} = useLoading()
   const perPage = 6;
 
   const getWorkoutData = async () => {
@@ -61,7 +63,7 @@ const Workout = () => {
 
       setWorkouts(response.data.data.workouts);
       updateTotalPages(response.data.data.totalPages);
-      setLoading(false);
+      stopLoading()
     } catch (error) {
       console.error('Error fetching workouts:', error);
       setWorkouts([]);

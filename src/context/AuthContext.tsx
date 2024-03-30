@@ -5,7 +5,8 @@ interface User {
   email: string;
   role: number;
   token: string;
-  id:string
+  image:string
+ 
 }
 
 interface AuthData {
@@ -27,7 +28,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       email: '',
       role: 0,
       token: '',
-      id:""
+      image:''
     }
   });
 
@@ -39,7 +40,8 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         email: '',
         role: 0,
         token: '',
-        id:""
+        image:''
+     
       }
     });
     localStorage.removeItem('user');

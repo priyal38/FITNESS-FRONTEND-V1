@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosPrivate from '../../../axios/useAxiosPrivate';
 import { FiCamera } from 'react-icons/fi';
-import user from '../../../images/user.png';
+import defaultuser from '../../../images/defaultUser.jpg';
 import toast, { Toaster } from 'react-hot-toast';
-
+import { useAuth } from '../../../context/AuthContext';
 
 interface Props {
     profilePhoto: string;
@@ -12,11 +12,11 @@ interface Props {
 
 const UpdateProfilePhoto = ({ profilePhoto, onPhotoUpdateSuccess }: Props) => {
 
-    console.log(profilePhoto);
+    
 
     const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
     const axiosPrivate = useAxiosPrivate();
-
+const {auth , setAuth} = useAuth()
 
 
     const handleFileInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +44,25 @@ const UpdateProfilePhoto = ({ profilePhoto, onPhotoUpdateSuccess }: Props) => {
                 },
             });
 
+
+
             if (response.status === 200) {
+                const profileImage = response.data.data.profilePhoto
+                const userData = JSON.parse(localStorage.getItem('user') || '{}');
+                const updatedUserData = {
+                    ...userData,
+                    image: profileImage
+                  };
+                  localStorage.setItem('user', JSON.stringify(updatedUserData));
+
+                  setAuth({
+                    user: {
+                      ...auth.user,
+                      image: profileImage
+                    }
+                  });
+
+
                 onPhotoUpdateSuccess();
                 toast.success("Profile image updated  successfully")
 
@@ -53,12 +71,13 @@ const UpdateProfilePhoto = ({ profilePhoto, onPhotoUpdateSuccess }: Props) => {
                 toast.error("Please try again")
             }
 
-            console.log(response);
+          
         } catch (error) {
             console.error('Error updating user photo:', error);
             toast.error("Please try again")
         }
     };
+console.log(auth);
 
     return (
         <div className="col-span-5 xl:col-span-2">
@@ -70,8 +89,8 @@ const UpdateProfilePhoto = ({ profilePhoto, onPhotoUpdateSuccess }: Props) => {
                     <div className="mb-4 gap-3">
 
                         <img
-                            className="h-32 w-32 rounded-full border-4 border-white dark:border-gray-800 mx-auto my-4"
-                            src={profilePhoto ? `http://localhost:5000/${profilePhoto}` : user}
+                            className="h-32 w-32 rounded-full border-4 border-surface-300 mx-auto my-4"
+                            src={profilePhoto ? `http://localhost:5000/${profilePhoto}` : defaultuser}
                             alt=""
                         />
 

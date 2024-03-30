@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { TiThMenu } from "react-icons/ti";
 import { Link as LinkRouter } from 'react-router-dom';
 import {Link }  from 'react-scroll'
-import userImg from '../../images/user.png'
+import defaultuser from '../../images/defaultUser.jpg'
 import { useAuth } from '../../context/AuthContext';
 import Logo from '../../images/MainLogo.png'
 import { MdKeyboardArrowDown } from 'react-icons/md';
@@ -46,25 +46,26 @@ navigate('/user')
 
   {auth.user.token ? (
     <>
-    <Link
+    <button
         
         onClick={toggleUserMenu}
         className="flex items-center gap-2"
-        to=""
+       
       >
       
-        <span className="h-14 w-14 rounded-full">
-          <img src={userImg} alt="User" />
+        <span>
+        <img src={auth.user.image ? `http://localhost:5000/${auth.user.image}` : defaultuser} className=' className="h-9 w-9 rounded-full border-1 border-gray-800 mx-auto my-4"'/>
+       
         </span>
 
         <MdKeyboardArrowDown className="hidden text-gray-300 text-lg sm:block" />
-      </Link>
+      </button>
 
     </>
   ):(
     <>
      <LinkRouter to="/signup">
-              <button className=' md:block hidden  bg-primary-400 px-4 py-2 ml-2 mr-2 font-medium tracking-wider rounded-lg text-white'>SignUp</button>
+              <button className=' md:block hidden text-base bg-primary-500 px-3 py-1.5 ml-2 mr-2 font-medium tracking-wider rounded-lg text-white'>SignUp</button>
             </LinkRouter>
            
     </>
@@ -81,7 +82,7 @@ navigate('/user')
           <div className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMenuOpen ? 'block' : 'hidden'}`} id="navbar-user">
             <ul className="flex flex-col font-medium p-4 md:p-0 mt-4   bg-surface-100 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
               <li>
-                <Link to="home"  className="block py-2 px-3 text-white rounded hover:bg-gray-700 md:hover:bg-transparent md:hover:text-gray-200 md:p-0 " aria-current="page">Home</Link>
+                <LinkRouter to="/"  className="block py-2 px-3 text-white rounded hover:bg-gray-700 md:hover:bg-transparent md:hover:text-gray-200 md:p-0 " aria-current="page">Home</LinkRouter>
               </li>
               <li>
                 <Link to="about" smooth={true} duration={500} className="block py-2 px-3 text-white rounded hover:bg-gray-700 md:hover:bg-transparent md:hover:text-gray-200 cur md:p-0">About</Link>

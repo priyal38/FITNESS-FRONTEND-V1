@@ -9,24 +9,27 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import FormUpdateModal from './FormUpdateModal';
 import toast from 'react-hot-toast';
+import useLoading from '../../../hooks/useLoading';
+import { TableSkeleton } from '../common/Skeleton';
 
 interface Props {
     selectedDate: string;
     onDateChange: (date: string) => void;
     updateChartData: () => void;
-    updateCardData:()=>void
+    updateCardData: () => void
 
 }
 
-const SelectedWorkoutTable= ({ selectedDate, onDateChange, updateChartData  , updateCardData }: Props) => {
+const SelectedWorkoutTable = ({ selectedDate, onDateChange, updateChartData, updateCardData }: Props) => {
     const axiosPrivate = useAxiosPrivate();
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
     const { currentPage, totalPages, handlePageChange, updateTotalPages } = usePagination();
-  const [tabledata, setTableData] = useState<UserWorkoutData[]>([])
-  const [editWorkout, setEditWorkout] = useState<UserWorkoutData | null>(null);
-const perPage=3
-;
+    const { loading, stopLoading } = useLoading();
+    const [tabledata, setTableData] = useState<UserWorkoutData[]>([])
+    const [editWorkout, setEditWorkout] = useState<UserWorkoutData | null>(null);
+    const perPage = 3
+        ;
 
     const handleCloseModal = () => {
         setModalOpen(false);
@@ -42,11 +45,11 @@ const perPage=3
     };
 
     const handleEditWorkout = (workout: UserWorkoutData) => {
-        setEditWorkout(workout); 
+        setEditWorkout(workout);
         setEditModalOpen(true);
     };
 
-    const handleDeleteWorkout = async(id:any) =>{
+    const handleDeleteWorkout = async (id: any) => {
         try {
             const response = await axiosPrivate.delete(`/progress/deletetabledata/${id}`)
             console.log(response);
@@ -55,8 +58,8 @@ const perPage=3
                 getTableData(selectedDate);
                 updateChartData()
                 updateCardData()
-              }
-            
+            }
+
         } catch (error) {
             console.error('Error:', error);
             toast.error('Please try again');
@@ -64,43 +67,43 @@ const perPage=3
     }
 
 
-    const getTableData = async (date: string ) => {
+    const getTableData = async (date: string) => {
         try {
-          const response = await axiosPrivate.get(`/progress/gettabledata` , {
-            params:{
-              selectedDate:date,
-              page: currentPage,
-              perPage:perPage,
-    
-            }
-          });
-          console.log(response)
-          setTableData(response.data.data.workouts);
-         
-          updateTotalPages(response.data.data.totalPages);
+            const response = await axiosPrivate.get(`/progress/gettabledata`, {
+                params: {
+                    selectedDate: date,
+                    page: currentPage,
+                    perPage: perPage,
+
+                }
+            });
+            console.log(response)
+            setTableData(response.data.data.workouts);
+            updateTotalPages(response.data.data.totalPages);
+            stopLoading()
         } catch (error) {
-          console.error('Error fetching workouts:', error);
+            console.error('Error fetching workouts:', error);
         }
-      };
+    };
 
-    const handleCheckboxChange = async (id: string, completed: boolean  ,selectedDate:string  ) => {
-    
+    const handleCheckboxChange = async (id: string, completed: boolean, selectedDate: string) => {
+
         try {
-       const response =  await axiosPrivate.put('/progress/updateCompletionStatus', { workoutId: id, completed , selectedDate });
+            const response = await axiosPrivate.put('/progress/updateCompletionStatus', { workoutId: id, completed, selectedDate });
 
-            if(response && response.status===200){
-                const nextTable = tabledata.map((c:UserWorkoutData, i) => {
+            if (response && response.status === 200) {
+                const nextTable = tabledata.map((c: UserWorkoutData, i) => {
                     if (c._id === id) {
                         return { ...c, completed: true };
                     }
                     return c;
-                  });
-                  setTableData(nextTable)
-                 updateChartData();
-                 updateCardData()
+                });
+                setTableData(nextTable)
+                updateChartData();
+                updateCardData()
                 getTableData(selectedDate);
             }
-     
+
             // Optionally, you can handle success or error responses from the backend here
         } catch (error) {
             console.error('Error updating completion status:', error);
@@ -109,7 +112,7 @@ const perPage=3
 
     useEffect(() => {
         getTableData(selectedDate);
-      }, [currentPage, selectedDate]);
+    }, [currentPage, selectedDate]);
 
     return (
         <>
@@ -118,14 +121,14 @@ const perPage=3
                 <>
                     <div className="fixed inset-0 bg-black opacity-80" onClick={handleCloseModal}></div>
                     <FormModalCustom handleCloseModal={handleCloseModal} />
-                   
+
                 </>
             )}
             {editModalOpen && (
                 <>
                     <div className="fixed inset-0 bg-black opacity-80" onClick={handleCloseModal}></div>
-                    <FormUpdateModal handleCloseEditModal={handleCloseEditModal}  workoutData={editWorkout}/>
-                   
+                    <FormUpdateModal handleCloseEditModal={handleCloseEditModal} workoutData={editWorkout} />
+
                 </>
             )}
 
@@ -137,7 +140,7 @@ const perPage=3
                     }} />
 
                     {/* =============button for adding custom workout====================== */}
-                    <button className="inline-flex items-center borderfocus:outline-none focus:ring-1 font-medium rounded-md text-sm px-3 py-2 bg-primary-200 text-white border-gray-600 hover:bg-primary-400 hover:border-gray-600 focus:ring-gray-700" type="button" onClick={()=>{setModalOpen(true)}}>
+                    <button className="inline-flex items-center borderfocus:outline-none focus:ring-1 font-medium rounded-md text-sm px-3 py-2 bg-primary-200 text-white border-gray-600 hover:bg-primary-400 hover:border-gray-600 focus:ring-gray-700" type="button" onClick={() => { setModalOpen(true) }}>
                         <FaPlus className='w-4 h-4 text-white me-2' />
                         Add Workout
                     </button>
@@ -156,47 +159,50 @@ const perPage=3
                             </tr>
                         </thead>
                         <tbody>
-                            {tabledata.length === 0 ? (
-                                <tr className='border-b border-t bg-surface-200 border-surface-300 '>
-                                    <td colSpan={6} className="text-center py-4">Workouts not added for this day</td>
-                                </tr>
-                            ) : (
-                                tabledata.map((tableItem, key) => (
-                                    <tr key={key} className="border-b  bg-surface-200 border-gray-700 hover:bg-gray-600">
-                                        <td scope="row" className="px-6 py-4">{tableItem.workoutId ? tableItem.workoutId.title : tableItem.title}</td>
-                                        <td className="px-6 py-4">{tableItem.duration} min</td>
-                                        <td className="py-4 px-6">{tableItem.targetDays}</td>
-                                        <td className="py-4 px-6">
-                                            <div className="flex items-center justify-center">
-                                                <input
-                                                    type="checkbox"
-                                                    className="w-6 h-6 text-primary-500 rounded focus:ring-primary-500 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-1 bg-gray-700 border-gray-600"
-                                                    onChange={() => handleCheckboxChange(tableItem._id, !tableItem.completed , selectedDate )}
-                                                    
-                                                    checked={tableItem.completed} 
-                                                    // disabled={tableItem.completed} 
-                                                />
-                                                <label className="sr-only">checkbox</label>
-                                            </div>
-                                        </td>
-                                        <td className="flex items-center justify-center  px-6 py-4">
-                                        <button onClick={() => handleEditWorkout(tableItem)} className="font-medium text-primary-400 "><FaEdit  className='text-xl' /></button>
-                    <button  className="font-medium  text-red-600  ms-4" onClick={()=>handleDeleteWorkout(tableItem._id)}><MdDelete className='text-xl'/></button>
-                </td>
+
+                            {loading ? <TableSkeleton /> :
+
+                                tabledata.length === 0 ? (
+                                    <tr className='border-b border-t bg-surface-200 border-surface-300 '>
+                                        <td colSpan={6} className="text-center py-4">Workouts not added for this day</td>
                                     </tr>
-                                ))
-                            )}
+                                ) : (
+                                    tabledata.map((tableItem, key) => (
+                                        <tr key={key} className="border-b  bg-surface-200 border-gray-700 hover:bg-gray-600">
+                                            <td scope="row" className="px-6 py-4">{tableItem.workoutId ? tableItem.workoutId.title : tableItem.title}</td>
+                                            <td className="px-6 py-4">{tableItem.duration} min</td>
+                                            <td className="py-4 px-6">{tableItem.targetDays}</td>
+                                            <td className="py-4 px-6">
+                                                <div className="flex items-center justify-center">
+                                                    <input
+                                                        type="checkbox"
+                                                        className="w-6 h-6 text-primary-500 rounded focus:ring-primary-500 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-1 bg-gray-700 border-gray-600"
+                                                        onChange={() => handleCheckboxChange(tableItem._id, !tableItem.completed, selectedDate)}
+
+                                                        checked={tableItem.completed}
+                                                    // disabled={tableItem.completed} 
+                                                    />
+                                                    <label className="sr-only">checkbox</label>
+                                                </div>
+                                            </td>
+                                            <td className="flex items-center justify-center  px-6 py-4">
+                                                <button onClick={() => handleEditWorkout(tableItem)} className="font-medium text-primary-400 "><FaEdit className='text-xl' /></button>
+                                                <button className="font-medium  text-red-600  ms-4" onClick={() => handleDeleteWorkout(tableItem._id)}><MdDelete className='text-xl' /></button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
                         </tbody>
                     </table>
-                <div className="mt-2">
+                    <div className="mt-2">
 
-                {tabledata.length >0 &&  <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={handlePageChange}
-                /> }
-               
-          </div>
+                        {tabledata.length > 0 && <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={handlePageChange}
+                        />}
+
+                    </div>
                 </div>
             </div>
         </>

@@ -13,7 +13,7 @@ interface FormInput {
   content: string[];
   author: string;
   readtime: string;
-  coverImg: string;
+  coverImg: FileList;
   subtitle:string
   
 }
@@ -68,7 +68,7 @@ const AddBlog = (props: Props) => {
         <div className="text-2xl py-4 px-6 bg-surface-200 text-white text-center font-bold uppercase">
           Add Blog
         </div>
-        <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+        <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data" noValidate>
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2" >
               Title
@@ -78,7 +78,7 @@ const AddBlog = (props: Props) => {
               type="text" {...register("title", {
                 required: "title required"
               })} />
-              {errors.title && <p className="text-red-600 mt-1">{errors.title.message}</p>}
+              {errors.title && <p className="text-red-600  text-xs italic">{errors.title.message}</p>}
           </div>
 
 
@@ -100,7 +100,7 @@ const AddBlog = (props: Props) => {
                 <option value="nutrition">Nutrition</option>
 
               </select>
-              {errors.category && <p className="text-red-600 mt-1">{errors.category.message}</p>}
+              {errors.category && <p className="text-red-600   text-xs italic">{errors.category.message}</p>}
             </div>
 
 
@@ -114,7 +114,7 @@ const AddBlog = (props: Props) => {
               type="text" {...register("author", {
                 required: "author required"
               })} />
-              {errors.author && <p className="text-red-600 mt-1">{errors.author.message}</p>}
+              {errors.author && <p className="text-red-600  text-xs italic">{errors.author.message}</p>}
           </div>
 
           {/* ======Author============ */}
@@ -125,7 +125,7 @@ const AddBlog = (props: Props) => {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text" {...register("subtitle")} />
-            
+             
           </div>
 
           {/* =====================explanation================== */}
@@ -136,7 +136,17 @@ const AddBlog = (props: Props) => {
             <Controller
               name="content"
               control={control}
-              defaultValue={[""]} // Initial value with an empty string
+              defaultValue={[""]} 
+              rules={{
+                validate: (value: string[]) => {
+                  for (let i = 0; i < value.length; i++) {
+                    if (!value[i]) {
+                      return "content is required ";
+                    }
+                  }
+                  return true; // Validation passed
+                }
+              }}
               render={({ field }) => (
                 <>
                   {field.value.map((content: string, index: number) => (
@@ -168,6 +178,9 @@ const AddBlog = (props: Props) => {
                       )}
                     </div>
                   ))}
+                  {errors.content && (
+    <p className="text-red-600 text-xs italic">{errors.content.message}</p>
+  )}
                   <button
                     type="button"
                     onClick={() => field.onChange([...field.value, ''])} // Append a new empty string
@@ -189,9 +202,9 @@ const AddBlog = (props: Props) => {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text" {...register("readtime", {
-                required: "readtime required"
+                required: "readtime required" , min:"1"
               })} />
-              {errors.readtime && <p className="text-red-600 mt-1">{errors.readtime.message}</p>}
+              {errors.readtime && <p className="text-red-600  text-xs italic ">{errors.readtime.message}</p>}
           </div>
 
 
@@ -201,12 +214,23 @@ const AddBlog = (props: Props) => {
             <label className="block text-gray-700 font-bold mb-2">
               Image
             </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              {...register("coverImg", {
-                required: "image required"
-              })} type="file"  />
-              {errors.coverImg && <p className="text-red-600 mt-1">{errors.coverImg.message}</p>}
+           
+
+<input
+    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    {...register("coverImg", {
+      required: "Image is required",
+      validate: {
+        lessThan10MB: files => files[0]?.size <= 1024 * 1024 ||  "Image size should be less than 1 MB",
+        acceptedFormats: files =>
+          ['image/jpeg', 'image/png', 'image/gif'].includes(
+            files[0]?.type
+          ) ||  "Only JPG, JPEG, and PNG file types are allowed",
+      },
+    })}
+    type="file"
+  />
+              {errors.coverImg && <p className="text-red-600 text-xs italic ">{errors.coverImg.message}</p>}
           </div>
 
 

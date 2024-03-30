@@ -13,7 +13,7 @@ interface FormInput {
   subCategory: string;
   explanation: string;
   difficultyLevel: string;
-  thumbnail: string;
+  thumbnail: FileList;
   videoUrl: string;
   equipment:string
 }
@@ -83,7 +83,7 @@ const AddWorkout = (props: Props) => {
         <div className="text-2xl py-4 px-6 bg-surface-200 text-white text-center font-bold uppercase">
           Add Workout
         </div>
-        <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+        <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data" noValidate>
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2" >
               Title
@@ -93,7 +93,7 @@ const AddWorkout = (props: Props) => {
               type="text" {...register("title", {
                 required: "title required"
               })} required />
-            {errors.title && <p className="text-red-600 mt-1">{errors.title.message}</p>}
+            {errors.title && <p className="text-red-600 text-xs italic">{errors.title.message}</p>}
           </div>
 
 
@@ -115,7 +115,7 @@ const AddWorkout = (props: Props) => {
                 <option value="yoga">Yoga</option>
 
               </select>
-              {errors.category && <p className="text-red-600 mt-1">{errors.category.message}</p>}
+              {errors.category && <p className="text-red-600 text-xs italic ">{errors.category.message}</p>}
             </div>
 
           {/* Subcategory */}
@@ -130,7 +130,7 @@ const AddWorkout = (props: Props) => {
                   <option key={index} value={subcategory}>{subcategory}</option>
                 ))}
               </select>
-              {errors.subCategory && <p className="text-red-600 mt-1">{errors.subCategory.message}</p>}
+              {errors.subCategory && <p className="text-red-600  text-xs italic">{errors.subCategory.message}</p>}
             </div>
          
 
@@ -161,7 +161,7 @@ const AddWorkout = (props: Props) => {
                 <option value="advanced">Advanced</option>
 
               </select>
-              {errors.difficultyLevel && <p className="text-red-600 mt-1">{errors.difficultyLevel.message}</p>}
+              {errors.difficultyLevel && <p className="text-red-600  text-xs italic">{errors.difficultyLevel.message}</p>}
             </div>
 
 
@@ -175,7 +175,7 @@ const AddWorkout = (props: Props) => {
               {...register("explanation", {
                 required: "explanation required"
               })}></textarea>
-            {errors.explanation && <p className="text-red-600 mt-1">{errors.explanation.message}</p>}
+            {errors.explanation && <p className="text-red-600  text-xs italic">{errors.explanation.message}</p>}
           </div>
 
           {/* ============================thumbnailURL================================== */}
@@ -184,11 +184,20 @@ const AddWorkout = (props: Props) => {
               Thumbnail
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              {...register("thumbnail", {
-                required: "thumbnail required"
-              })} type="file"  />
-            {errors.thumbnail && <p className="text-red-600 mt-1">{errors.thumbnail.message}</p>}
+    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    {...register("thumbnail", {
+      required: "Image is required",
+      validate: {
+        lessThan10MB: files => files[0]?.size <= 1024 * 1024 ||  "Image size should be less than 1 MB",
+        acceptedFormats: files =>
+          ['image/jpeg', 'image/png', 'image/gif'].includes(
+            files[0]?.type
+          ) ||  "Only JPG, JPEG, and PNG file types are allowed",
+      },
+    })}
+    type="file"
+  />
+            {errors.thumbnail && <p className="text-red-600  text-xs italic">{errors.thumbnail.message}</p>}
           </div>
 
 
@@ -203,7 +212,7 @@ const AddWorkout = (props: Props) => {
               {...register("videoUrl", {
                 required: "videourl required"
               })} type="text" />
-            {errors.videoUrl && <p className="text-red-600 mt-1">{errors.videoUrl.message}</p>}
+            {errors.videoUrl && <p className="text-red-600  text-xs italic">{errors.videoUrl.message}</p>}
           </div>
 
 

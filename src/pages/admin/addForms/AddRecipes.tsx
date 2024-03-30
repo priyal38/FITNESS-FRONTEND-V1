@@ -33,7 +33,7 @@ interface FormInput {
   nutritionFacts: NutritionFacts
   ingredients: Ingredient[];
   instructions: string[];
-  image: string
+  image: FileList
 }
 
 
@@ -105,7 +105,7 @@ console.log(formData);
         <div className="text-2xl py-4 px-6 bg-surface-200 text-white text-center font-bold uppercase">
           Add Healthy Recipes
         </div>
-        <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+        <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data" noValidate>
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2" >
               Title
@@ -170,10 +170,7 @@ console.log(formData);
                 <option value="Vegetarian">Vegetarian</option>
                 <option value="Vegan">Vegan</option>
                 <option value="Non-Vegetarian">Non-Vegetarian</option>
-                {/* <option value="Gluten-Free">Gluten-Free</option>
-                <option value="Low-Carb">Low-Carb</option>
-                <option value="Low-Fat">Low-Fat</option>
-                <option value="High-Protein">High-Protein</option> */}
+                
 
               </select>
               {errors.mealType && <span className="text-red-500 text-xs italic">{errors.mealType.message}</span>}
@@ -190,7 +187,7 @@ console.log(formData);
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="number" {...register("prepTime", {
                   valueAsNumber: true,
-                  required: "PrepTime required"
+                  required: "PrepTime required" , min:"1"
                 })} />
               {errors.prepTime && <span className="text-red-500 text-xs italic">{errors.prepTime.message}</span>}
             </div>
@@ -203,7 +200,7 @@ console.log(formData);
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="number" {...register("cookTime", {
                   valueAsNumber: true,
-                  required: "cookTime required"
+                  required: "cookTime required" , min:"1"
                 })} />
               {errors.cookTime && <span className="text-red-500 text-xs italic">{errors.cookTime.message}</span>}
             </div>
@@ -214,13 +211,13 @@ console.log(formData);
             {/* ======calories============ */}
             <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2" >
-                Calories(grams)
+                Calories
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="number" {...register("nutritionFacts.calories", {
                   valueAsNumber: true,
-                  required: "calories required"
+                  required: "calories required" , min:"1"
                 })} />
               {errors.nutritionFacts?.calories && <span className="text-red-500 text-xs italic">{errors.nutritionFacts.calories.message}</span>}
             </div>
@@ -233,7 +230,7 @@ console.log(formData);
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="number" {...register("nutritionFacts.carbohydrates", {
                   valueAsNumber: true,
-                  required: " carbohydrates required"
+                  required: " carbohydrates required", min:"1"
                 })} />
               {errors.nutritionFacts?.carbohydrates && <span className="text-red-500 text-xs italic">{errors.nutritionFacts.carbohydrates.message}</span>}
             </div>
@@ -251,7 +248,7 @@ console.log(formData);
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="number" {...register("nutritionFacts.protein", {
                   valueAsNumber: true,
-                  required: "protein required"
+                  required: "protein required", min:"1"
                 })} />
               {errors.nutritionFacts?.protein && <span className="text-red-500 text-xs italic">{errors.nutritionFacts.protein.message}</span>}
             </div>
@@ -264,7 +261,7 @@ console.log(formData);
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="number" {...register("nutritionFacts.totalfat", {
                   valueAsNumber: true,
-                  required: " totalfat required"
+                  required: " totalfat required", min:"1"
                 })} />
               {errors.nutritionFacts?.totalfat && <span className="text-red-500 text-xs italic">{errors.nutritionFacts.totalfat.message}</span>}
             </div>
@@ -384,10 +381,19 @@ console.log(formData);
               Image
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              {...register("image", {
-                required: "image required"
-              })} type="file" />
+    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    {...register("image", {
+      required: "Image is required",
+      validate: {
+        lessThan10MB: files => files[0]?.size <= 1024 * 1024 ||  "Image size should be less than 1 MB",
+        acceptedFormats: files =>
+          ['image/jpeg', 'image/png', 'image/gif'].includes(
+            files[0]?.type
+          ) ||  "Only JPG, JPEG, and PNG file types are allowed",
+      },
+    })}
+    type="file"
+  />
             {errors.image && <span className="text-red-500 text-xs italic">{errors.image.message}</span>}
           </div>
 

@@ -4,7 +4,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 
 import { TbLogout2 } from "react-icons/tb";
 
-import UserIcon from '../../../../images/user.png'
+import defaultuser from '../../../../images/defaultUser.jpg'
 import { FaRegUser } from 'react-icons/fa';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { useAuth } from '../../../../context/AuthContext';
@@ -48,16 +48,11 @@ const DropdownUser = () => {
         className="flex items-center gap-2"
         to="#"
       >
-        {/* <span className="hidden text-right lg:block">
-          <span className="block text-sm font-medium capitalize text-white">
-           {auth.user.username}
-          </span>
-          <span className="block text-xs text-gray-50">UX Designer</span>
-        </span> */}
-
-        <span className="h-14 w-14 rounded-full">
-          <img src={UserIcon} alt="User" />
-        </span>
+    
+        <div >
+          {/* <img src={user} alt="User" /> */}
+         <img src={auth.user.image ? `http://localhost:5000/${auth.user.image}` :defaultuser} className=' className="h-9 w-9 rounded-full border-1 border-gray-800 mx-auto my-4"'/>
+        </div>
 
         <MdKeyboardArrowDown className="hidden text-gray-300 text-lg sm:block" />
       </Link>
@@ -82,15 +77,8 @@ const DropdownUser = () => {
               My Profile
             </Link>
           </li>
-          {/* <li>
-            <Link
-              to="setting"
-              className="flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-white lg:text-base"
-            >
-                <IoSettingsOutline className='text-xl'/>
-                Account Settings
-            </Link>
-          </li> */}
+      
+       
          
         </ul>
         <Link to='/login' className="flex items-center gap-3 px-6 py-4 text-sm font-medium text-gray-300 lg:text-base" onClick={handleLogout}>

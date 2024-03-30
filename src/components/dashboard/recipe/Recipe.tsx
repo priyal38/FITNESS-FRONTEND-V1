@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import RecipeCard from './RecipeCard'
 import SearchBar from '../common/SearchBar'
 import useAxiosPrivate from '../../../axios/useAxiosPrivate'
-import CardSkeleton from '../common/CardSkeleton'
+import {CardSkeleton} from '../common/Skeleton'
 import Pagination from '../common/Pagination'
 import usePagination from '../../../hooks/usePagination'
 import { useSearchParams } from 'react-router-dom'
+import useLoading from '../../../hooks/useLoading'
 
 
 type Props = {}
@@ -38,10 +39,11 @@ export interface RecipeData {
 
 const Recipe = (props: Props) => {
   const [recipes, setRecipes] = useState<RecipeData[]>([])
-  const [loading, setLoading] = useState(true);
+ 
   const axiosPrivate = useAxiosPrivate()
   const [searchParams] = useSearchParams();
   const { currentPage, totalPages, handlePageChange, updateTotalPages } = usePagination();
+  const {loading , stopLoading} =useLoading()
   const perPage = 3
 
   const getRecipes = async () => {
@@ -56,7 +58,7 @@ const Recipe = (props: Props) => {
       })
       setRecipes(response.data.data.recipes);
       updateTotalPages(response.data.data.totalPages);
-      setLoading(false)
+      stopLoading()
 
 
     }

@@ -139,7 +139,7 @@ const UpdateHealthyRecipes = (props: Props) => {
         <div className="text-2xl py-4 px-6 bg-surface-200 text-white text-center font-bold uppercase">
           Update Healthy Recipes
         </div>
-        <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+        <form className="py-4 px-6" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data" noValidate>
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2" >
               Title

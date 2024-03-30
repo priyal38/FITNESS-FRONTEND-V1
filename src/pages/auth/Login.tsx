@@ -64,7 +64,7 @@ console.log(response)
         window.localStorage.setItem(
           'user',
           JSON.stringify({
-            role, token , email , username , id:_id
+            role, token , email , username 
           }),
         );
 
@@ -74,7 +74,7 @@ console.log(response)
             email,
             role,
             token,
-            id:_id
+            image: ''
           },
           
         })
