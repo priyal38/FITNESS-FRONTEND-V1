@@ -79,7 +79,7 @@ getUserProfileData()
     }
     } catch (error) {
       console.error('Error updating user profile:', error);
-      toast.error('Please')
+      toast.error('Please try again')
     }
   };
 

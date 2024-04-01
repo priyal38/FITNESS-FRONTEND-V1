@@ -16,7 +16,6 @@ const LandingPage = () => {
  <Hero/>
  <AboutUs/>
  <Features/>
- {/* <Contact/> */}
   <Footer/>
    </div>
     

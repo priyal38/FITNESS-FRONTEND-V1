@@ -23,9 +23,7 @@ const StaticCard = (props: Props) => {
     <div className=" flex w-5/12 py-3 px-2  ">
         <img src={cardimage} className=" object-contain w-full h-full"/>
     </div>
-    {/* <div className="    ">
-        <img src={cover} className="rounded-xl object-cover w-full h-full "/>
-    </div> */}
+   
 
 </div>
     </>

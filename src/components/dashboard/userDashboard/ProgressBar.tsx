@@ -19,7 +19,7 @@ const colors = [
     '#FFD700'  // Gold
 ];
 
-const ProgressBar = ({ chartData, getChartData , selectedDate }: Props) => {
+const ProgressBar = ({ chartData, getChartData, selectedDate }: Props) => {
 
     useEffect(() => {
         getChartData(selectedDate)
@@ -28,7 +28,7 @@ const ProgressBar = ({ chartData, getChartData , selectedDate }: Props) => {
 
     return (
         <>
-          
+
 
             <div className=" ">
                 <div className=" justify-center items-center mb-4 sm:flex">
@@ -40,33 +40,33 @@ const ProgressBar = ({ chartData, getChartData , selectedDate }: Props) => {
 
                 </div>
 
-{chartData.length>0 ?(
-  <div className="  flex flex-col gap-4 overflow-y-auto">
-  {chartData.map((entry, index) => (
-      <div key={index} className='flex flex-col gap-3  '>
-          <div className='flex relative'>
-          <p className='text-white text-sm text-left capitalize'>{entry.workoutId ? entry.workoutId.title : entry.title}</p>
+                {chartData.length > 0 ? (
+                    <div className="  flex flex-col gap-4 overflow-y-auto">
+                        {chartData.map((entry, index) => (
+                            <div key={index} className='flex flex-col gap-3  '>
+                                <div className='flex relative'>
+                                    <p className='text-white text-sm text-left capitalize'>{entry.workoutId ? entry.workoutId.title : entry.title}</p>
 
-<div className='absolute right-0 top-0'>
-<p className='text-white text-sm'> {((entry.completedDays / entry.targetDays) * 100).toFixed(2)}%</p>
-</div>
-          </div>
+                                    <div className='absolute right-0 top-0'>
+                                        <p className='text-white text-sm'> {((entry.completedDays / entry.targetDays) * 100).toFixed(2)}%</p>
+                                    </div>
+                                </div>
 
-          <div>
-              <Line percent={((entry.completedDays) / entry.targetDays) * 100} strokeWidth={1} strokeColor={colors[index % colors.length]} className='w-full' />
-          </div>
-      </div>
-  ))}
+                                <div>
+                                    <Line percent={((entry.completedDays) / entry.targetDays) * 100} strokeWidth={1} strokeColor={colors[index % colors.length]} className='w-full' />
+                                </div>
+                            </div>
+                        ))}
 
-</div>
+                    </div>
 
-) : (
-<div className='flex flex-col justify-center items-center mt-20 '>
-            <span className='text-primary-600 mb-1.5 font-semibold text-xl text-center'>Oops! 🙈 No workout data available.!</span>
-            <span className='text-white text-sm'>Add your workout and track your progress!</span>
-          </div>
-)}
-              
+                ) : (
+                    <div className='flex flex-col justify-center items-center mt-20 '>
+                        <span className='text-primary-600 mb-1.5 font-semibold text-xl text-center'>Oops! 🙈 No workout data available.!</span>
+                        <span className='text-white text-sm'>Add your workout and track your progress!</span>
+                    </div>
+                )}
+
             </div>
 
         </>

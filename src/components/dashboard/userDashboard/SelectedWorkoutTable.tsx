@@ -37,6 +37,8 @@ const SelectedWorkoutTable = ({ selectedDate, onDateChange, updateChartData, upd
         updateChartData()
         updateCardData()
     };
+
+
     const handleCloseEditModal = () => {
         setEditModalOpen(false);
         getTableData(selectedDate);
@@ -104,7 +106,7 @@ const SelectedWorkoutTable = ({ selectedDate, onDateChange, updateChartData, upd
                 getTableData(selectedDate);
             }
 
-            // Optionally, you can handle success or error responses from the backend here
+            
         } catch (error) {
             console.error('Error updating completion status:', error);
         }

@@ -80,7 +80,7 @@ console.log(response)
         })
 
 
-    
+    toast.success("Login successfull")
 
         if (response.data.user.role === 1) {
           navigate('/admin')
@@ -91,7 +91,7 @@ console.log(response)
 
       }
 
-      console.log(response);
+  
     }
     catch (error: any) {
       console.error(error);

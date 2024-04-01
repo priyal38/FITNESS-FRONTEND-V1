@@ -25,7 +25,7 @@ const {auth , setAuth} = useAuth()
 
         if (file) {
             setSelectedPhoto(file);
-            console.log(file); // This will log the updated file immediately after selection
+           
 
             // Call onSubmitPhoto with the updated photo
             await onSubmitPhoto(file);

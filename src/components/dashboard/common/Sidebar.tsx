@@ -12,7 +12,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, handleDrawerClose, menuIt
     <>
      
      
-      {/* Conditionally render the mobile drawer based on the mobileOpen state */}
+     
       <aside
       
       className={`absolute left-0 top-0 z-50 flex h-screen w-72.5 flex-col  transform overflow-y-hidden bg-surface-200 duration-300 ease-linear dark:bg-boxdark md:static md:translate-x-0 ${
@@ -20,7 +20,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, handleDrawerClose, menuIt
       }`}
     >
 
-      {/* <div className={`absolute inset-y-0  bg-gray-950 duration-300 transform md:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}> */}
+   
         <div className="flex flex-col h-full  shadow-lg w-60 ">
           <div className="flex items-center justify-around mt-4 pb-4  border-gray-100">
             <img src={logo} alt="Logo" className=" h-12  " />
@@ -38,9 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, handleDrawerClose, menuIt
             </ul>
           </nav>
         </div>
-        {/* Overlay to close the mobile drawer when clicked outside */}
-        {/* <div className={`fixed inset-0 opacity-25 z-40 ${mobileOpen ? 'block' : 'hidden'}`} onClick={handleDrawerClose}></div> */}
-      {/* </div> */}
+       
       </aside>
       
     </>

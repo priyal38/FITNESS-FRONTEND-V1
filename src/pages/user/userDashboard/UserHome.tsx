@@ -39,7 +39,7 @@ const UserHome = () => {
   const [chartData, setChartData] = useState<UserWorkoutData[]>([])
   const [cardData, setCardData] = useState<UserWorkoutData[]>([])
   const axiosPrivate = useAxiosPrivate();
-  const {loading , stopLoading} = useLoading();
+  const { loading, stopLoading } = useLoading();
 
   const handleDateChange = (date: string) => {
     setSelectedDate(date);
@@ -54,7 +54,7 @@ const UserHome = () => {
       });
       console.log(response)
       setChartData(response.data.data);
-stopLoading()
+      stopLoading()
     } catch (error) {
       console.error('Error fetching workouts:', error);
     }
@@ -68,7 +68,7 @@ stopLoading()
     getChartData(selectedDate);
   }, [selectedDate]);
 
- 
+
   const getCardData = async () => {
     try {
       const response = await axiosPrivate.get(`/progress/getcarddata`);
@@ -85,7 +85,7 @@ stopLoading()
   }, [])
 
   const calculateTotalWorkoutTime = (workouts: UserWorkoutData[]) => {
-    const totalMinutes = workouts.reduce((total, workout) => total + (workout.duration* workout.completedDays), 0);
+    const totalMinutes = workouts.reduce((total, workout) => total + (workout.duration * workout.completedDays), 0);
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
     return { hours, minutes };
@@ -124,11 +124,11 @@ stopLoading()
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7 2xl:gap-7 ">
 
         <div className="col-span-12 lg:col-span-6  xs:h-[28rem] h-[23rem] sm:px-7.5  rounded-md border border-gray-800 bg-surface-200 px-5 pb-7 pt-5 shadow-slate-600 shadow-inner">
-          {loading ? <ChartSkeleton/> :  <PieChart chartData={chartData} />}
-         
+          {loading ? <ChartSkeleton /> : <PieChart chartData={chartData} />}
+
         </div>
         <div className="col-span-12 lg:col-span-6 overflow-y-auto md:h-[28rem] h-[25rem] sm:px-7.5  rounded-md border border-gray-800 bg-surface-200 px-5 pb-7 pt-5 shadow-slate-600 shadow-inner overflow-x-auto">
-         {loading ? <ChartSkeleton/> :<ProgressBar chartData={chartData} getChartData={getChartData} selectedDate={selectedDate} /> } 
+          {loading ? <ChartSkeleton /> : <ProgressBar chartData={chartData} getChartData={getChartData} selectedDate={selectedDate} />}
         </div>
 
 
