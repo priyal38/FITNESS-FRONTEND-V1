@@ -55,7 +55,7 @@ const Login = () => {
       });
 console.log(response)
       const { token } = response.data;
-      const {role , email , firstname , lastname , _id} = response.data.user;
+      const {role , email , firstname , lastname , profilePhoto} = response.data.user;
       const username = firstname + " " + lastname;
       console.log(username)
 
@@ -64,7 +64,7 @@ console.log(response)
         window.localStorage.setItem(
           'user',
           JSON.stringify({
-            role, token , email , username 
+            role, token , email , username  , profilePhoto
           }),
         );
 
@@ -74,7 +74,7 @@ console.log(response)
             email,
             role,
             token,
-            image: ''
+            image:profilePhoto
           },
           
         })

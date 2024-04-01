@@ -74,7 +74,7 @@ const Workout = () => {
   useEffect(() => {
     getWorkoutData();
 
-  }, [currentPage, searchParams, filterOptions]);
+  }, [currentPage, searchParams]);
 
   const handleFilterChange = () => {
     getWorkoutData();

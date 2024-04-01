@@ -170,7 +170,7 @@ const SelectedWorkoutTable = ({ selectedDate, onDateChange, updateChartData, upd
                                     </tr>
                                 ) : (
                                     tabledata.map((tableItem, key) => (
-                                        <tr key={key} className="border-b  bg-surface-200 border-gray-700 hover:bg-gray-600">
+                                        <tr key={key} className="border-b  bg-surface-200 border-gray-700 hover:bg-surface-300">
                                             <td scope="row" className="px-6 py-4">{tableItem.workoutId ? tableItem.workoutId.title : tableItem.title}</td>
                                             <td className="px-6 py-4">{tableItem.duration} min</td>
                                             <td className="py-4 px-6">{tableItem.targetDays}</td>

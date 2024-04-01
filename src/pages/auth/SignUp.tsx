@@ -127,7 +127,7 @@ const SignUp = () => {
                                 <div className="flex">
 
                                     <div className='relative w-full'>
-                                        <input type={showPassword ? 'text' : 'password'} id="confirm_password" {...register('confirmPassword')} className="border text-sm rounded-lg block w-full p-2.5 bg-surface-200 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter confirm password" />
+                                        <input type={showConfirmPassword ? 'text' : 'password'} id="confirm_password" {...register('confirmPassword')} className="border text-sm rounded-lg block w-full p-2.5 bg-surface-200 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter confirm password" />
 
                                         {/* Show eye icon in the input field */}
                                         <div className="absolute items-center end-0 top-0 mt-3 justify-center pr-5">

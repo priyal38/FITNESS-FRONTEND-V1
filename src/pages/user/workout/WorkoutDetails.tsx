@@ -6,7 +6,7 @@ import ReactPlayer from 'react-player';
 import FormModal from '../../../components/dashboard/workout/FormModal';
 import { FaPlus } from 'react-icons/fa';
 import { WorkoutData } from '../../../components/dashboard/workout/Workout';
-
+import video from '../../../videos/How To Do The Barbell Curl Properly.mp4'
 type Props = {};
 
 
@@ -56,8 +56,16 @@ const WorkoutDetails = (props: Props) => {
         <section className="w-full  overflow-hidden">
           <div className="py-6 flex lg:flex-row flex-col justify-center lg:gap-3 ">
             <div className="lg:w-1/2 mb-4 lg:mb-0 ">
-              <ReactPlayer
+              {/* <ReactPlayer
                 url={workoutDetails.videoUrl}
+                controls
+                light={<img src={`http://localhost:5000/${workoutDetails.thumbnail}`} alt="Thumbnail" className="w-full h-full"  loading='lazy'/>}
+                muted={true}
+
+                style={{ maxWidth: '100%', height: 'auto', margin: 'auto' }}
+              /> */}
+              <ReactPlayer
+                url={video}
                 controls
                 light={<img src={`http://localhost:5000/${workoutDetails.thumbnail}`} alt="Thumbnail" className="w-full h-full"  loading='lazy'/>}
                 muted={true}

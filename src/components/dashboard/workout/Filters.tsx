@@ -47,24 +47,33 @@ const Filters = ({ filterOptions, setFilterOptions, onFilterChange }: Props) => 
     };
 
     const handleApplyFilters = () => {
-        onFilterChange();
         setShowDropdown(false);
+        onFilterChange();
     };
 
     const handleClearAll = () => {
         // Reset selected options
-        setFilterOptions({
+        setFilterOptions( {
             selectedCategories: [],
             selectedSubcategories: [],
             selectedDifficulties: [],
         });
     
-        // Hide dropdown
-        setShowDropdown(false);
+        if(filterOptions.selectedCategories.length === 0  && filterOptions.selectedDifficulties.length === 0 && filterOptions.selectedSubcategories.length === 0 ){
+            
+            onFilterChange();
+            setShowDropdown(false);
+        }
     
-        // Trigger filter change after resetting options
-        onFilterChange();
+        
+        
     };
+    
+  
+    
+   
+    
+
     const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value, checked } = event.target;
         setFilterOptions((prevOptions) => ({

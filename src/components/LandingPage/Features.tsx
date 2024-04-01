@@ -8,7 +8,7 @@ const Features = (props: Props) => {
   return (
     <>
       <div id="features">
-        <h2 className="text-3xl md:text-5xl font-bold text-center mb-10 text-primary-500 ">
+        <h2 className="text-2xl md:text-4xl font-bold text-center mb-10 text-primary-500 ">
           Features
         </h2>
       </div>
@@ -24,7 +24,7 @@ const Features = (props: Props) => {
 
           <p className="mb-3 font-normal text-center text-white dark:text-gray-400">Discover a world of workouts tailored to your preferences. From strength training to yoga, find the perfect workout for your fitness journey.</p>
           <div className='flex justify-center items-center mt-4'>
-            <Link to="/signup" className="inline-flex items-center  px-3 py-2 text-sm font-medium text-center text-blue bg-primary-500 rounded-lg hover:bg-primary-300 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+            <Link to="/user" className="inline-flex items-center  px-3 py-2 text-sm font-medium text-center text-blue bg-primary-500 rounded-lg hover:bg-primary-300 focus:ring-1 focus:outline-none focus:ring-blue-300 ">
               Explore
               <FaArrowRightLong className='ml-2 mt-0.5  ' />
             </Link>
@@ -40,7 +40,7 @@ const Features = (props: Props) => {
 
           <p className="mb-3 font-normal text-center text-white dark:text-gray-400">Effortlessly monitor your fitness journey and crush your goals with our intuitive progress tracking feature. Stay motivated and focused as you conquer new milestones.</p>
           <div className='flex justify-center items-center mt-4'>
-            <Link to="/signup" className="inline-flex items-center  px-3 py-2 text-sm font-medium text-center text-blue bg-primary-500 rounded-lg hover:bg-primary-300 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+            <Link to="/user" className="inline-flex items-center  px-3 py-2 text-sm font-medium text-center text-blue bg-primary-500 rounded-lg hover:bg-primary-300 focus:ring-1 focus:outline-none focus:ring-blue-300 ">
               Explore
               <FaArrowRightLong className='ml-2 mt-0.5  ' />
             </Link>
@@ -57,7 +57,7 @@ const Features = (props: Props) => {
 
           <p className="mb-3 font-normal text-center text-white dark:text-gray-400">Stay motivated and informed with our curated collection of inspiring articles and blogs. Get expert advice and stay on top of the latest fitness trends.</p>
           <div className='flex justify-center items-center mt-4'>
-            <Link to="/signup" className="inline-flex items-center  px-3 py-2 text-sm font-semibold text-center text-black bg-primary-500 rounded-lg hover:bg-primary-300 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+            <Link to="/user" className="inline-flex items-center  px-3 py-2 text-sm font-semibold text-center text-black bg-primary-500 rounded-lg hover:bg-primary-300 focus:ring-1 focus:outline-none focus:ring-blue-300 ">
               Explore
               <FaArrowRightLong className='ml-2 mt-0.5  ' />
             </Link>

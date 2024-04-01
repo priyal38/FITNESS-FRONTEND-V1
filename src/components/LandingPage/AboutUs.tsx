@@ -5,7 +5,7 @@ const AboutUs = () => {
   return (
     <>
       <div id="about">
-        <h2 className="text-3xl md:text-5xl font-bold text-center mt-6 text-primary-500  mb-4">
+        <h2 className="text-2xl md:text-4xl font-bold text-center mt-6 text-primary-500  mb-4">
           About Us
         </h2>
       </div>
@@ -22,7 +22,7 @@ const AboutUs = () => {
           <div className="text-center  ">
 
             <p className="text-lg md:text-xl text-white mb-4">"Welcome to Flexfit, your premier destination for achieving your fitness goals!"</p>
-            <p className="text-md lg:text-lg text-justify tracking-wide text-white mb-8">
+            <p className="text-sm lg:text-base text-justify tracking-wide text-white mb-8">
 
               At Flexfit, we're dedicated to helping you unlock your full potential through personalized workout plans, customized meal plans, and intuitive progress tracking tools. Whether you're aiming to lose weight, build muscle, or enhance your overall health.
               Join us today and take the first step towards a healthier, happier you with Flexfit!"
