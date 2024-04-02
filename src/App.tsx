@@ -19,6 +19,7 @@ const TestForm = React.lazy(()=>import("./test/TestForm"))
 const Tabletest = React.lazy(()=>import("./test/Tabletest"))
 const User = React.lazy(()=>import("./test/User"))
 const ReactTable  = React.lazy(()=>import("./test/ReactTable"))
+const ErrorPage  = React.lazy(()=>import("./components/dashboard/common/ErrorPage"))
 
 
 
@@ -36,6 +37,7 @@ function App() {
 
 
         <Route path="/" element={<LandingPage />} />
+        <Route path="/unauthorized" element={<ErrorPage />} />
       
     
         {/* ==================test==================== */}

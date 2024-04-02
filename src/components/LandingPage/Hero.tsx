@@ -14,7 +14,7 @@ const Hero = (props: Props) => {
               <div className="absolute inset-0 flex flex-col justify-center items-center">
                 <h1 className="text-white  md:text-6xl sm:text-5xl text-2xl pb-3 font-bold text-center">{item.slogan}</h1>
                 <h1 className="text-white md:text-6xl sm:text-5xl text-2xl  pb-4 font-bold text-center">{item.title}</h1>
-                <p className="text-white md:text-2xl sm:text-xl text-lg text-center">{item.desc}</p>
+                <p className="text-white  sm:text-lg text-base text-center">{item.desc}</p>
               </div>
             </div>
           ))}
