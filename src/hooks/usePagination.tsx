@@ -6,7 +6,7 @@ const usePagination = () => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-   
+    
   };
 
   const updateTotalPages = (newTotalPages: number) => {

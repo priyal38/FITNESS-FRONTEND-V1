@@ -35,11 +35,11 @@ const Login = () => {
 
   const { auth, setAuth } = useAuth();
 
-  useEffect(() => {
-    if (auth.user.email) {
-      navigate('/')
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (auth.user.email) {
+  //     navigate('/')
+  //   }
+  // }, [])
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword); // Toggle showPassword state

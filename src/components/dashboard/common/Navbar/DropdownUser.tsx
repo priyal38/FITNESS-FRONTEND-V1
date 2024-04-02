@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 import { TbLogout2 } from "react-icons/tb";
@@ -14,6 +14,7 @@ import { useAuth } from '../../../../context/AuthContext';
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const {  auth, logout} = useAuth();
+  const navigate = useNavigate();
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
@@ -22,23 +23,12 @@ const DropdownUser = () => {
     logout();
   }
 
-  // close on click outside
-  useEffect(() => {
-    const clickHandler = ({ target }: MouseEvent) => {
-      if (!dropdown.current) return;
-      if (
-        !dropdownOpen ||
-        dropdown.current.contains(target) ||
-        trigger.current.contains(target)
-      )
-        return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
-  });
-
  
+
+ const handleClick= () =>{
+  navigate("profile")
+  setDropdownOpen(false)
+ }
 
   return (
     <div className="relative">
@@ -59,7 +49,7 @@ const DropdownUser = () => {
 
       {/* <!-- Dropdown Start --> */}
       <div
-        ref={dropdown}
+        
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
         className={`absolute right-0 mt-2 flex w-[15rem] flex-col rounded-lg border  shadow border-surface-300 bg-surface-100 ${
@@ -68,14 +58,14 @@ const DropdownUser = () => {
       >
         <ul className="flex flex-col gap-4 border-stroke px-6 pt-4 pb-2 border-surface-300">
           <li>
-            <Link
-              to="profile"
+            <button
+            onClick={handleClick}
               className="flex items-center gap-3 text-sm font-medium text-gray-300  hover:text-white lg:text-base"
             >
                 <FaRegUser className='text-lg' />
               
               My Profile
-            </Link>
+            </button>
           </li>
       
        
